@@ -1,0 +1,72 @@
+{
+	"name": "CLIP Cues Development",
+	"dockerFile": "Dockerfile",
+	"context": "..",
+
+	// Configure tool-specific properties
+	"customizations": {
+		"vscode": {
+			"settings": {
+				"python.defaultInterpreterPath": "/opt/conda/bin/python",
+				"python.linting.enabled": true,
+				"python.linting.ruffEnabled": true,
+				"python.formatting.provider": "none",
+				"[python]": {
+					"editor.formatOnSave": true,
+					"editor.codeActionsOnSave": {
+						"source.organizeImports": "explicit"
+					},
+					"editor.defaultFormatter": "charliermarsh.ruff"
+				},
+				"python.testing.pytestEnabled": true,
+				"python.testing.unittestEnabled": false,
+				"editor.rulers": [100],
+				"files.trimTrailingWhitespace": true
+			},
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"charliermarsh.ruff",
+				"ms-toolsai.jupyter",
+				"ms-toolsai.jupyter-keymap",
+				"ms-toolsai.jupyter-renderers",
+				"github.copilot",
+				"eamodio.gitlens"
+			]
+		}
+	},
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally
+	"forwardPorts": [8885, 8884],
+	"portsAttributes": {
+		"8885": {
+			"label": "Jupyter Notebook",
+			"onAutoForward": "notify"
+		},
+		"8884": {
+			"label": "Development Server",
+			"onAutoForward": "silent"
+		}
+	},
+
+	// Set environment variables
+	"containerEnv": {
+		"PYTHONUNBUFFERED": "1"
+	},
+
+	// Use 'postCreateCommand' to run commands after the container is created
+	"postCreateCommand": "bash .devcontainer/setup.sh",
+
+	// Configure GPU access (requires Docker with nvidia runtime)
+	"runArgs": ["--gpus", "all"],
+
+	// Comment out to connect as root instead
+	"remoteUser": "root",
+
+	// Features to add to the dev container
+	"features": {
+		"ghcr.io/devcontainers/features/git:1": {
+			"version": "latest"
+		}
+	}
+}

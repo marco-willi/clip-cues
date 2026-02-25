@@ -1,0 +1,79 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "clip-cues"
+version = "1.0.0"
+description = "Synthetic Image Detection with CLIP: Understanding and Assessing Predictive Cues"
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+authors = [
+    { name = "Marco Willi" },
+]
+keywords = [
+    "synthetic-image-detection",
+    "clip",
+    "deepfake-detection",
+    "ai-generated-images",
+    "interpretability",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Scientific/Engineering :: Image Recognition",
+]
+
+dependencies = [
+    "torch>=2.0",
+    "torchvision",
+    "transformers>=4.30",
+    "scikit-learn",
+    "pillow",
+    "numpy",
+    "matplotlib",
+    "seaborn",
+]
+
+[project.optional-dependencies]
+train = [
+    "lightning>=2.0",
+    "datasets",
+    "torchmetrics",
+    "hydra-core>=1.3",
+    "omegaconf",
+    "wandb",
+]
+dev = [
+    "ruff",
+    "pytest",
+    "mypy",
+    "pre-commit"
+]
+all = [
+    "clip-cues[train,dev]",
+]
+
+[project.urls]
+Homepage = "https://github.com/marco-willi/clip-cues"
+Documentation = "https://github.com/marco-willi/clip-cues#readme"
+Repository = "https://github.com/marco-willi/clip-cues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/clip_cues"]
+
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W"]
+ignore = ["E501"]

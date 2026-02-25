@@ -1,0 +1,31 @@
+# Base training configuration for CLIP-Cues
+
+# Paths (override via environment variables or command line)
+paths:
+  data_root_path: ${oc.env:DATA_PATH,./data}
+  hf_cache: ${paths.data_root_path}/hf_cache
+  output_dir: ${paths.data_root_path}/outputs
+  checkpoint_dir: ${paths.output_dir}/checkpoints
+
+# Training defaults
+defaults:
+  - _self_
+  - experiment: clip_orthogonal
+
+# Trainer settings
+trainer:
+  devices: 1
+  accelerator: auto
+  precision: bf16-mixed
+  max_epochs: 200
+  check_val_every_n_epoch: 1
+
+# Hardware
+hardware:
+  num_workers: 4
+  batch_size: 64
+
+# Logging
+wandb:
+  project: clip-cues
+  enable: false

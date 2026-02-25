@@ -1,0 +1,35 @@
+# CLIP with Activation Orthogonality Head
+# This is the main model configuration used in the paper
+
+id: clip_orthogonal
+group: clip
+
+train:
+  max_epochs: 200
+  batch_size: 64
+  early_stopping_patience: 5
+  random_seed: 123
+  check_val_every_n_epoch: 1
+
+model:
+  label_smoothing: 0.1
+  weight_decay: 0.01
+
+  feature_extractor:
+    name: clip_large_patch14
+    layer_id_to_extract: "pooler_output"
+
+  classification_head:
+    name: ActivationOrthogonalityHead
+    layer_dims: [8]
+    logits_dim: 1
+    orthogonal_init: true
+    non_linear: false
+    loss_weight_ortho: 0.33
+
+data:
+  # Specify dataset for training/validation/test
+  # Options: synthclic, synthbuster_plus
+  train_dataset: synthclic
+  val_dataset: synthclic
+  test_dataset: synthclic

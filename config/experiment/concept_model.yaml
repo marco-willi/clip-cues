@@ -1,0 +1,34 @@
+# Concept Bottleneck Model with Antonyms Vocabulary
+# Interpretable synthetic image detection using concept-based explanations
+
+id: concept_model
+group: concept_modeling
+
+train:
+  max_epochs: 200
+  batch_size: 256
+  early_stopping_patience: 10
+  random_seed: 123
+  check_val_every_n_epoch: 1
+
+model:
+  # Concept modeling hyperparameters
+  tau: 0.1        # Temperature for binary concrete distribution
+  beta: 1e-4      # Weight for KL divergence (sparsity)
+  alpha: 1e-4     # Target sparsity level
+  lr: 1e-3        # Learning rate
+  weight_decay: 1e-5
+  label_smoothing: 0.0
+
+  feature_extractor:
+    name: clip_large_patch14
+    layer_id_to_extract: "pooler_output"
+
+  vocabulary:
+    name: chatgpt_antonyms_v4
+    path: data/vocabularies/chatgpt_antonyms_v4.json
+
+data:
+  train_dataset: synthclic
+  val_dataset: synthclic
+  test_dataset: synthclic
