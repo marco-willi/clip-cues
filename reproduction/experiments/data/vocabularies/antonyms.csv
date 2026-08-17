@@ -1,0 +1,169 @@
+attribute_name,positive,negative,positive_prompt,negative_prompt,category,explanation
+saturation,balanced saturation,oversaturation,A photograph with balanced saturation,A photograph with oversaturation,color,overall color intensity level
+desaturation,rich color presence,washed out colors,A photograph with rich color presence,A photograph with washed out colors,color,reduced color strength across the scene
+vibrance,high vibrance,muted palette,A photograph with high vibrance,A photograph with a muted palette,color,boosted mid saturation colors without clipping
+color_temperature,warm tones,cool tones,A photograph with warm tones,A photograph with cool tones,color,overall scene warmth or coolness
+white_balance,accurate white balance,color cast,A photograph with accurate white balance,A photograph with a noticeable color cast,color,neutral grays without tint
+contrast,high contrast,low contrast,A photograph with high contrast,A photograph with low contrast,color,separation between darks and lights
+dynamic_range,wide dynamic range,narrow dynamic range,A photograph with a wide dynamic range,A photograph with a narrow dynamic range,color,retained detail in shadows and highlights
+shadow_detail,preserved shadows,crushed shadows,A photograph with preserved shadows,A photograph with crushed shadows,color,visible texture in dark regions
+highlight_detail,preserved highlights,blown highlights,A photograph with preserved highlights,A photograph with blown highlights,color,retained texture in bright regions
+black_point,deep blacks,gray blacks,A photograph with deep blacks,A photograph with gray blacks,color,anchor of darkest tones
+color_accuracy,true to scene hues,shifted hues,A photograph with true to scene hues,A photograph with shifted hues,color,faithful hue reproduction
+skin_tone,healthy skin tones,waxy orange skin,A photograph with healthy skin tones,A photograph with waxy orange skin,color,credible human skin coloration
+hue_consistency,stable hues,hue drift,A photograph with stable hues,A photograph with hue drift,color,hues stay consistent across regions
+color_banding,smooth gradients,banding steps,A photograph with smooth color gradients,A photograph with visible banding steps,color,absence of step artifacts in gradients
+color_bleeding,no color bleed,color bleed,A photograph with no color bleed,A photograph with visible color bleed,color,color spills across edges
+color_depth,deep color depth,limited palette,A photograph with deep color depth,A photograph with a limited palette,color,rich set of reproducible hues
+chroma_noise,low chroma noise,high chroma noise,A photograph with low chroma noise,A photograph with high chroma noise,color,color speckle in uniform areas
+tint,neutral tint,green magenta tint,A photograph with a neutral tint,A photograph with a green magenta tint,color,overall bias along tint axis
+split_toning,subtle split toning,heavy split toning,A photograph with subtle split toning,A photograph with heavy split toning,color,two tone mapping across shadows and highlights
+color_harmony,harmonious palette,clashing palette,A photograph with a harmonious palette,A photograph with a clashing palette,color,colors work well together
+color_uniformity,even color mapping,patchy color mapping,A photograph with even color mapping,A photograph with patchy color mapping,color,consistent hues across similar materials
+highlight_rolloff,smooth highlight rolloff,hard highlight cutoff,A photograph with smooth highlight rolloff,A photograph with hard highlight cutoff,color,gradual transition near white
+shadow_color,neutral shadow color,tinted shadows,A photograph with neutral shadow color,A photograph with tinted shadows,color,shadow hue does not shift
+highlight_color,neutral highlight color,tinted highlights,A photograph with neutral highlight color,A photograph with tinted highlights,color,whites do not carry tint
+gamut_clipping,no gamut clipping,gamut clipping,A photograph with no gamut clipping,A photograph with gamut clipping,color,hues remain inside display range
+depth_of_field,aperture consistent blur gradient,flat or mismatched blur,A photograph with aperture consistent blur gradient,A photograph with flat or mismatched blur,lense,blur increases with distance from focus plane
+bokeh_quality,creamy circular bokeh,nervous polygonal bokeh,A photograph with creamy circular bokeh,A photograph with nervous polygonal bokeh,lense,shape and smoothness of out of focus highlights
+chromatic_aberration,minimal fringing,purple green fringing,A photograph with minimal chromatic fringing,A photograph with purple green fringing,lense,color fringes at high contrast edges
+vignetting,subtle vignetting,heavy vignetting,A photograph with subtle vignetting,A photograph with heavy vignetting,lense,edge darkening due to optics
+lens_distortion,low distortion,strong barrel or pincushion,A photograph with low lens distortion,A photograph with strong barrel or pincushion distortion,lense,geometric bending of lines
+fisheye_effect,no fisheye effect,strong fisheye look,A photograph with no fisheye effect,A photograph with a strong fisheye look,lense,ultra wide curvilinear projection
+field_curvature,minimal field curvature,edges drifting out of focus,A photograph with minimal field curvature,A photograph with edges drifting out of focus,lense,focus plane bending across the frame
+lens_flare,controlled lens flare,veiling flare and ghosts,A photograph with controlled lens flare,A photograph with veiling flare and ghosts,lense,bright reflections reducing contrast
+ghosting,minimal ghosting,pronounced ghost artifacts,A photograph with minimal ghosting,A photograph with pronounced ghost artifacts,lense,internal reflections creating duplicates
+sunstars,clean well defined sunstars,smudged sunstars,A photograph with clean well defined sunstars,A photograph with smudged sunstars,lense,aperture blade diffraction pattern
+focus_accuracy,precise focus,front back focus error,A photograph with precise focus,A photograph with front back focus error,lense,focus at intended subject distance
+focus_uniformity,even focus plane,tilted or warped focus plane,A photograph with an even focus plane,A photograph with a tilted or warped focus plane,lense,focus consistency across frame
+focus_breathing,minimal focus breathing,strong focus breathing,A photograph with minimal focus breathing,A photograph with strong focus breathing,lense,angle of view change with focus
+edge_sharpness,sharp corners,soft corners,A photograph with sharp corners,A photograph with soft corners,lense,resolution at image edges
+coma_aberration,minimal coma,pronounced comet tails,A photograph with minimal coma,A photograph with pronounced comet tail highlights,lense,streaked points near corners
+astigmatism_aberration,minimal astigmatism,pronounced astigmatism,A photograph with minimal astigmatism,A photograph with pronounced astigmatism,lense,different focus for tangential and sagittal lines
+onion_ring_bokeh,clean bokeh disks,onion ring bokeh,A photograph with clean bokeh disks,A photograph with onion ring bokeh,lense,concentric texture in highlights
+cat_eye_bokeh,round edge highlights,cat eye edge highlights,A photograph with round edge highlights,A photograph with cat eye edge highlights,lense,vignetting squeezes bokeh shape
+edge_color_shading,neutral edge color,color shift at edges,A photograph with neutral edge color,A photograph with color shift at edges,lense,color shading on wide angle lenses
+macro_rendering,crisp macro detail,soft macro detail,A photograph with crisp macro detail,A photograph with soft macro detail,lense,close focus resolution and contrast
+sharpness,sharp detail,blurry detail,A photograph with sharp detail,A photograph with blurry detail,technique,overall fine detail resolution
+motion_freeze,frozen motion,motion blur,A photograph with frozen motion,A photograph with motion blur,technique,shutter speed stops subject movement
+exposure_accuracy,well exposed,overexposed,A photograph that is well exposed,A photograph that is overexposed,technique,midtones highlights and shadows balanced
+low_light_noise,clean low light,grainy low light,A photograph with clean low light rendering,A photograph with grainy low light rendering,technique,noise management at high ISO
+film_grain,pleasing film grain,plastic smear,A photograph with pleasing film grain,A photograph with plastic smear,technique,grain texture that preserves detail
+hdr_tonemapping,smooth local contrast,halo artifacts,A photograph with smooth local contrast,A photograph with halo artifacts,technique,tone mapping without edge halos
+long_exposure,smooth motion trails,jittery trails,A photograph with smooth motion trails,A photograph with jittery trails,technique,multi second exposure rendering
+panning,subject sharp with streaked background,random smear,A photograph with a sharp subject and a streaked background,A photograph with a random smear,technique,controlled motion blur via camera tracking
+composition_balance,balanced composition,cluttered composition,A photograph with balanced composition,A photograph with a cluttered composition,technique,visual weight distribution
+rule_of_thirds,good thirds placement,awkward placement,A photograph with good rule of thirds placement,A photograph with awkward placement,technique,subject positioned on thirds
+symmetry,pleasing symmetry,uneven symmetry,A photograph with pleasing symmetry,A photograph with uneven symmetry,technique,mirror like balance in frame
+leading_lines,strong leading lines,weak leading lines,A photograph with strong leading lines,A photograph with weak leading lines,technique,lines guide viewer gaze
+framing,clean framing,messy framing,A photograph with clean framing,A photograph with messy framing,technique,deliberate inclusion and exclusion
+horizon_line,level horizon,tilted horizon,A photograph with a level horizon,A photograph with a tilted horizon,technique,horizon alignment
+subject_isolation,strong subject isolation,subject lost in background,A photograph with strong subject isolation,A photograph with the subject lost in the background,technique,depth or contrast separates subject
+depth_cues,strong depth cues,flat appearance,A photograph with strong depth cues,A photograph with a flat appearance,technique,overlap scale and blur signal depth
+lighting_quality,soft directional light,harsh overhead light,A photograph with soft directional light,A photograph with harsh overhead light,technique,shaping shadows and highlights
+backlighting,controlled rim light,blown backlight,A photograph with controlled rim light,A photograph with blown backlight,technique,backlight retains subject detail
+silhouette,clear silhouette,muddy silhouette,A photograph with a clear silhouette,A photograph with a muddy silhouette,technique,subject shape against bright background
+micro_contrast,crisp micro contrast,low micro contrast,A photograph with crisp micro contrast,A photograph with low micro contrast,technique,local contrast at fine scales
+texture_detail,rich texture detail,smoothed textures,A photograph with rich texture detail,A photograph with smoothed textures,technique,visible microstructure
+sharpening_artifacts,no sharpening halos,sharpening halos,A photograph with no sharpening halos,A photograph with sharpening halos,technique,bright edges from oversharpening
+denoising_artifacts,texture preserved,waxy denoising,A photograph with texture preserved after denoising,A photograph with waxy denoising,technique,detail lost by aggressive smoothing
+compression_artifacts,no compression artifacts,blocky compression,A photograph with no compression artifacts,A photograph with blocky compression,technique,JPEG blocks in flat areas
+posterization,no posterization,posterization steps,A photograph with no posterization,A photograph with posterization steps,technique,tone steps in smooth gradients
+moire_pattern,no moire pattern,moire pattern,A photograph with no moire pattern,A photograph with a moire pattern,technique,interference on fine grids
+banding,no banding,banding,A photograph with no banding,A photograph with banding,technique,step artifacts from limited precision
+vignette_edit,tasteful vignette,heavy vignette,A photograph with a tasteful vignette,A photograph with a heavy vignette,technique,post applied edge darkening
+bloom,naturalistic highlight glow,overdone highlight glow,A photograph with naturalistic highlight glow,A photograph with overdone highlight glow,technique,soft glow around speculars
+clarity,high clarity,hazy clarity,A photograph with high clarity,A photograph with hazy clarity,technique,mid frequency contrast boost
+atmospheric_haze,depth graded haze,uniform haze veil,A photograph with depth graded haze,A photograph with a uniform haze veil,technique,haze increases with distance
+retouching,subtle retouching,overprocessed retouching,A photograph with subtle retouching,A photograph with overprocessed retouching,technique,edits that keep texture intact
+watermark,watermark absent,watermark present,A photograph with watermark absent,A photograph with a watermark present,technique,visible mark from editing or export
+upscaler_artifacts,no upscaler artifacts,upscaler artifacts,A photograph with no upscaler artifacts,A photograph with upscaler artifacts,technique,checkerboard or ringing from resizing
+edge_halos,no edge halos,edge halos,A photograph with no edge halos,A photograph with edge halos,technique,bright outlines from processing
+flash_use,balanced fill flash,harsh direct flash,A photograph with balanced fill flash,A photograph with harsh direct flash,technique,flash blended with ambient
+camera_shake,stabilized exposure,handheld blur,A photograph with a stabilized exposure,A photograph with handheld blur,technique,motion blur from camera movement
+focus_stacking,clean focus stack,focus stacking ghosts,A photograph with a clean focus stack,A photograph with focus stacking ghosts,technique,multi frame focus blend quality
+smartphone_cues,moderate smartphone processing,aggressive smartphone processing,A photograph with moderate smartphone processing cues,A photograph with aggressive smartphone processing cues,camera,over sharpening HDR and denoise signatures
+rolling_shutter,minimal skew,severe skew,A photograph with minimal rolling shutter skew,A photograph with severe rolling shutter skew,camera,vertical lines lean during motion
+sensor_bloom,minimal highlight bleed,highlight bloom,A photograph with minimal highlight bleed,A photograph with highlight bloom,camera,bright areas bleed into neighbors
+tone_mapping_baked,subtle global tone map,aggressive HDR look,A photograph with subtle global tone mapping,A photograph with an aggressive HDR look,camera,in camera tone mapping style
+dslr_cues,DSLR capture cues present,DSLR cues absent,A photograph with DSLR capture cues,A photograph lacking DSLR capture cues,camera,optical rendering and processing signature
+mirrorless_cues,mirrorless capture cues present,mirrorless cues absent,A photograph with mirrorless capture cues,A photograph lacking mirrorless capture cues,camera,electronic shutter and processing traits
+film_camera_cues,film grain and color negative cues,no film cues,A photograph with film grain and color negative cues,A photograph without film cues,camera,grain halation and film palette
+medium_format_cues,large sensor depth traits,small sensor depth traits,A photograph with large sensor depth traits,A photograph with small sensor depth traits,camera,shallower depth and smoother tonality
+large_format_cues,extreme detail and plane control,lack of plane control,A photograph with extreme detail and plane control,A photograph lacking plane control,camera,tilt movements and high resolution
+instant_camera_cues,instant film texture,clean digital look,A photograph with instant film texture,A photograph with a clean digital look,camera,white border grain and dye diffusion
+action_camera_cues,wide FOV action cam cues,non action cam cues,A photograph with wide FOV action cam cues,A photograph lacking action cam cues,camera,very wide view with heavy distortion
+dashcam_cues,dashcam capture cues present,dashcam cues absent,A photograph with dashcam capture cues,A photograph lacking dashcam cues,camera,windshield reflections and HUD overlays
+cctv_cues,CCTV capture cues present,CCTV cues absent,A photograph with CCTV capture cues,A photograph lacking CCTV capture cues,camera,low frame rate and IR cut artifacts
+drone_camera_cues,drone aerial cues present,drone cues absent,A photograph with drone aerial cues,A photograph lacking drone aerial cues,camera,high vantage point and prop shadow risk
+microscope_cues,microscope imaging cues present,microscope cues absent,A photograph with microscope imaging cues,A photograph lacking microscope cues,camera,extreme magnification and shallow depth
+night_vision_cues,night vision cues present,night vision cues absent,A photograph with night vision cues,A photograph lacking night vision cues,camera,monochrome green and IR illumination
+infrared_camera_cues,infrared capture cues present,infrared cues absent,A photograph with infrared capture cues,A photograph lacking infrared cues,camera,bright foliage and dark skies
+pinhole_camera_cues,pinhole softness and vignetting,modern optical rendering,A photograph with pinhole softness and vignetting,A photograph with modern optical rendering,camera,tiny aperture projection look
+cgi_cues,no CGI indicators,CGI indicators present,A photograph with no CGI indicators,A photograph with CGI indicators present,others,shading and geometry mismatches
+geometry_consistency,consistent geometry,impossible geometry,A photograph with consistent geometry,A photograph with impossible geometry,others,objects follow Euclidean rules
+reflection_consistency,plausible reflections,reflection mismatch,A photograph with plausible reflections,A photograph with a reflection mismatch,others,angles and intensity match surfaces
+shadow_consistency,consistent shadow direction,conflicting shadow direction,A photograph with consistent shadow direction,A photograph with conflicting shadow direction,others,light source alignment
+lighting_direction,coherent lighting direction,mixed lighting directions,A photograph with coherent lighting direction,A photograph with mixed lighting directions,others,single or compatible light sources
+specular_highlights,realistic highlight shape,plastic highlight blobs,A photograph with realistic highlight shape,A photograph with plastic highlight blobs,others,speculars match material roughness
+texture_realism,stochastic fine texture,repeated texture tiles,A photograph with stochastic fine texture,A photograph with repeated texture tiles,others,non repeating microstructure
+tiling_artifacts,no tiling artifacts,tiling seams,A photograph with no tiling artifacts,A photograph with tiling seams,others,repetition lines across surfaces
+object_boundaries,crisp boundaries,feathered cutout edges,A photograph with crisp object boundaries,A photograph with feathered cutout edges,others,clean alpha matte quality
+edge_aliasing,smooth edges,jagged stair step edges,A photograph with smooth edges,A photograph with jagged stair step edges,others,adequate sampling at edges
+oversharpening,no oversharpening,oversharpened edges,A photograph with no oversharpening,A photograph with oversharpened edges,others,excessive acutance with halos
+text_legibility,legible text,nonsense text,A photograph with legible text,A photograph with nonsense text,others,text renders with readable glyphs
+face_anatomy,correct facial anatomy,uncanny facial anatomy,A photograph with correct facial anatomy,A photograph with uncanny facial anatomy,others,eyes mouth and features aligned
+hands_correctness,correct finger count,malformed fingers,A photograph with correct finger count,A photograph with malformed fingers,others,human hand structure accuracy
+count_consistency,correct object counts,count mismatch,A photograph with correct object counts,A photograph with a count mismatch,others,number of items aligns with context
+proportion_realism,plausible body proportions,stretched body proportions,A photograph with plausible body proportions,A photograph with stretched body proportions,others,relative part sizes are credible
+physics_contact,solid contact and gravity,objects floating or sliding,A photograph with solid contact and gravity,A photograph with objects floating or sliding,others,contact points and weight look correct
+perspective_coherence,coherent perspective lines,conflicting vanishing lines,A photograph with coherent perspective lines,A photograph with conflicting vanishing lines,others,lines converge consistently
+occlusion_logic,correct occlusion order,impossible see through,A photograph with correct occlusion order,A photograph with impossible see through,others,near objects cover far ones
+depth_consistency,depth cues agree,depth cue conflict,A photograph where depth cues agree,A photograph with depth cue conflict,others,parallax blur and scale align
+fabric_realism,visible weave pattern,flat plastic fabric,A photograph with visible weave pattern,A photograph with flat plastic fabric,others,textile detail and fold behavior
+hair_realism,resolved hair strands,smudged hair mass,A photograph with resolved hair strands,A photograph with a smudged hair mass,others,individual filament detail
+skin_microtexture,visible pores and fine texture,airbrushed skin,A photograph with visible pores and fine texture,A photograph with airbrushed skin,others,skin surface microstructure
+eye_catchlight,coherent catchlights,painted catchlights,A photograph with coherent catchlights,A photograph with painted catchlights,others,light reflections match scene lights
+sensor_noise_pattern,photographic noise pattern,uniform smoothness,A photograph with a photographic noise pattern,A photograph with uniform smoothness,others,grain distribution typical of sensors
+jpeg_grid,no JPEG blocking,JPEG blocking,A photograph with no JPEG blocking,A photograph with JPEG blocking,others,block artifacts on compression
+depth_map_halo,no depth map halo,depth map halo,A photograph with no depth map halo,A photograph with a depth map halo,others,misaligned blur matting halo
+segmentation_errors,no segmentation errors,segmentation edge errors,A photograph with no segmentation errors,A photograph with segmentation edge errors,others,bad cut boundaries between layers
+style_consistency,consistent visual style,mixed styles,A photograph with a consistent visual style,A photograph with mixed styles,others,cohesive look across elements
+minimalist_style,minimalist style,maximalist style,A photograph with a minimalist style,A photograph with a maximalist style,others,limited elements and clean layout
+cinematic_tone,cinematic tone,flat tone,A photograph with a cinematic tone,A photograph with a flat tone,others,rich contrast and controlled palette
+vintage_aesthetic,vintage aesthetic,sterile modern aesthetic,A photograph with a vintage aesthetic,A photograph with a sterile modern aesthetic,others,film era color and grain cues
+documentary_look,documentary look,staged look,A photograph with a documentary look,A photograph with a staged look,others,candid capture cues
+studio_quality,studio lighting control,uncontrolled ambient light,A photograph with studio lighting control,A photograph with uncontrolled ambient light,others,shaped light and clean background
+imperfection_cues,minor optical imperfections,overly pristine surfaces,A photograph with minor optical imperfections,A photograph with overly pristine surfaces,others,dust flare and tiny flaws signal capture
+repetition_artifacts,no pattern repetition,pattern repetition,A photograph with no pattern repetition,A photograph with pattern repetition,others,duplicate patches across regions
+detail_variation,depth aware detail variation,uniform detail everywhere,A photograph with depth aware detail variation,A photograph with uniform detail everywhere,others,detail decreases with distance
+glitch_artifacts,no glitch artifacts,glitch artifacts,A photograph with no glitch artifacts,A photograph with glitch artifacts,others,model or codec failure traces
+cross_processing,no cross processing,cross processing look,A photograph with no cross processing,A photograph with a cross processing look,others,color shifts from chemical like processing
+fake_lens_effects,authentic optical cues,simulated lens overlays,A photograph with authentic optical cues,A photograph with simulated lens overlays,others,overlays do not match scene geometry
+depth_realism,physically plausible blur,depth blur mismatch,A photograph with physically plausible blur,A photograph with a depth blur mismatch,others,blur correlates with distance
+material_specularity,correct specular response,wrong specular response,A photograph with correct specular response,A photograph with a wrong specular response,others,highlights match roughness and IOR
+shadow_softness,softness matches distance,softness mismatch,A photograph with shadow softness that matches distance,A photograph with a shadow softness mismatch,others,penumbra size relates to geometry
+specular_noise,micro sparkle preserved,smeared speculars,A photograph with micro sparkle preserved,A photograph with smeared speculars,others,high frequency specular detail
+reflection_fresnel,fresnel strength correct,flat reflection strength,A photograph with fresnel strength correct,A photograph with flat reflection strength,others,angle dependent reflectivity
+subsurface_scattering,translucent skin glow,opaque plastic skin,A photograph with translucent skin glow,A photograph with opaque plastic skin,others,light transport within materials
+depth_quantization,continuous depth blur,stepped depth blur,A photograph with continuous depth blur,A photograph with stepped depth blur,others,quantized blur levels in AI masks
+halo_artifacts,no halo artifacts,halo artifacts present,A photograph with no halo artifacts,A photograph with halo artifacts present,others,bright rings near edges from processing
+ringing_artifacts,no ringing artifacts,ringing artifacts present,A photograph with no ringing artifacts,A photograph with ringing artifacts present,others,oscillations near sharp edges
+band_limited_edges,well sampled edges,aliasing stair steps,A photograph with well sampled edges,A photograph with aliasing stair steps,others,insufficient sampling of high frequency detail
+text_placement,plausible signage placement,random text placement,A photograph with plausible signage placement,A photograph with random text placement,others,text appears where expected
+logo_rendering,authentic logo rendering,fake logo rendering,A photograph with authentic logo rendering,A photograph with fake logo rendering,others,brand marks follow shape and lighting
+print_texture,authentic print texture,fake print texture,A photograph with authentic print texture,A photograph with fake print texture,others,halftone or paper fibers visible
+scan_artifacts,no scan lines,scan lines present,A photograph with no scan lines,A photograph with scan lines present,others,striping from scanning hardware
+lens_dirt,subtle lens dust specks,fake overlay dirt,A photograph with subtle lens dust specks,A photograph with fake overlay dirt,others,random non repeating specks
+matte_edges,clean matte edges,fringing matte edges,A photograph with clean matte edges,A photograph with fringing matte edges,others,alpha edges free of color spill
+scene_textures,rich stochastic scene textures,uniform scene textures,A photograph with rich stochastic scene textures,A photograph with uniform scene textures,others,non uniform detail in natural materials
+global_illumination,visible bounce light,missing bounce light,A photograph with visible bounce light,A photograph with missing bounce light,others,light reflecting between surfaces
+contact_shadows,strong contact shadows,missing contact shadows,A photograph with strong contact shadows,A photograph with missing contact shadows,others,dark touch points under objects
+reflection_blur,blur matches surface roughness,blur mismatch with roughness,A photograph with blur that matches surface roughness,A photograph with blur that mismatches roughness,others,glossy vs diffuse balance
+edge_coherence,edges align across layers,misaligned edges across layers,A photograph with edges that align across layers,A photograph with misaligned edges across layers,others,object boundaries line up
+fine_detail,organic micro detail,smooth plastic detail,A photograph with organic micro detail,A photograph with smooth plastic detail,others,irregular tiny structures
+background_integration,subject blends into scene,cutout appearance,A photograph where the subject blends into the scene,A photograph with a cutout appearance,others,consistent lighting and blur around subject
+depth_layering,natural layer order errors absent,layer order errors present,A photograph with correct depth layer order,A photograph with depth layer order errors,others,foreground overlaps background correctly
+time_of_day_coherence,time cues match sky and shadows,time cues conflict,A photograph with time cues that match sky and shadows,A photograph with time cues that conflict,others,sun angle color and activity align
+weather_coherence,weather cues agree,weather cues conflict,A photograph where weather cues agree,A photograph where weather cues conflict,others,rain snow fog and ground effects align
+exif_presence,EXIF present,EXIF missing,A photograph with EXIF present,A photograph with EXIF missing,others,metadata typical of camera capture

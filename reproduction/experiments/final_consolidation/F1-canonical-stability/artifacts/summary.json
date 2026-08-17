@@ -1,0 +1,92 @@
+{
+  "experiment": "F1-canonical-stability",
+  "spec_id": "E1",
+  "dataset": "synthclic",
+  "seeds": [
+    123,
+    124,
+    125,
+    126,
+    127
+  ],
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "regression_anchor": {
+    "anchor_mAP": 0.9238769662881319,
+    "anchor_auroc": 0.9226761070835879,
+    "f1_seed123_mAP": 0.9230203532226358,
+    "f1_seed123_auroc": 0.92092377063499,
+    "delta_mAP": 0.000857,
+    "delta_auroc": 0.001752,
+    "tolerance": 0.005,
+    "passes": true
+  },
+  "detection": {
+    "mAP": {
+      "mean": 0.9228296553081042,
+      "min": 0.9184963104017234,
+      "max": 0.9245799130659008
+    },
+    "auroc": {
+      "mean": 0.9211579613940083,
+      "min": 0.9182338523015112,
+      "max": 0.9226897545637174
+    }
+  },
+  "stability_across_seed_pairs": {
+    "sigma_cosine": {
+      "mean": 0.989125,
+      "min": 0.982781,
+      "max": 0.992979,
+      "n_pairs": 10
+    },
+    "raw_cosine": {
+      "mean": 0.978769,
+      "min": 0.957165,
+      "max": 0.989369,
+      "n_pairs": 10
+    },
+    "logit_spearman": {
+      "mean": 0.986407,
+      "min": 0.979381,
+      "max": 0.9911,
+      "n_pairs": 10
+    },
+    "decision_agreement": {
+      "mean": 0.982337,
+      "min": 0.978972,
+      "max": 0.986916,
+      "n_pairs": 10
+    },
+    "cue_profile_spearman": {
+      "mean": 0.991272,
+      "min": 0.984053,
+      "max": 0.996728,
+      "n_pairs": 10
+    },
+    "top50_jaccard": {
+      "mean": 0.695146,
+      "min": 0.587302,
+      "max": 0.818182,
+      "n_pairs": 10
+    },
+    "bottom50_jaccard": {
+      "mean": 0.771251,
+      "min": 0.694915,
+      "max": 0.818182,
+      "n_pairs": 10
+    }
+  },
+  "primary_direction_metric": "sigma_cosine",
+  "metric_note": "Sigma-metric cosine is primary; raw weight cosine is reported for continuity only (N21: raw cos 0.07 between detectors whose scores correlate 0.938)."
+}

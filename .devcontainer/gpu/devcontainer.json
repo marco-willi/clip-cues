@@ -1,0 +1,59 @@
+{
+  // GPU configuration -- only needed to extract CLIP embeddings from images. Requires a host
+  // with an NVIDIA driver and the NVIDIA Container Toolkit; on any other host the container
+  // will refuse to start, which is why this is a separate, opt-in configuration.
+  //
+  // VS Code: "Dev Containers: Reopen in Container" and pick "clip-cues (GPU)".
+  "name": "clip-cues (GPU)",
+  "build": {
+    "dockerfile": "../Dockerfile",
+    "context": "../.."
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    }
+  },
+
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+        "python.terminal.activateEnvironment": true,
+        "python.testing.pytestEnabled": true,
+        "jupyter.notebookFileRoot": "${workspaceFolder}",
+        "editor.rulers": [100],
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        }
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-toolsai.jupyter",
+        "ms-vscode.makefile-tools",
+        "tamasfe.even-better-toml",
+        "anthropic.claude-code"
+      ]
+    }
+  },
+
+  "remoteEnv": {
+    "HF_HOME": "${containerWorkspaceFolder}/data/hf_cache",
+    "PYTHONUNBUFFERED": "1"
+  },
+
+  // --gpu selects the cu128 torch group; --shm-size raises the DataLoader shared-memory limit.
+  "postCreateCommand": "bash .devcontainer/post-create.sh --gpu",
+  "postStartCommand": "bash .devcontainer/post-start.sh",
+  "runArgs": ["--gpus=all", "--shm-size=12g"],
+
+  "forwardPorts": [8888, 6006],
+  "remoteUser": "root"
+}

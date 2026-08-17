@@ -3,7 +3,7 @@
 This module provides utilities for loading datasets from HuggingFace Hub.
 """
 
-from datasets import load_dataset, DatasetDict
+from datasets import DatasetDict, load_dataset
 
 
 def load_synthclic(cache_dir: str = None) -> DatasetDict:
@@ -46,25 +46,48 @@ def load_synthbuster_plus(cache_dir: str = None) -> DatasetDict:
     return load_dataset("marco-willi/synthbuster-plus", cache_dir=cache_dir)
 
 
-def get_dataset(name: str, cache_dir: str = None) -> DatasetDict:
-    """Load a dataset by name.
+def load_cnnspot(cache_dir: str = None) -> DatasetDict:
+    """Load the CNNSpot-small dataset from HuggingFace Hub.
+
+    A compact version of the CNNSpot benchmark (Wang et al., CVPR 2020): real images and
+    GAN-generated synthetics (e.g. BigGAN, ProGAN). Note the test split is very large.
 
     Args:
-        name: Dataset name ("synthclic" or "synthbuster_plus")
+        cache_dir: Directory to cache downloaded data
+
+    Returns:
+        DatasetDict with train, validation, and test splits
+    """
+    return load_dataset("marco-willi/cnnspot-small", cache_dir=cache_dir)
+
+
+# Canonical short-name -> HF id, so callers can resolve a name without importing each loader.
+DATASET_HF_IDS = {
+    "synthclic": "marco-willi/synthclic",
+    "synthbuster_plus": "marco-willi/synthbuster-plus",
+    "synthbuster-plus": "marco-willi/synthbuster-plus",
+    "cnnspot": "marco-willi/cnnspot-small",
+    "cnnspot_small": "marco-willi/cnnspot-small",
+    "cnnspot-small": "marco-willi/cnnspot-small",
+}
+
+
+def get_dataset(name: str, cache_dir: str = None) -> DatasetDict:
+    """Load a dataset by short name or HuggingFace id.
+
+    Args:
+        name: Short name ("synthclic", "synthbuster_plus", "cnnspot") or a full HF id
+            ("marco-willi/synthclic").
         cache_dir: Directory to cache downloaded data
 
     Returns:
         DatasetDict with train, validation, and test splits
 
     Raises:
-        ValueError: If dataset name is not recognized
+        ValueError: If the dataset name/id is not recognized
     """
-    datasets = {
-        "synthclic": load_synthclic,
-        "synthbuster_plus": load_synthbuster_plus,
-    }
-
-    if name not in datasets:
-        raise ValueError(f"Unknown dataset: {name}. Available: {list(datasets.keys())}")
-
-    return datasets[name](cache_dir=cache_dir)
+    if "/" in name:
+        return load_dataset(name, cache_dir=cache_dir)
+    if name not in DATASET_HF_IDS:
+        raise ValueError(f"Unknown dataset: {name}. Available: {sorted(DATASET_HF_IDS)}")
+    return load_dataset(DATASET_HF_IDS[name], cache_dir=cache_dir)

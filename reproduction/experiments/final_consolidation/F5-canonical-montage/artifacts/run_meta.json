@@ -1,0 +1,338 @@
+{
+  "experiment": "F5-canonical-montage",
+  "script": "scripts/finalexp/export_f5_rankings.py",
+  "argv": [
+    "scripts/finalexp/export_f5_rankings.py"
+  ],
+  "git": {
+    "commit": "ad9eea9a0f287ab8869e7f16aeef4a6878d1059d",
+    "dirty": true
+  },
+  "snapshot_manifest_version": "1.0.0",
+  "inputs": {
+    "pooler/synthclic": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee",
+    "pooler/cnnspot": "c542d7976a3f7c1de4f6c234aa987366d3fee6a2c76b90a583ba2540c3f12ec2"
+  },
+  "package_versions": {
+    "python": "3.12.12",
+    "numpy": "2.5.2",
+    "torch": "2.13.0+cpu",
+    "sklearn": "1.9.0"
+  },
+  "host": "23be09093657",
+  "started_at": "2026-08-16T20:39:23+00:00",
+  "duration_s": 12.066,
+  "summary": {
+    "experiment": "F5-canonical-montage",
+    "spec_id": "E5",
+    "datasets": [
+      "synthclic",
+      "cnnspot"
+    ],
+    "detector": "matched canonical probe (decision 3, 2026-08-08)",
+    "caption": "Images with the highest and lowest logits of the evaluated canonical CLIP detector.",
+    "retired": "The auxiliary fixed-C=1 single-direction logistic fit previously used to rank montage images is retired; ranking now uses the detector's own logit.",
+    "by_dataset": {
+      "synthclic": {
+        "ranking_csv": "reproduction/experiments/final_consolidation/F5-canonical-montage/artifacts/ranked_scores_synthclic.csv",
+        "n_test": 2140,
+        "primary_seed": 123,
+        "detector": "matched canonical probe (F1 synthclic seed 123)",
+        "logit_range": [
+          -3.4673,
+          4.9301
+        ],
+        "top_pole": [
+          {
+            "rank": 1,
+            "image_id": "3c48f2b289ee49af7d78bf43d3e73334",
+            "source": "FLUX.1-dev",
+            "label": 1,
+            "logit": 4.930116230702827
+          },
+          {
+            "rank": 2,
+            "image_id": "acda8851def5fe87ebfe17f4ca90e55e",
+            "source": "FLUX.1-schnell",
+            "label": 1,
+            "logit": 4.712356044105531
+          },
+          {
+            "rank": 3,
+            "image_id": "f851c62b712ee4bb3d6f1f997a3d14b6",
+            "source": "FLUX.1-dev",
+            "label": 1,
+            "logit": 4.689981607007012
+          },
+          {
+            "rank": 4,
+            "image_id": "08eba944d75efaf0bf3390e68c8d03b0",
+            "source": "FLUX.1-schnell",
+            "label": 1,
+            "logit": 4.632073949962119
+          },
+          {
+            "rank": 5,
+            "image_id": "1c1e89258c38f044d27681546a343b74",
+            "source": "FLUX.1-dev",
+            "label": 1,
+            "logit": 4.594132554777678
+          },
+          {
+            "rank": 6,
+            "image_id": "6e8e3df4edba76eb404df781a3da8cbb",
+            "source": "SD3-medium",
+            "label": 1,
+            "logit": 4.592886182202532
+          },
+          {
+            "rank": 7,
+            "image_id": "0c0ba31b279da4b8a0b848b63d302e8b",
+            "source": "FLUX.1-dev",
+            "label": 1,
+            "logit": 4.56338063894562
+          },
+          {
+            "rank": 8,
+            "image_id": "c1665c556bd2ac16fa7337bc12842980",
+            "source": "FLUX.1-schnell",
+            "label": 1,
+            "logit": 4.52249860623716
+          }
+        ],
+        "bottom_pole": [
+          {
+            "rank": 2133,
+            "image_id": "370fbecad58ace69f6dbca19a6957014",
+            "source": "clic2020",
+            "label": 0,
+            "logit": -1.7040709276326202
+          },
+          {
+            "rank": 2134,
+            "image_id": "6a1c4c1398a8de1ff48645f1d47f5dd1",
+            "source": "clic2020",
+            "label": 0,
+            "logit": -1.751415351044954
+          },
+          {
+            "rank": 2135,
+            "image_id": "95468782f8b3fc22b2f4b13bf8f675f3",
+            "source": "clic2020",
+            "label": 0,
+            "logit": -1.7527616997552853
+          },
+          {
+            "rank": 2136,
+            "image_id": "671c5054b0d360ecde05cf691d00749a",
+            "source": "clic2020",
+            "label": 0,
+            "logit": -1.7960602726763808
+          },
+          {
+            "rank": 2137,
+            "image_id": "0d57c99aa83305d93d8fc5d21910343a",
+            "source": "clic2020",
+            "label": 0,
+            "logit": -1.833415322219321
+          },
+          {
+            "rank": 2138,
+            "image_id": "2cf106dff80465f974931b802427e6ea",
+            "source": "clic2020",
+            "label": 0,
+            "logit": -1.9212569632366516
+          },
+          {
+            "rank": 2139,
+            "image_id": "8c3f64635c07801bc2c9def490a27168",
+            "source": "clic2020",
+            "label": 0,
+            "logit": -2.2196472207032
+          },
+          {
+            "rank": 2140,
+            "image_id": "f32732119632130510d480c894336143",
+            "source": "clic2020",
+            "label": 0,
+            "logit": -3.4673464681991217
+          }
+        ],
+        "seed_overlap": [
+          {
+            "seed": 124,
+            "top50_jaccard": 0.724138,
+            "bottom50_jaccard": 0.818182
+          },
+          {
+            "seed": 125,
+            "top50_jaccard": 0.818182,
+            "bottom50_jaccard": 0.754386
+          },
+          {
+            "seed": 126,
+            "top50_jaccard": 0.694915,
+            "bottom50_jaccard": 0.694915
+          },
+          {
+            "seed": 127,
+            "top50_jaccard": 0.666667,
+            "bottom50_jaccard": 0.785714
+          }
+        ],
+        "seed_overlap_mean_top": 0.726,
+        "seed_overlap_mean_bottom": 0.7633
+      },
+      "cnnspot": {
+        "ranking_csv": "reproduction/experiments/final_consolidation/F5-canonical-montage/artifacts/ranked_scores_cnnspot.csv",
+        "n_test": 4000,
+        "primary_seed": 123,
+        "detector": "matched canonical probe (F1 cnnspot seed 123)",
+        "logit_range": [
+          -3.2645,
+          3.2751
+        ],
+        "top_pole": [
+          {
+            "rank": 1,
+            "image_id": "progan/bottle/1_fake/06154.png",
+            "source": "progan",
+            "label": 1,
+            "logit": 3.275069898974573
+          },
+          {
+            "rank": 2,
+            "image_id": "gaugan/1_fake/000000407524.png",
+            "source": "gaugan",
+            "label": 1,
+            "logit": 2.8891073202769464
+          },
+          {
+            "rank": 3,
+            "image_id": "progan/boat/1_fake/03711.png",
+            "source": "progan",
+            "label": 1,
+            "logit": 2.805932865469367
+          },
+          {
+            "rank": 4,
+            "image_id": "gaugan/1_fake/000000352900.png",
+            "source": "gaugan",
+            "label": 1,
+            "logit": 2.7301553045845117
+          },
+          {
+            "rank": 5,
+            "image_id": "gaugan/1_fake/000000036936.png",
+            "source": "gaugan",
+            "label": 1,
+            "logit": 2.729563495982436
+          },
+          {
+            "rank": 6,
+            "image_id": "gaugan/1_fake/000000124636.png",
+            "source": "gaugan",
+            "label": 1,
+            "logit": 2.715178249646545
+          },
+          {
+            "rank": 7,
+            "image_id": "progan/person/1_fake/14864.png",
+            "source": "progan",
+            "label": 1,
+            "logit": 2.6915273851024373
+          },
+          {
+            "rank": 8,
+            "image_id": "whichfaceisreal/1_fake/image-2019-02-17_003040.jpeg",
+            "source": "whichfaceisreal",
+            "label": 1,
+            "logit": 2.686736001862655
+          }
+        ],
+        "bottom_pole": [
+          {
+            "rank": 3993,
+            "image_id": "progan/bus/0_real/03693.png",
+            "source": "progan",
+            "label": 0,
+            "logit": -3.070788893038364
+          },
+          {
+            "rank": 3994,
+            "image_id": "stylegan/cat/0_real/19889.png",
+            "source": "stylegan",
+            "label": 0,
+            "logit": -3.127743678451149
+          },
+          {
+            "rank": 3995,
+            "image_id": "stylegan2/car/0_real/01406.png",
+            "source": "stylegan2",
+            "label": 0,
+            "logit": -3.1303770818467127
+          },
+          {
+            "rank": 3996,
+            "image_id": "stylegan2/horse/0_real/15262.png",
+            "source": "stylegan2",
+            "label": 0,
+            "logit": -3.137493733512318
+          },
+          {
+            "rank": 3997,
+            "image_id": "progan/train/0_real/07552.png",
+            "source": "progan",
+            "label": 0,
+            "logit": -3.1666137217625305
+          },
+          {
+            "rank": 3998,
+            "image_id": "stylegan/car/0_real/01189.png",
+            "source": "stylegan",
+            "label": 0,
+            "logit": -3.2381899594729875
+          },
+          {
+            "rank": 3999,
+            "image_id": "progan/airplane/0_real/01280.png",
+            "source": "progan",
+            "label": 0,
+            "logit": -3.25315143155326
+          },
+          {
+            "rank": 4000,
+            "image_id": "stylegan2/cat/0_real/11886.png",
+            "source": "stylegan2",
+            "label": 0,
+            "logit": -3.264462965097328
+          }
+        ],
+        "seed_overlap": [
+          {
+            "seed": 124,
+            "top50_jaccard": 0.694915,
+            "bottom50_jaccard": 0.612903
+          },
+          {
+            "seed": 125,
+            "top50_jaccard": 0.5625,
+            "bottom50_jaccard": 0.587302
+          },
+          {
+            "seed": 126,
+            "top50_jaccard": 0.694915,
+            "bottom50_jaccard": 0.639344
+          },
+          {
+            "seed": 127,
+            "top50_jaccard": 0.694915,
+            "bottom50_jaccard": 0.612903
+          }
+        ],
+        "seed_overlap_mean_top": 0.6618,
+        "seed_overlap_mean_bottom": 0.6131
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+cff-version: 1.2.0
+message: "If you use this software, the datasets or the released artifacts, please cite the paper below."
+title: "CLIP-Cues: Synthetic Image Detection with CLIP"
+abstract: >-
+  Code, pre-trained detectors, cue vocabulary and a checksummed input snapshot accompanying
+  "Synthetic Image Detection with CLIP: Understanding and Assessing Predictive Cues".
+type: software
+license: MIT
+repository-code: "https://github.com/marco-willi/clip-cues"
+version: 2.0.0
+authors:
+  - family-names: Willi
+    given-names: Marco
+    email: marco.willi@fhnw.ch
+    affiliation: "Institute for Data Science I4DS, University of Applied Sciences FHNW"
+  - family-names: Mathys
+    given-names: Melanie
+    affiliation: "Institute for Data Science I4DS, University of Applied Sciences FHNW"
+  - family-names: Graber
+    given-names: Michael
+    affiliation: "Institute for Data Science I4DS, University of Applied Sciences FHNW"
+keywords:
+  - synthetic image detection
+  - CLIP
+  - interpretability
+  - multimedia forensics
+  - diffusion models
+preferred-citation:
+  type: article
+  title: "Synthetic Image Detection with CLIP: Understanding and Assessing Predictive Cues"
+  year: 2026
+  authors:
+    - family-names: Willi
+      given-names: Marco
+    - family-names: Mathys
+      given-names: Melanie
+    - family-names: Graber
+      given-names: Michael

@@ -1,0 +1,122 @@
+{
+  "experiment": "TableB-per-generator",
+  "target": "revision/main_revision.tex Table 13, \\label{tab:clip:test_results_detail}",
+  "detector": "D_h \u2014 matched canonical 1024-d probe, F1 recipe, seed 123, NO augmentation",
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization",
+    "seed": 123
+  },
+  "threshold_rule": "ACC at sigmoid > 0.5 (logit z > 0), applied uniformly to every cell and computed on the same generator group as AP. State this in the caption.",
+  "real_pairing": {
+    "cnnspot": "matched",
+    "synthbuster-plus": "shared",
+    "synthclic": "shared"
+  },
+  "eval_frames": {
+    "cnnspot": "pooler/cnnspot_full",
+    "synthbuster-plus": "pooler/synthbuster-plus",
+    "synthclic": "pooler/synthclic"
+  },
+  "eval_split": "test",
+  "cell_provenance": {
+    "cnnspot->cnnspot": "e3pred/cnnspot__to__cnnspot",
+    "synthbuster-plus->cnnspot": "e3pred/synthbuster-plus__to__cnnspot",
+    "synthclic->cnnspot": "e3pred/synthclic__to__cnnspot",
+    "combined->cnnspot": "scored ckpt/linear_probe_combined_matched on pooler/cnnspot_full",
+    "cnnspot->synthbuster-plus": "e3pred/cnnspot__to__synthbuster-plus",
+    "synthbuster-plus->synthbuster-plus": "e3pred/synthbuster-plus__to__synthbuster-plus",
+    "synthclic->synthbuster-plus": "e3pred/synthclic__to__synthbuster-plus",
+    "combined->synthbuster-plus": "e3pred/combined__to__synthbuster-plus",
+    "cnnspot->synthclic": "e3pred/cnnspot__to__synthclic",
+    "synthbuster-plus->synthclic": "e3pred/synthbuster-plus__to__synthclic",
+    "synthclic->synthclic": "e3pred/synthclic__to__synthclic",
+    "combined->synthclic": "e3pred/combined__to__synthclic"
+  },
+  "combined_head_check": {
+    "reference": "e3pred/combined__to__synthclic",
+    "max_abs_score_delta": 1.1949115963361123e-07
+  },
+  "n_rows": 152,
+  "n_generators_per_corpus": {
+    "cnnspot": 21,
+    "synthbuster-plus": 13,
+    "synthclic": 4
+  },
+  "acceptance": {
+    "cells": 12,
+    "agree_2dp": 11,
+    "known_frame_mismatch": [
+      "combined->cnnspot"
+    ],
+    "unexplained_failures": [],
+    "passed": true
+  },
+  "recipe_equivalence": [
+    {
+      "train_set": "cnnspot",
+      "test_corpus": "cnnspot",
+      "mAP_refit": 0.9638,
+      "mAP_table": 0.964,
+      "delta": -0.0002
+    },
+    {
+      "train_set": "cnnspot",
+      "test_corpus": "synthclic",
+      "mAP_refit": 0.5258,
+      "mAP_table": 0.5214,
+      "delta": 0.0045
+    },
+    {
+      "train_set": "synthbuster-plus",
+      "test_corpus": "cnnspot",
+      "mAP_refit": 0.664,
+      "mAP_table": 0.6692,
+      "delta": -0.0052
+    },
+    {
+      "train_set": "synthbuster-plus",
+      "test_corpus": "synthclic",
+      "mAP_refit": 0.6164,
+      "mAP_table": 0.6112,
+      "delta": 0.0052
+    },
+    {
+      "train_set": "synthclic",
+      "test_corpus": "cnnspot",
+      "mAP_refit": 0.4217,
+      "mAP_table": 0.4222,
+      "delta": -0.0004
+    },
+    {
+      "train_set": "synthclic",
+      "test_corpus": "synthclic",
+      "mAP_refit": 0.923,
+      "mAP_table": 0.9239,
+      "delta": -0.0009
+    },
+    {
+      "train_set": "combined",
+      "test_corpus": "cnnspot",
+      "mAP_refit": 0.8728,
+      "mAP_table": 0.8799,
+      "delta": -0.0071
+    },
+    {
+      "train_set": "combined",
+      "test_corpus": "synthclic",
+      "mAP_refit": 0.8783,
+      "mAP_table": 0.867,
+      "delta": 0.0113
+    }
+  ],
+  "sb_plus_test_access": "NONE. The SynthBuster+ block re-aggregates per-image predictions written by the E3 cross-dataset runs on 2026-06-24, before EXTERNAL_VALIDATION_PROTOCOL.md was frozen (2026-07-18) and within the detection use it explicitly names. No model in this run is fitted on or scored against SB+ test; the recipe-equivalence refit skips it."
+}

@@ -1,0 +1,83 @@
+{
+  "experiment": "F1-canonical-stability",
+  "spec_id": "E1",
+  "dataset": "cnnspot",
+  "seeds": [
+    123,
+    124,
+    125,
+    126,
+    127
+  ],
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "regression_anchor": null,
+  "detection": {
+    "mAP": {
+      "mean": 0.975483673166476,
+      "min": 0.9751436102788997,
+      "max": 0.975874446346567
+    },
+    "auroc": {
+      "mean": 0.9524069466003106,
+      "min": 0.9465315505432782,
+      "max": 0.9603757941143524
+    }
+  },
+  "stability_across_seed_pairs": {
+    "sigma_cosine": {
+      "mean": 0.997149,
+      "min": 0.995192,
+      "max": 0.998134,
+      "n_pairs": 10
+    },
+    "raw_cosine": {
+      "mean": 0.959834,
+      "min": 0.94404,
+      "max": 0.975842,
+      "n_pairs": 10
+    },
+    "logit_spearman": {
+      "mean": 0.996946,
+      "min": 0.994851,
+      "max": 0.998051,
+      "n_pairs": 10
+    },
+    "decision_agreement": {
+      "mean": 0.9625,
+      "min": 0.93575,
+      "max": 0.9785,
+      "n_pairs": 10
+    },
+    "cue_profile_spearman": {
+      "mean": 0.99891,
+      "min": 0.997343,
+      "max": 0.999628,
+      "n_pairs": 10
+    },
+    "top50_jaccard": {
+      "mean": 0.677093,
+      "min": 0.5625,
+      "max": 0.785714,
+      "n_pairs": 10
+    },
+    "bottom50_jaccard": {
+      "mean": 0.689988,
+      "min": 0.587302,
+      "max": 0.851852,
+      "n_pairs": 10
+    }
+  },
+  "primary_direction_metric": "sigma_cosine",
+  "metric_note": "Sigma-metric cosine is primary; raw weight cosine is reported for continuity only (N21: raw cos 0.07 between detectors whose scores correlate 0.938)."
+}

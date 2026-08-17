@@ -1,0 +1,28 @@
+# E1 (Reviewer 3, mandatory): low-level forensic baseline on SynthCLIC.
+# The only revision experiment that trains a network on full images -> run on a GPU box.
+
+id: e1_forensic_baseline
+group: forensics
+
+# Which baseline(s) to run: spectral (cheapest), patch_cnn (CNNDetection-style), or both.
+baseline: spectral # spectral | patch_cnn
+
+data:
+  dataset: synthclic # marco-willi/synthclic (HuggingFace)
+  train_split: train
+  val_split: validation
+  test_split: test
+
+spectral:
+  classifier: logreg # logreg | mlp
+  features: [radial_fft, dct_stats]
+
+patch_cnn:
+  backbone: resnet50
+  crop_size: 224
+  augment_jpeg_blur: true # report with and without
+  max_epochs: 30
+  lr: 1e-4
+  early_stopping_patience: 5
+
+metrics: [mAP, auroc]

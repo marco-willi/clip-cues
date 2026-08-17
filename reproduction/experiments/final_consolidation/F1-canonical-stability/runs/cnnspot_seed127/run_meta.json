@@ -1,0 +1,54 @@
+{
+  "experiment": "F1-canonical-stability",
+  "script": "scripts/finalexp/run_f1_canonical_stability.py",
+  "argv": [
+    "scripts/finalexp/run_f1_canonical_stability.py",
+    "--dataset",
+    "cnnspot"
+  ],
+  "git": {
+    "commit": "ad9eea9a0f287ab8869e7f16aeef4a6878d1059d",
+    "dirty": true
+  },
+  "snapshot_manifest_version": "1.0.0",
+  "inputs": {
+    "pooler/cnnspot": "c542d7976a3f7c1de4f6c234aa987366d3fee6a2c76b90a583ba2540c3f12ec2",
+    "cue_scores/cnnspot__antonyms": "bec2249c8c30948d92fbc77ac955d2ce1ccee31351bb8148ca2d505cada585b2",
+    "vocab/antonyms": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a"
+  },
+  "package_versions": {
+    "python": "3.12.12",
+    "numpy": "2.5.2",
+    "torch": "2.13.0+cpu",
+    "sklearn": "1.9.0"
+  },
+  "host": "23be09093657",
+  "started_at": "2026-08-16T20:39:14+00:00",
+  "duration_s": 1.075,
+  "seed": 127,
+  "dataset": "cnnspot",
+  "head": "LinearHead",
+  "input_dim": 1024,
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "metrics": {
+    "mAP": 0.975874446346567,
+    "pooled_ap": 0.9558612258958886,
+    "auroc": 0.9488486342033253,
+    "n_generators": 20,
+    "real_pairing": "matched"
+  },
+  "best_val_ce": 0.33328723907470703,
+  "best_epoch": 30,
+  "epochs_run": 36
+}

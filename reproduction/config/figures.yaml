@@ -1,0 +1,59 @@
+# Global plotting configuration for the revision figure set.
+#
+# Everything here is a presentation choice that must not drift between figures: the palette, the
+# colormaps, typography, and the small naming/subsetting decisions the figures share. Analysis
+# constants (cue taxonomies, vocabularies, split policy) do NOT belong here — they live with the
+# code that computes them, or in config/mappings.yaml where they describe the datasets.
+#
+# The palette is the ORIGINAL PAPER's: `color_palette_real_synthetic` in the archived research
+# repo's config/plotting.yaml, i.e. matplotlib's tab10 blue/orange. It is more saturated than
+# seaborn's colorblind defaults, and the published Fig 7 already used it — adopting it everywhere
+# makes the revision figures consistent with each other and with the paper.
+
+palette:
+  # The two classes, everywhere they appear.
+  real: "#1f77b4" # tab:blue  — RGB (0.122, 0.467, 0.706) in the original config
+  synthetic: "#ff7f0e" # tab:orange — RGB (1.000, 0.498, 0.055)
+  # Signed quantities that are not class contrasts (cue shifts, boundary differences): the same two
+  # hues, so "orange = toward synthetic" reads identically across every figure.
+  positive: "#ff7f0e"
+  negative: "#1f77b4"
+  # Single-series marks (Fig 5's points).
+  neutral: "#1f77b4"
+  # Darkened class colours, for marks that must stay legible ON TOP of a filled bar (Fig 7's
+  # per-class mean ticks). Same hues, so the encoding still reads as real/synthetic.
+  real_dark: "#08306b"
+  synthetic_dark: "#7f3b08"
+  # Emphasis for a derived quantity that is neither class (Fig 7's AUC bars).
+  strong: "#2ca02c" # tab:green
+  weak: "#7f7f7f" # tab:gray
+
+# Categorical palette for anything needing more than two colours.
+categorical: tab10
+
+colormaps:
+  diverging: vlag # signed quantities rendered as a heatmap
+  sequential: Greens # magnitudes; single hue, so no invented category boundaries
+
+typography:
+  base_font_size: 9
+  title_size: 10
+  label_size: 9
+  tick_size: 8
+  legend_size: 8
+  annotation_size: 7
+  title_weight: bold
+  # Title Case for panel and figure titles; axis labels stay sentence case.
+  title_case: true
+
+output:
+  screen_dpi: 150
+  save_dpi: 300
+  # Editable text in vector output rather than outlined glyphs.
+  pdf_fonttype: 42
+  ps_fonttype: 42
+
+style:
+  seaborn_style: whitegrid
+  seaborn_context: paper
+  grid_alpha: 0.3

@@ -1,0 +1,63 @@
+{
+  "experiment": "F4-cue-capacity",
+  "script": "scripts/finalexp/run_f4_cue_capacity.py",
+  "argv": [
+    "scripts/finalexp/run_f4_cue_capacity.py"
+  ],
+  "git": {
+    "commit": "ad9eea9a0f287ab8869e7f16aeef4a6878d1059d",
+    "dirty": true
+  },
+  "snapshot_manifest_version": "1.0.0",
+  "inputs": {
+    "cue_scores/synthclic__antonyms": "dd9f94957ae2c5a9ddbd6ba2feef60e65c4b63aec6e9bfac2e964f15bc28105d",
+    "vocab/antonyms": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a",
+    "projected/synthclic": "b40f00c48fc901b641a67252e9cfeca6ae0a7601f6de31169ca163fcc6f51524"
+  },
+  "package_versions": {
+    "python": "3.12.12",
+    "numpy": "2.5.2",
+    "torch": "2.13.0+cpu",
+    "sklearn": "1.9.0"
+  },
+  "host": "23be09093657",
+  "started_at": "2026-08-16T20:30:56+00:00",
+  "duration_s": 1.963,
+  "seed": 126,
+  "vocabulary": "antonyms",
+  "n_cues": 168,
+  "head": "LinearHead",
+  "framing": "restricted-information probe",
+  "space": {
+    "space": "cue:antonyms",
+    "dataset": "synthclic",
+    "dim": 168,
+    "scale_factor": 60.082285,
+    "target_row_norm": 32.9529,
+    "inputs": [
+      "cue_scores/synthclic__antonyms",
+      "vocab/antonyms",
+      "pooler/synthclic"
+    ]
+  },
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "metrics": {
+    "mAP": 0.8296454811945322,
+    "pooled_ap": 0.9477223239779532,
+    "auroc": 0.8328279216525462,
+    "n": 2140,
+    "n_generators": 4,
+    "real_pairing": "shared"
+  }
+}

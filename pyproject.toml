@@ -4,14 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "clip-cues"
-version = "1.0.0"
+version = "2.0.0"
 description = "Synthetic Image Detection with CLIP: Understanding and Assessing Predictive Cues"
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.10"
-authors = [
-    { name = "Marco Willi" },
-]
+authors = [{ name = "Marco Willi" }]
 keywords = [
     "synthetic-image-detection",
     "clip",
@@ -23,7 +21,6 @@ classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
-    "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -31,44 +28,88 @@ classifiers = [
     "Topic :: Scientific/Engineering :: Image Recognition",
 ]
 
+# Exactly what `import clip_cues` needs: a frozen CLIP backbone, the heads, and the collage helper.
+# torch/torchvision stay here rather than in the cpu/gpu groups below, because pip does not install
+# PEP 735 dependency groups — a pip user of that layout would get a package with no torch at all.
 dependencies = [
     "torch>=2.0",
     "torchvision",
     "transformers>=4.30",
-    "scikit-learn",
     "pillow",
     "numpy",
     "matplotlib",
-    "seaborn",
 ]
 
 [project.optional-dependencies]
-train = [
-    "lightning>=2.0",
+# Training the published heads (clip_cues.concept_modeling, the dataset wrappers).
+train = ["datasets", "torchmetrics", "tqdm"]
+
+# The clip_cues_research overlay: F1-F7, the figure builders, vocabulary and boundary analysis,
+# and the external detectors.
+research = [
     "datasets",
-    "torchmetrics",
-    "hydra-core>=1.3",
-    "omegaconf",
+    "huggingface-hub",
+    "lightning>=2.0",
+    "pandas",
+    "pyarrow",
+    "pyyaml",
+    "scikit-learn",
+    "scipy",
+    "seaborn",
+    "tabulate",
+    "timm",          # E6/E7: the CommunityForensics ViT-S/16 external detector
     "wandb",
+    "python-dotenv",
 ]
-dev = [
-    "ruff",
-    "pytest",
-    "mypy",
-    "pre-commit"
-]
-all = [
-    "clip-cues[train,dev]",
-]
+
+# `pyprojroot` lets the notebooks resolve repo-relative paths from any working directory.
+dev = ["ruff", "pytest", "pre-commit", "ipykernel", "pyprojroot"]
+all = ["clip-cues[train,research,dev]"]
 
 [project.urls]
 Homepage = "https://github.com/marco-willi/clip-cues"
-Documentation = "https://github.com/marco-willi/clip-cues#readme"
 Repository = "https://github.com/marco-willi/clip-cues"
 
+# The published wheel is the inference package only.
 [tool.hatch.build.targets.wheel]
 packages = ["src/clip_cues"]
 
+# A source checkout additionally exposes the research overlay, so the reproduction code and the
+# tests import without it ever entering the published wheel.
+[tool.hatch.build.targets.editable]
+packages = ["src/clip_cues", "src/clip_cues_research"]
+
+# torch backend selection as uv dependency groups, so one can be the default. They only pin an index
+# for the torch/torchvision requirements declared above; pip ignores all of this.
+#   cpu (DEFAULT) -> CPU wheels. Enough for every experiment, figure and inference call.
+#   gpu           -> cu128 wheels. Needed only to extract CLIP embeddings from images.
+[dependency-groups]
+cpu = ["torch>=2.0", "torchvision"]
+gpu = ["torch>=2.0", "torchvision"]
+
+[tool.uv]
+default-groups = ["cpu"]
+conflicts = [[{ group = "cpu" }, { group = "gpu" }]]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", group = "cpu" },
+    { index = "pytorch-cu128", group = "gpu" },
+]
+torchvision = [
+    { index = "pytorch-cpu", group = "cpu" },
+    { index = "pytorch-cu128", group = "gpu" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
 
 [tool.ruff]
 line-length = 100
@@ -77,3 +118,6 @@ target-version = "py310"
 [tool.ruff.lint]
 select = ["E", "F", "I", "W"]
 ignore = ["E501"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

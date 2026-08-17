@@ -1,0 +1,858 @@
+{
+  "version": "1.0.0",
+  "built_at": "2026-08-16T19:24:01+00:00",
+  "git": {
+    "commit": "ad9eea9a0f287ab8869e7f16aeef4a6878d1059d",
+    "dirty": true
+  },
+  "plan": ".claude/plans/PLAN_FINAL_CONSOLIDATION.md",
+  "builder": "scripts/finalexp/build_data_snapshot.py",
+  "artifacts": [
+    {
+      "id": "pooler/synthclic",
+      "path": "embeddings/pooler_l14/synthclic.pkl",
+      "source_path": "data/embeddings/synthclic_clip_large_patch14.pkl",
+      "source_sha256": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee",
+      "sha256": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee",
+      "bytes": 44956559,
+      "kind": "pooler_embeddings",
+      "space": "pooler_1024",
+      "used_by": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F5",
+        "F6",
+        "F7"
+      ],
+      "provenance": "scripts/extract/extract_embeddings.py, frozen CLIP ViT-L/14-336 pooler_output; the canonical SynthCLIC frame behind results/e3_xdataset and E9-E12",
+      "copied_at": "2026-08-16T19:23:35+00:00",
+      "shape": [
+        10815,
+        1024
+      ],
+      "dtype": "float32",
+      "n_rows": 10815,
+      "columns": [
+        "image_id",
+        "label",
+        "ds_name",
+        "split",
+        "source"
+      ],
+      "fingerprint": {
+        "row_norm_mean": 32.93508888,
+        "row_norm_std": 0.73886811,
+        "first_row_head": [
+          -0.39992613,
+          0.01313142,
+          -0.60529745,
+          1.45182443,
+          -1.37930608,
+          -0.07894622,
+          1.18996549,
+          -1.06342804
+        ]
+      },
+      "split_counts": {
+        "train": 8165,
+        "test": 2140,
+        "validation": 510
+      }
+    },
+    {
+      "id": "pooler/cnnspot",
+      "path": "embeddings/pooler_l14/cnnspot.pkl",
+      "source_path": "data/embeddings/cnnspot_clip_large_patch14.pkl",
+      "source_sha256": "c542d7976a3f7c1de4f6c234aa987366d3fee6a2c76b90a583ba2540c3f12ec2",
+      "sha256": "c542d7976a3f7c1de4f6c234aa987366d3fee6a2c76b90a583ba2540c3f12ec2",
+      "bytes": 33263415,
+      "kind": "pooler_embeddings",
+      "space": "pooler_1024",
+      "used_by": [
+        "F5",
+        "F6"
+      ],
+      "provenance": "scripts/extract/extract_embeddings.py; train split = ds_train_very_small (2,000), confirmed 2026-08-08 (config-audit.md \u00a7A)",
+      "copied_at": "2026-08-16T19:23:55+00:00",
+      "shape": [
+        8000,
+        1024
+      ],
+      "dtype": "float32",
+      "n_rows": 8000,
+      "columns": [
+        "image_id",
+        "label",
+        "ds_name",
+        "split",
+        "source"
+      ],
+      "fingerprint": {
+        "row_norm_mean": 32.54364277,
+        "row_norm_std": 0.59335146,
+        "first_row_head": [
+          0.28841347,
+          1.66288829,
+          0.84463167,
+          0.3945744,
+          1.225348,
+          1.6611594,
+          0.46871907,
+          -0.08055086
+        ]
+      },
+      "split_counts": {
+        "test": 4000,
+        "train": 2000,
+        "validation": 2000
+      }
+    },
+    {
+      "id": "pooler/synthbuster-plus",
+      "path": "embeddings/pooler_l14/synthbuster-plus.pkl",
+      "source_path": "data/embeddings/synthbuster-plus_clip_large_patch14.pkl",
+      "source_sha256": "ba6472329703271c00b1bd8bdb213af4fc864da2f8dbbc410e78c2ed5d4f1e95",
+      "sha256": "ba6472329703271c00b1bd8bdb213af4fc864da2f8dbbc410e78c2ed5d4f1e95",
+      "bytes": 58175870,
+      "kind": "pooler_embeddings",
+      "space": "pooler_1024",
+      "used_by": [
+        "F6"
+      ],
+      "provenance": "scripts/extract/extract_embeddings.py; F6 uses train/val ONLY (SB+ test is closed under EXTERNAL_VALIDATION_PROTOCOL.md)",
+      "copied_at": "2026-08-16T19:23:58+00:00",
+      "shape": [
+        13999,
+        1024
+      ],
+      "dtype": "float32",
+      "n_rows": 13999,
+      "columns": [
+        "image_id",
+        "label",
+        "ds_name",
+        "split",
+        "source"
+      ],
+      "fingerprint": {
+        "row_norm_mean": 33.08918918,
+        "row_norm_std": 0.67546498,
+        "first_row_head": [
+          -0.71428347,
+          1.86562181,
+          -0.06125094,
+          0.30583245,
+          0.62701118,
+          -0.46943191,
+          1.31199121,
+          1.45240295
+        ]
+      },
+      "split_counts": {
+        "train": 8960,
+        "test": 2800,
+        "validation": 2239
+      }
+    },
+    {
+      "id": "projection/wp_l14_336",
+      "path": "projection/clip_l14_336_visual_projection.npy",
+      "source_path": "data/embeddings/clip_l14_336_visual_projection.npy",
+      "source_sha256": "56b0a8ba23d0e783723dc738a60dc99a789b8e3457f031fddb8f83c75ef191ed",
+      "sha256": "56b0a8ba23d0e783723dc738a60dc99a789b8e3457f031fddb8f83c75ef191ed",
+      "bytes": 6291584,
+      "kind": "projection_matrix",
+      "space": "n/a",
+      "used_by": [
+        "F3",
+        "F4",
+        "F6"
+      ],
+      "provenance": "openai/clip-vit-large-patch14-336 visual_projection weight (768x1024); image_embeds = visual_projection(pooler_output) exactly",
+      "copied_at": "2026-08-16T19:23:59+00:00",
+      "shape": [
+        768,
+        1024
+      ],
+      "dtype": "float64",
+      "fingerprint": {
+        "row_norm_mean": 0.45804816,
+        "row_norm_std": 0.03190394,
+        "first_row_head": [
+          0.02198792,
+          0.01835632,
+          0.00723267,
+          0.00185108,
+          0.02537537,
+          0.01895142,
+          0.00508499,
+          0.00938416
+        ]
+      }
+    },
+    {
+      "id": "vocab/antonyms",
+      "path": "vocabularies/antonyms.pt",
+      "source_path": "data/embeddings/vocab_canon/antonyms.pt",
+      "source_sha256": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a",
+      "sha256": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a",
+      "bytes": 521328,
+      "kind": "cue_vocabulary",
+      "space": "crossmodal_768_canon",
+      "used_by": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F6",
+        "F7"
+      ],
+      "provenance": "scripts/interpret/embed_vocab.py, CANONICAL re-embed after the 2026-07-17 double-projection fix; the paper's published 168-cue antonym set",
+      "copied_at": "2026-08-16T19:23:59+00:00",
+      "shape": [
+        168,
+        768
+      ],
+      "dtype": "float32",
+      "n_vocab": 168,
+      "fingerprint": {
+        "row_norm_mean": 1.0,
+        "row_norm_std": 5e-08,
+        "first_row_head": [
+          0.03592766,
+          0.03773741,
+          0.02101514,
+          0.05592025,
+          -0.05467945,
+          -0.05901341,
+          -0.01879165,
+          -0.00510563
+        ]
+      }
+    },
+    {
+      "id": "vocab/clipiqa_full",
+      "path": "vocabularies/clipiqa_full.pt",
+      "source_path": "data/embeddings/vocab_canon/clipiqa_full.pt",
+      "source_sha256": "f08fa821b39ca38bd147499790dad104d7819879df4386f2eba6ef06bbc6ccbd",
+      "sha256": "f08fa821b39ca38bd147499790dad104d7819879df4386f2eba6ef06bbc6ccbd",
+      "bytes": 51084,
+      "kind": "cue_vocabulary",
+      "space": "crossmodal_768_canon",
+      "used_by": [
+        "Fig9a"
+      ],
+      "provenance": "the 16 CLIP-IQA attribute directions (Wang et al. 2022) behind appendix Figure 10; canonical text space, re-embedded after the 2026-07-17 double-projection fix",
+      "copied_at": "2026-08-16T19:23:59+00:00",
+      "shape": [
+        16,
+        768
+      ],
+      "dtype": "float32",
+      "n_vocab": 16,
+      "fingerprint": {
+        "row_norm_mean": 1.00000001,
+        "row_norm_std": 4e-08,
+        "first_row_head": [
+          0.06936882,
+          0.03945372,
+          0.0244705,
+          0.05015487,
+          0.0141516,
+          -0.00042983,
+          -0.03299912,
+          -0.01239033
+        ]
+      }
+    },
+    {
+      "id": "vocab/clipiqa_full_poles",
+      "path": "vocabularies/clipiqa_full_poles.pt",
+      "source_path": "data/embeddings/vocab_canon/clipiqa_full_poles.pt",
+      "source_sha256": "d23203317553640558c2eb150cb4751494a57490ddc29487966b39ebcbd0592a",
+      "sha256": "d23203317553640558c2eb150cb4751494a57490ddc29487966b39ebcbd0592a",
+      "bytes": 100790,
+      "kind": "cue_vocabulary",
+      "space": "crossmodal_768_canon",
+      "used_by": [
+        "Fig9a"
+      ],
+      "provenance": "the 32 positive/negative pole embeddings of the same 16 CLIP-IQA attributes; figures/clipiqa.py reads both this and vocab/clipiqa_full",
+      "copied_at": "2026-08-16T19:23:59+00:00",
+      "shape": [
+        32,
+        768
+      ],
+      "dtype": "float32",
+      "n_vocab": 32,
+      "fingerprint": {
+        "row_norm_mean": 0.99999999,
+        "row_norm_std": 6e-08,
+        "first_row_head": [
+          0.02633102,
+          0.01475954,
+          0.03156355,
+          0.00393555,
+          0.01180323,
+          0.0081337,
+          0.01883793,
+          -0.01147395
+        ]
+      }
+    },
+    {
+      "id": "vocab_terms/antonyms",
+      "path": "vocabularies/antonyms.csv",
+      "source_path": "data/vocabularies/antonyms.csv",
+      "source_sha256": "62c10a56b9d4f46623cd84564bb380138d9e1a59e6ba3448b928ddedb20be9de",
+      "sha256": "62c10a56b9d4f46623cd84564bb380138d9e1a59e6ba3448b928ddedb20be9de",
+      "bytes": 29629,
+      "kind": "vocabulary_terms",
+      "space": "n/a",
+      "used_by": [
+        "F1",
+        "F2",
+        "F3",
+        "F4",
+        "F6",
+        "F7"
+      ],
+      "provenance": "term list + poles for vocab/antonyms (row order matches the .pt)",
+      "copied_at": "2026-08-16T19:23:59+00:00",
+      "n_rows": 168,
+      "columns": [
+        "attribute_name",
+        "positive",
+        "negative",
+        "positive_prompt",
+        "negative_prompt",
+        "category",
+        "explanation"
+      ]
+    },
+    {
+      "id": "ckpt/linear_probe_synthclic",
+      "path": "checkpoints/linear_probe_synthclic.ckpt",
+      "source_path": "data/checkpoints/linear_probe_synthclic.ckpt",
+      "source_sha256": "c7a310eb0b14290d6ede87c85505ecc0b8522f9618ec7b21e1a428334c4d749f",
+      "sha256": "c7a310eb0b14290d6ede87c85505ecc0b8522f9618ec7b21e1a428334c4d749f",
+      "bytes": 5810,
+      "kind": "checkpoint",
+      "space": "n/a",
+      "used_by": [
+        "F7"
+      ],
+      "provenance": "PUBLISHED k=1 probe, trained end-to-end WITH augmentation (RandomResizedCrop 0.5-1.0 -> 512 + HFlip + JPEG 65-100); F7 bridge target only",
+      "copied_at": "2026-08-16T19:23:59+00:00",
+      "state_dict_keys": [
+        "model.classification_head.fc.bias",
+        "model.classification_head.fc.weight"
+      ]
+    },
+    {
+      "id": "ckpt/linear_probe_cnnspot",
+      "path": "checkpoints/linear_probe_cnnspot.ckpt",
+      "source_path": "data/checkpoints/linear_probe_cnnspot.ckpt",
+      "source_sha256": "b8201afaaceda70bf0dbfc3ffc2107dddbda49047c73557ae316cd5796c194ee",
+      "sha256": "b8201afaaceda70bf0dbfc3ffc2107dddbda49047c73557ae316cd5796c194ee",
+      "bytes": 5734,
+      "kind": "checkpoint",
+      "space": "n/a",
+      "used_by": [
+        "F7"
+      ],
+      "provenance": "PUBLISHED CNNSpot k=1 probe (augmented); F7 bridge target only",
+      "copied_at": "2026-08-16T19:23:59+00:00",
+      "state_dict_keys": [
+        "model.classification_head.fc.bias",
+        "model.classification_head.fc.weight"
+      ]
+    },
+    {
+      "id": "ckpt/clip_orthogonal_synthclic",
+      "path": "checkpoints/clip_orthogonal_synthclic.ckpt",
+      "source_path": "data/checkpoints/clip_orthogonal_synthclic.ckpt",
+      "source_sha256": "0ddba778343c20186c6d3ab06198a956da3572058806cfbbf287a275f97ca5e4",
+      "sha256": "0ddba778343c20186c6d3ab06198a956da3572058806cfbbf287a275f97ca5e4",
+      "bytes": 35104,
+      "kind": "checkpoint",
+      "space": "n/a",
+      "used_by": [
+        "F7"
+      ],
+      "provenance": "PUBLISHED k=8 ActivationOrthogonalityHead (augmented); F7 bridge target only",
+      "copied_at": "2026-08-16T19:23:59+00:00",
+      "state_dict_keys": [
+        "model.classification_head.layers.0.bias",
+        "model.classification_head.layers.0.weight",
+        "model.classification_head.to_logits.bias",
+        "model.classification_head.to_logits.weight"
+      ]
+    },
+    {
+      "id": "reference/e3_seed123",
+      "path": "reference/e3_xdataset_synthclic_seed123_metrics.json",
+      "source_path": "results/e3_xdataset/clip_large_patch14__synthclic__to__synthclic/202606242002/metrics.json",
+      "source_sha256": "29507d6f2a83f8135197d7ae3af2ba18da5e68394a2ef63ac5ee13db51486dc5",
+      "sha256": "29507d6f2a83f8135197d7ae3af2ba18da5e68394a2ef63ac5ee13db51486dc5",
+      "bytes": 302,
+      "kind": "reference_metrics",
+      "space": "n/a",
+      "used_by": [
+        "F1"
+      ],
+      "provenance": "scripts/run/run_linear_probe.py seed 123 under the matched recipe \u2014 F1's regression anchor (mAP 0.9239, AUROC 0.9227); the number in the manuscript's Table A",
+      "copied_at": "2026-08-16T19:23:59+00:00",
+      "content": {
+        "backbone": "clip_large_patch14",
+        "train_dataset": "synthclic",
+        "eval_dataset": "synthclic",
+        "input_dim": 1024,
+        "val/auroc": 0.9889705882352942,
+        "mAP": 0.9238769662881319,
+        "pooled_ap": 0.9780796453961101,
+        "auroc": 0.9226761070835879,
+        "real_pairing": "shared",
+        "n_generators": 4
+      }
+    },
+    {
+      "id": "reference/projected_cached_synthclic",
+      "path": "reference/projected_cached_synthclic.pkl",
+      "source_path": "data/embeddings/synthclic_projected_embeddings.pkl",
+      "source_sha256": "e2f27a68fe38174fe430e4c2de0a08edeb7d1bcff3029ba2bb2712957c2f3766",
+      "sha256": "e2f27a68fe38174fe430e4c2de0a08edeb7d1bcff3029ba2bb2712957c2f3766",
+      "bytes": 33881514,
+      "kind": "projected_embeddings_reference",
+      "space": "crossmodal_768_canon",
+      "used_by": [
+        "F3-crosscheck"
+      ],
+      "provenance": "SEPARATELY EXTRACTED projected embeddings (CLIPVisionModelWithProjection). CROSS-CHECK ONLY \u2014 never fitted on; F3/F4/F6 use the derived features (both-sides-derived rule)",
+      "copied_at": "2026-08-16T19:24:00+00:00",
+      "shape": [
+        10815,
+        768
+      ],
+      "dtype": "float32",
+      "n_rows": 10815,
+      "columns": [
+        "image_id",
+        "label",
+        "ds_name",
+        "split",
+        "source"
+      ],
+      "fingerprint": {
+        "row_norm_mean": 18.74020073,
+        "row_norm_std": 1.24249693,
+        "first_row_head": [
+          0.40798637,
+          -0.38283908,
+          -0.20769624,
+          -1.1019603,
+          0.35362762,
+          0.03683656,
+          -0.10791859,
+          0.00036947
+        ]
+      },
+      "split_counts": {
+        "train": 8165,
+        "test": 2140,
+        "validation": 510
+      }
+    },
+    {
+      "id": "reference/projected_cached_cnnspot",
+      "path": "reference/projected_cached_cnnspot.pkl",
+      "source_path": "data/embeddings/cnnspot_projected_embeddings.pkl",
+      "source_sha256": "500eb7e8e631e779b3d4066d52cff935a3434e36afdd8bb0dd20319e0ae24238",
+      "sha256": "500eb7e8e631e779b3d4066d52cff935a3434e36afdd8bb0dd20319e0ae24238",
+      "bytes": 12622350,
+      "kind": "projected_embeddings_reference",
+      "space": "crossmodal_768_canon",
+      "used_by": [
+        "F3-crosscheck"
+      ],
+      "provenance": "SEPARATELY EXTRACTED projected embeddings; CROSS-CHECK ONLY",
+      "copied_at": "2026-08-16T19:24:00+00:00",
+      "shape": [
+        4000,
+        768
+      ],
+      "dtype": "float32",
+      "n_rows": 4000,
+      "columns": [
+        "image_id",
+        "label",
+        "ds_name",
+        "split",
+        "source"
+      ],
+      "fingerprint": {
+        "row_norm_mean": 18.38846196,
+        "row_norm_std": 0.87715908,
+        "first_row_head": [
+          0.30315357,
+          0.69943082,
+          0.4993903,
+          -0.22949994,
+          0.36762431,
+          -0.19065493,
+          -0.04126965,
+          0.63393617
+        ]
+      },
+      "split_counts": {
+        "train": 2000,
+        "validation": 2000
+      }
+    },
+    {
+      "id": "projected/synthclic",
+      "path": "embeddings/projected_derived/synthclic.pkl",
+      "source_path": null,
+      "source_sha256": null,
+      "sha256": "b40f00c48fc901b641a67252e9cfeca6ae0a7601f6de31169ca163fcc6f51524",
+      "bytes": 33881896,
+      "kind": "projected_embeddings",
+      "space": "crossmodal_768_canon",
+      "used_by": [
+        "F3",
+        "F4",
+        "F6"
+      ],
+      "provenance": "scripts/finalexp/prepare_features.py \u2014 derived as e = Wp h from the cached pooler frame (both-sides-derived rule, EXTERNAL_VALIDATION_PROTOCOL.md). NOT a separate extraction: D_h and D_e therefore see the same image representation and differ only by the projection.",
+      "derived_from": {
+        "pooler/synthclic": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee",
+        "projection/wp_l14_336": "56b0a8ba23d0e783723dc738a60dc99a789b8e3457f031fddb8f83c75ef191ed"
+      },
+      "copied_at": "2026-08-16T19:24:18+00:00",
+      "shape": [
+        10815,
+        768
+      ],
+      "dtype": "float32",
+      "n_rows": 10815,
+      "columns": [
+        "image_id",
+        "label",
+        "ds_name",
+        "split",
+        "source"
+      ],
+      "fingerprint": {
+        "row_norm_mean": 18.78019225,
+        "row_norm_std": 1.25482515,
+        "first_row_head": [
+          0.34403431,
+          -0.22883202,
+          -0.17501716,
+          -1.05907702,
+          0.35872215,
+          0.10721467,
+          -0.1575021,
+          0.04507298
+        ]
+      },
+      "split_counts": {
+        "train": 8165,
+        "test": 2140,
+        "validation": 510
+      }
+    },
+    {
+      "id": "projected/cnnspot",
+      "path": "embeddings/projected_derived/cnnspot.pkl",
+      "source_path": null,
+      "source_sha256": null,
+      "sha256": "2cf119317d81eb528220f320fe113058c7a9736a561696fcc1a82ce7e5013842",
+      "bytes": 25071314,
+      "kind": "projected_embeddings",
+      "space": "crossmodal_768_canon",
+      "used_by": [
+        "F3",
+        "F4",
+        "F6"
+      ],
+      "provenance": "scripts/finalexp/prepare_features.py \u2014 derived as e = Wp h from the cached pooler frame (both-sides-derived rule, EXTERNAL_VALIDATION_PROTOCOL.md). NOT a separate extraction: D_h and D_e therefore see the same image representation and differ only by the projection.",
+      "derived_from": {
+        "pooler/cnnspot": "c542d7976a3f7c1de4f6c234aa987366d3fee6a2c76b90a583ba2540c3f12ec2",
+        "projection/wp_l14_336": "56b0a8ba23d0e783723dc738a60dc99a789b8e3457f031fddb8f83c75ef191ed"
+      },
+      "copied_at": "2026-08-16T19:24:43+00:00",
+      "shape": [
+        8000,
+        768
+      ],
+      "dtype": "float32",
+      "n_rows": 8000,
+      "columns": [
+        "image_id",
+        "label",
+        "ds_name",
+        "split",
+        "source"
+      ],
+      "fingerprint": {
+        "row_norm_mean": 18.40326044,
+        "row_norm_std": 0.94251176,
+        "first_row_head": [
+          0.23300619,
+          0.70439029,
+          0.46300834,
+          -0.18855102,
+          0.36847124,
+          -0.18984525,
+          -0.01197824,
+          0.63449496
+        ]
+      },
+      "split_counts": {
+        "test": 4000,
+        "train": 2000,
+        "validation": 2000
+      }
+    },
+    {
+      "id": "projected/synthbuster-plus",
+      "path": "embeddings/projected_derived/synthbuster-plus.pkl",
+      "source_path": null,
+      "source_sha256": null,
+      "sha256": "2708e81a7c0e48c983d53abee1843af479e0639e1a4f159b5f04b64b0e3277f3",
+      "bytes": 43840784,
+      "kind": "projected_embeddings",
+      "space": "crossmodal_768_canon",
+      "used_by": [
+        "F3",
+        "F4",
+        "F6"
+      ],
+      "provenance": "scripts/finalexp/prepare_features.py \u2014 derived as e = Wp h from the cached pooler frame (both-sides-derived rule, EXTERNAL_VALIDATION_PROTOCOL.md). NOT a separate extraction: D_h and D_e therefore see the same image representation and differ only by the projection.",
+      "derived_from": {
+        "pooler/synthbuster-plus": "ba6472329703271c00b1bd8bdb213af4fc864da2f8dbbc410e78c2ed5d4f1e95",
+        "projection/wp_l14_336": "56b0a8ba23d0e783723dc738a60dc99a789b8e3457f031fddb8f83c75ef191ed"
+      },
+      "copied_at": "2026-08-16T19:24:45+00:00",
+      "shape": [
+        13999,
+        768
+      ],
+      "dtype": "float32",
+      "n_rows": 13999,
+      "columns": [
+        "image_id",
+        "label",
+        "ds_name",
+        "split",
+        "source"
+      ],
+      "fingerprint": {
+        "row_norm_mean": 18.65587353,
+        "row_norm_std": 0.97071021,
+        "first_row_head": [
+          -0.10028287,
+          1.35458612,
+          -0.67914605,
+          0.60832924,
+          0.01210447,
+          -0.96480167,
+          -0.3140541,
+          0.36231321
+        ]
+      },
+      "split_counts": {
+        "train": 8960,
+        "test": 2800,
+        "validation": 2239
+      }
+    },
+    {
+      "id": "cue_scores/synthclic__antonyms",
+      "path": "embeddings/cue_scores/synthclic__antonyms.npz",
+      "source_path": null,
+      "source_sha256": null,
+      "sha256": "dd9f94957ae2c5a9ddbd6ba2feef60e65c4b63aec6e9bfac2e964f15bc28105d",
+      "bytes": 6725149,
+      "kind": "cue_scores",
+      "space": "n/a",
+      "used_by": [
+        "F4",
+        "F1",
+        "F2",
+        "F3",
+        "F6",
+        "F7"
+      ],
+      "provenance": "scripts/finalexp/prepare_features.py \u2014 c_j = <e/||e||, v_j> on the derived projected frame against the CANONICAL cue basis (never the retracted W-squared vocabularies).",
+      "derived_from": {
+        "projected/synthclic": "b40f00c48fc901b641a67252e9cfeca6ae0a7601f6de31169ca163fcc6f51524",
+        "vocab/antonyms": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a"
+      },
+      "copied_at": "2026-08-16T19:24:47+00:00",
+      "shape": [
+        10815,
+        168
+      ],
+      "dtype": "float32",
+      "n_rows": 10815,
+      "fingerprint": {
+        "row_norm_mean": 0.54927697,
+        "row_norm_std": 0.07086463,
+        "first_row_head": [
+          0.00772343,
+          0.02074992,
+          0.01793738,
+          -0.00678514,
+          -0.05372557,
+          0.00917619,
+          -0.00280817,
+          0.00742227
+        ]
+      }
+    },
+    {
+      "id": "cue_scores/cnnspot__antonyms",
+      "path": "embeddings/cue_scores/cnnspot__antonyms.npz",
+      "source_path": null,
+      "source_sha256": null,
+      "sha256": "bec2249c8c30948d92fbc77ac955d2ce1ccee31351bb8148ca2d505cada585b2",
+      "bytes": 4984591,
+      "kind": "cue_scores",
+      "space": "n/a",
+      "used_by": [
+        "F4",
+        "F1",
+        "F2",
+        "F3",
+        "F6",
+        "F7"
+      ],
+      "provenance": "scripts/finalexp/prepare_features.py \u2014 c_j = <e/||e||, v_j> on the derived projected frame against the CANONICAL cue basis (never the retracted W-squared vocabularies).",
+      "derived_from": {
+        "projected/cnnspot": "2cf119317d81eb528220f320fe113058c7a9736a561696fcc1a82ce7e5013842",
+        "vocab/antonyms": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a"
+      },
+      "copied_at": "2026-08-16T19:24:48+00:00",
+      "shape": [
+        8000,
+        168
+      ],
+      "dtype": "float32",
+      "n_rows": 8000,
+      "fingerprint": {
+        "row_norm_mean": 0.56326988,
+        "row_norm_std": 0.06326287,
+        "first_row_head": [
+          -0.00519003,
+          -0.06499554,
+          0.05822596,
+          0.01900142,
+          0.00340485,
+          -0.01195849,
+          -0.02894229,
+          -0.01072484
+        ]
+      }
+    },
+    {
+      "id": "cue_scores/synthbuster-plus__antonyms",
+      "path": "embeddings/cue_scores/synthbuster-plus__antonyms.npz",
+      "source_path": null,
+      "source_sha256": null,
+      "sha256": "d0bca50475192b441976a098316c8b1685ff6d6d14cb539d895141509e1f1c18",
+      "bytes": 8714775,
+      "kind": "cue_scores",
+      "space": "n/a",
+      "used_by": [
+        "F4",
+        "F1",
+        "F2",
+        "F3",
+        "F6",
+        "F7"
+      ],
+      "provenance": "scripts/finalexp/prepare_features.py \u2014 c_j = <e/||e||, v_j> on the derived projected frame against the CANONICAL cue basis (never the retracted W-squared vocabularies).",
+      "derived_from": {
+        "projected/synthbuster-plus": "2708e81a7c0e48c983d53abee1843af479e0639e1a4f159b5f04b64b0e3277f3",
+        "vocab/antonyms": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a"
+      },
+      "copied_at": "2026-08-16T19:24:50+00:00",
+      "shape": [
+        13999,
+        168
+      ],
+      "dtype": "float32",
+      "n_rows": 13999,
+      "fingerprint": {
+        "row_norm_mean": 0.52462883,
+        "row_norm_std": 0.05394885,
+        "first_row_head": [
+          0.03577801,
+          -0.01006792,
+          0.02738404,
+          0.06390947,
+          -0.03907957,
+          -0.03333852,
+          -0.04359491,
+          0.031204
+        ]
+      }
+    },
+    {
+      "id": "ranking/f5_synthclic",
+      "path": "rankings/f5_synthclic.csv",
+      "source_path": null,
+      "source_sha256": null,
+      "sha256": "76b724d2a7e2c35c98e8630f7be0f7d930776883a95e8bda0a4b3aadb37ed33a",
+      "bytes": 147426,
+      "kind": "ranking",
+      "space": "n/a",
+      "used_by": [
+        "F5"
+      ],
+      "provenance": "scripts/finalexp/export_f5_rankings.py \u2014 test images ranked by the MATCHED canonical probe (F1 synthclic seed 123) logit z = w.h + b. Stands in for the montage's image pixels, which are not snapshottable; the figure is reproducible from this ranking plus the HF dataset id + revision.",
+      "derived_from": {
+        "pooler/synthclic": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee"
+      },
+      "copied_at": "2026-08-16T20:39:23+00:00",
+      "n_rows": 2140,
+      "columns": [
+        "rank",
+        "image_id",
+        "source",
+        "label",
+        "logit"
+      ]
+    },
+    {
+      "id": "ranking/f5_cnnspot",
+      "path": "rankings/f5_cnnspot.csv",
+      "source_path": null,
+      "source_sha256": null,
+      "sha256": "869e1293d9127db08b8cd8606f4b9438e24119dbf3ed9b59d6be255568aec48f",
+      "bytes": 258803,
+      "kind": "ranking",
+      "space": "n/a",
+      "used_by": [
+        "F5"
+      ],
+      "provenance": "scripts/finalexp/export_f5_rankings.py \u2014 test images ranked by the MATCHED canonical probe (F1 cnnspot seed 123) logit z = w.h + b. Stands in for the montage's image pixels, which are not snapshottable; the figure is reproducible from this ranking plus the HF dataset id + revision.",
+      "derived_from": {
+        "pooler/cnnspot": "c542d7976a3f7c1de4f6c234aa987366d3fee6a2c76b90a583ba2540c3f12ec2"
+      },
+      "copied_at": "2026-08-16T20:39:35+00:00",
+      "n_rows": 4000,
+      "columns": [
+        "rank",
+        "image_id",
+        "source",
+        "label",
+        "logit"
+      ]
+    }
+  ]
+}

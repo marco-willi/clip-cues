@@ -1,0 +1,182 @@
+{
+  "experiment": "F7-bridge",
+  "script": "scripts/finalexp/run_f7_bridge.py",
+  "argv": [
+    "scripts/finalexp/run_f7_bridge.py"
+  ],
+  "git": {
+    "commit": "ad9eea9a0f287ab8869e7f16aeef4a6878d1059d",
+    "dirty": true
+  },
+  "snapshot_manifest_version": "1.0.0",
+  "inputs": {
+    "pooler/synthclic": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee",
+    "projected/synthclic": "b40f00c48fc901b641a67252e9cfeca6ae0a7601f6de31169ca163fcc6f51524",
+    "cue_scores/synthclic__antonyms": "dd9f94957ae2c5a9ddbd6ba2feef60e65c4b63aec6e9bfac2e964f15bc28105d",
+    "ckpt/linear_probe_synthclic": "c7a310eb0b14290d6ede87c85505ecc0b8522f9618ec7b21e1a428334c4d749f",
+    "ckpt/clip_orthogonal_synthclic": "0ddba778343c20186c6d3ab06198a956da3572058806cfbbf287a275f97ca5e4",
+    "vocab/antonyms": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a"
+  },
+  "package_versions": {
+    "python": "3.12.12",
+    "numpy": "2.5.2",
+    "torch": "2.13.0+cpu",
+    "sklearn": "1.9.0"
+  },
+  "host": "23be09093657",
+  "started_at": "2026-08-16T20:40:01+00:00",
+  "duration_s": 0.059,
+  "summary": {
+    "experiment": "F7-bridge",
+    "spec_id": "addition",
+    "dataset": "synthclic",
+    "matched_seed": 123,
+    "decision_rule": {
+      "sigma_cosine": 0.9,
+      "cue_profile_spearman": 0.9,
+      "decision_agreement": 0.95
+    },
+    "pairs": [
+      {
+        "pair": "matched_De ~ proxy_P768t",
+        "target_a": "matched_De",
+        "target_b": "proxy_P768t",
+        "same_space": true,
+        "sigma_cosine": 0.974001,
+        "raw_cosine": 0.946053,
+        "logit_pearson": 0.974001,
+        "logit_spearman": 0.972348,
+        "decision_agreement": 0.972897,
+        "error_jaccard": 0.836158,
+        "cue_profile_spearman": 0.982137,
+        "auroc_a": 0.896639,
+        "auroc_b": 0.877136,
+        "passes_rule": true
+      },
+      {
+        "pair": "matched_Dh ~ proxy_P1024t",
+        "target_a": "matched_Dh",
+        "target_b": "proxy_P1024t",
+        "same_space": true,
+        "sigma_cosine": 0.965396,
+        "raw_cosine": 0.928867,
+        "logit_pearson": 0.965396,
+        "logit_spearman": 0.961903,
+        "decision_agreement": 0.972897,
+        "error_jaccard": 0.821538,
+        "cue_profile_spearman": 0.980965,
+        "auroc_a": 0.920924,
+        "auroc_b": 0.906343,
+        "passes_rule": true
+      },
+      {
+        "pair": "matched_Dh ~ deployed_k1",
+        "target_a": "matched_Dh",
+        "target_b": "deployed_k1",
+        "same_space": true,
+        "sigma_cosine": 0.945627,
+        "raw_cosine": 0.851443,
+        "logit_pearson": 0.945627,
+        "logit_spearman": 0.934049,
+        "decision_agreement": 0.958879,
+        "error_jaccard": 0.729231,
+        "cue_profile_spearman": 0.978971,
+        "auroc_a": 0.920924,
+        "auroc_b": 0.927854,
+        "passes_rule": true
+      },
+      {
+        "pair": "matched_Dh ~ deployed_k8",
+        "target_a": "matched_Dh",
+        "target_b": "deployed_k8",
+        "same_space": true,
+        "sigma_cosine": 0.935393,
+        "raw_cosine": 0.82606,
+        "logit_pearson": 0.935393,
+        "logit_spearman": 0.919991,
+        "decision_agreement": 0.949065,
+        "error_jaccard": 0.661491,
+        "cue_profile_spearman": 0.978435,
+        "auroc_a": 0.920924,
+        "auroc_b": 0.92515,
+        "passes_rule": false
+      },
+      {
+        "pair": "matched_Dh ~ matched_De",
+        "target_a": "matched_Dh",
+        "target_b": "matched_De",
+        "same_space": false,
+        "sigma_cosine": NaN,
+        "raw_cosine": NaN,
+        "logit_pearson": 0.943251,
+        "logit_spearman": 0.930342,
+        "decision_agreement": 0.963084,
+        "error_jaccard": 0.771014,
+        "cue_profile_spearman": 0.988816,
+        "auroc_a": 0.920924,
+        "auroc_b": 0.896639,
+        "passes_rule": true
+      },
+      {
+        "pair": "deployed_k1 ~ deployed_k8",
+        "target_a": "deployed_k1",
+        "target_b": "deployed_k8",
+        "same_space": true,
+        "sigma_cosine": 0.983917,
+        "raw_cosine": 0.967884,
+        "logit_pearson": 0.983917,
+        "logit_spearman": 0.978987,
+        "decision_agreement": 0.976168,
+        "error_jaccard": 0.815217,
+        "cue_profile_spearman": 0.994698,
+        "auroc_a": 0.927854,
+        "auroc_b": 0.92515,
+        "passes_rule": true
+      }
+    ],
+    "auroc_by_target": {
+      "matched_Dh": 0.920924,
+      "matched_De": 0.896639,
+      "deployed_k1": 0.927854,
+      "deployed_k8": 0.92515,
+      "proxy_P1024t": 0.906343,
+      "proxy_P768t": 0.877136
+    },
+    "augmentation_effect": {
+      "auroc_deployed_k1_minus_matched_Dh": 0.00693,
+      "interpretation": "E12 attributed the deployed-vs-proxy AUROC gap (~0.02-0.04) to the deployed models' augmented training protocol. This is the direct measurement of that augmentation effect under otherwise identical features and evaluation."
+    },
+    "verdict": {
+      "all_primary_pairs_pass": true,
+      "deployed_bridge_passes": true
+    },
+    "proxy_definitions": {
+      "P1024t": "standardized logistic, C=0.03, pooler",
+      "P768t": "standardized logistic, C=0.01, derived projected"
+    },
+    "spaces": {
+      "pooler": {
+        "space": "pooler",
+        "dataset": "synthclic",
+        "dim": 1024,
+        "scale_factor": 1.0,
+        "target_row_norm": 32.9529,
+        "inputs": [
+          "pooler/synthclic",
+          "pooler/synthclic"
+        ]
+      },
+      "projected": {
+        "space": "projected",
+        "dataset": "synthclic",
+        "dim": 768,
+        "scale_factor": 1.75048,
+        "target_row_norm": 32.9529,
+        "inputs": [
+          "projected/synthclic",
+          "pooler/synthclic"
+        ]
+      }
+    }
+  }
+}

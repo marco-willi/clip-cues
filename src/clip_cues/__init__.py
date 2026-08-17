@@ -1,6 +1,6 @@
 """CLIP-Cues: Synthetic Image Detection with CLIP."""
 
-__version__ = "1.0.0"
+__version__ = "2.0.0"
 
 from .classification_head import (
     HEAD_CLASSES,

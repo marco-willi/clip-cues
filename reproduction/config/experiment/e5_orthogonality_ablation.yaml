@@ -1,0 +1,24 @@
+# E5 (Reviewer 3): activation- vs weight-orthogonality empirical check.
+# Trains the orthogonal head under three penalty variants on cached SynthCLIC embeddings.
+
+id: e5_orthogonality_ablation
+group: orthogonality
+
+# Penalty applied to the L1 (1024 -> 8) layer.
+ortho_variant: activation # activation | weight | none
+
+data:
+  dataset: synthclic
+  train_split: train
+  val_split: validation
+  test_split: test
+
+model:
+  layer_dims: [8]
+  logits_dim: 1
+  loss_weight_ortho: 0.33 # weight on the orthogonality penalty
+  max_epochs: 200
+  batch_size: 64
+
+# Report mAP and an orthogonality score (off-diagonal Gram mass) per variant.
+metrics: [mAP, orthogonality_score]

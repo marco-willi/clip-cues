@@ -1,0 +1,13 @@
+test_corpus,train_set,column_mean_ap,authoritative_mAP,delta,agrees_2dp,known_frame_mismatch,manuscript_column_mean,n_generators
+cnnspot,cnnspot,0.964,0.964,-0.0,True,False,0.9643,21
+cnnspot,synthbuster-plus,0.6692,0.6692,-0.0,True,False,0.6752,21
+cnnspot,synthclic,0.4222,0.4222,-0.0,True,False,0.3757,21
+cnnspot,combined,0.8799,0.8982,-0.0183,False,True,0.841,21
+synthbuster-plus,cnnspot,0.4962,0.4962,0.0,True,False,0.6623,13
+synthbuster-plus,synthbuster-plus,0.9952,0.9952,0.0,True,False,0.9942,13
+synthbuster-plus,synthclic,0.794,0.794,0.0,True,False,0.785,13
+synthbuster-plus,combined,0.9761,0.9761,0.0,True,False,0.9608,13
+synthclic,cnnspot,0.5214,0.5214,-0.0,True,False,0.5575,4
+synthclic,synthbuster-plus,0.6112,0.6112,0.0,True,False,0.635,4
+synthclic,synthclic,0.9239,0.9239,-0.0,True,False,0.9225,4
+synthclic,combined,0.867,0.867,-0.0,True,False,0.87,4

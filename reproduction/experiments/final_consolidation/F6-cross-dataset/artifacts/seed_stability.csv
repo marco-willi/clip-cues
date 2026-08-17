@@ -1,0 +1,10 @@
+dataset,seed_a,seed_b,sigma_cosine,raw_cosine
+synthclic,123,124,0.997094,0.981557
+synthclic,123,125,0.997356,0.994129
+synthclic,124,125,0.997148,0.980206
+cnnspot,123,124,0.999586,0.929502
+cnnspot,123,125,0.999511,0.939045
+cnnspot,124,125,0.999291,0.913664
+synthbuster-plus,123,124,0.989174,0.983713
+synthbuster-plus,123,125,0.989232,0.988887
+synthbuster-plus,124,125,0.989901,0.984251

@@ -1,0 +1,248 @@
+{
+  "experiment": "F6-cross-dataset",
+  "spec_id": "E6",
+  "datasets": [
+    "synthclic",
+    "cnnspot",
+    "synthbuster-plus"
+  ],
+  "seeds": [
+    123,
+    124,
+    125
+  ],
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "note": "Normals come from the MATCHED LinearHead(768), not CV-tuned sklearn probes; only the probe-fitting step of E11b changed. No raw_normal/back-transformation is involved, which is the appendix simplification the spec asks for.",
+  "split_discipline": "SynthBuster+ train/val only; test reads refused in code.",
+  "boundary_cosines": [
+    {
+      "dataset_a": "synthclic",
+      "dataset_b": "cnnspot",
+      "raw_cosine": -0.061149,
+      "sigma_cosine_on_a": -0.20677483423903506
+    },
+    {
+      "dataset_a": "synthclic",
+      "dataset_b": "synthbuster-plus",
+      "raw_cosine": 0.13928,
+      "sigma_cosine_on_a": 0.3111284146666771
+    },
+    {
+      "dataset_a": "cnnspot",
+      "dataset_b": "synthbuster-plus",
+      "raw_cosine": -0.044437,
+      "sigma_cosine_on_a": 0.35277584049755506
+    }
+  ],
+  "reference_N21_cosines": {
+    "synthclic~cnnspot": -0.102,
+    "synthclic~synthbuster-plus": 0.161,
+    "cnnspot~synthbuster-plus": 0.082
+  },
+  "seed_stability_sigma_cosine": {
+    "synthclic": {
+      "mean": 0.997199,
+      "min": 0.997094,
+      "max": 0.997356,
+      "n_pairs": 3
+    },
+    "cnnspot": {
+      "mean": 0.999463,
+      "min": 0.999291,
+      "max": 0.999586,
+      "n_pairs": 3
+    },
+    "synthbuster-plus": {
+      "mean": 0.989436,
+      "min": 0.989174,
+      "max": 0.989901,
+      "n_pairs": 3
+    }
+  },
+  "separability_caveat": {
+    "synthclic": {
+      "val_auroc_mean": 0.985278,
+      "val_mAP_mean": 0.986013
+    },
+    "cnnspot": {
+      "val_auroc_mean": 1.0,
+      "val_mAP_mean": 1.0
+    },
+    "synthbuster-plus": {
+      "val_auroc_mean": 0.995766,
+      "val_mAP_mean": 0.996509
+    }
+  },
+  "delta_decomposition": {
+    "target": "Delta = w_hat(cnnspot) - w_hat(synthclic)",
+    "vocabulary": "antonyms",
+    "knee_nnz": 148,
+    "knee_alpha": 0.00288981,
+    "val_score_r2": 0.762419,
+    "cos_coverage": 0.488338,
+    "top_axes": [
+      {
+        "cue": "posterization",
+        "alpha_coef": -0.39307,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "color_bleeding",
+        "alpha_coef": 0.359925,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "pinhole_camera_cues",
+        "alpha_coef": -0.316938,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "upscaler_artifacts",
+        "alpha_coef": 0.289957,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "chromatic_aberration",
+        "alpha_coef": -0.251946,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "compression_artifacts",
+        "alpha_coef": 0.244836,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "retouching",
+        "alpha_coef": 0.232405,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "film_grain",
+        "alpha_coef": -0.228669,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "proportion_realism",
+        "alpha_coef": -0.222284,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "depth_layering",
+        "alpha_coef": -0.218614,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "color_harmony",
+        "alpha_coef": -0.208651,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "vignette_edit",
+        "alpha_coef": 0.200282,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "lens_flare",
+        "alpha_coef": 0.19562,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "infrared_camera_cues",
+        "alpha_coef": -0.180176,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "depth_cues",
+        "alpha_coef": 0.170349,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "instant_camera_cues",
+        "alpha_coef": 0.166801,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "low_light_noise",
+        "alpha_coef": -0.164032,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "tint",
+        "alpha_coef": 0.159773,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "field_curvature",
+        "alpha_coef": -0.155706,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "lighting_quality",
+        "alpha_coef": 0.154345,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "vignetting",
+        "alpha_coef": -0.15404,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "eye_catchlight",
+        "alpha_coef": -0.149901,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "focus_stacking",
+        "alpha_coef": -0.141823,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      },
+      {
+        "cue": "action_camera_cues",
+        "alpha_coef": 0.140833,
+        "boot_freq": 1.0,
+        "side": "cnnspot_synthetic"
+      },
+      {
+        "cue": "framing",
+        "alpha_coef": -0.136893,
+        "boot_freq": 1.0,
+        "side": "synthclic_synthetic"
+      }
+    ],
+    "reference_N21": "CNNSpot side = compression/processing artifacts; SynthCLIC side = aesthetics/provenance; score-R2 0.96 with v2-128"
+  }
+}

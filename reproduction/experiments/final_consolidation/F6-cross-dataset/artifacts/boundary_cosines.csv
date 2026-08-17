@@ -1,0 +1,4 @@
+dataset_a,dataset_b,raw_cosine,sigma_cosine_on_a
+synthclic,cnnspot,-0.061149,-0.20677483423903506
+synthclic,synthbuster-plus,0.13928,0.3111284146666771
+cnnspot,synthbuster-plus,-0.044437,0.35277584049755506

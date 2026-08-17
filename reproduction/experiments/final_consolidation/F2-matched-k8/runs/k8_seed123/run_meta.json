@@ -1,0 +1,55 @@
+{
+  "experiment": "F2-matched-k8",
+  "script": "scripts/finalexp/run_f2_matched_k8.py",
+  "argv": [
+    "scripts/finalexp/run_f2_matched_k8.py"
+  ],
+  "git": {
+    "commit": "ad9eea9a0f287ab8869e7f16aeef4a6878d1059d",
+    "dirty": true
+  },
+  "snapshot_manifest_version": "1.0.0",
+  "inputs": {
+    "pooler/synthclic": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee",
+    "cue_scores/synthclic__antonyms": "dd9f94957ae2c5a9ddbd6ba2feef60e65c4b63aec6e9bfac2e964f15bc28105d",
+    "vocab/antonyms": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a"
+  },
+  "package_versions": {
+    "python": "3.12.12",
+    "numpy": "2.5.2",
+    "torch": "2.13.0+cpu",
+    "sklearn": "1.9.0"
+  },
+  "host": "23be09093657",
+  "started_at": "2026-08-16T20:27:42+00:00",
+  "duration_s": 3.125,
+  "seed": 123,
+  "dataset": "synthclic",
+  "head": "ActivationOrthogonalityHead[k=8]",
+  "k": 8,
+  "lambda_ortho": 0.33,
+  "non_linear": false,
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "metrics": {
+    "mAP": 0.9168680121026408,
+    "pooled_ap": 0.9758687558190122,
+    "auroc": 0.9154402131190497,
+    "n": 2140,
+    "n_generators": 4,
+    "real_pairing": "shared"
+  },
+  "best_val_ce": 0.3950181007385254,
+  "best_epoch": 10,
+  "epochs_run": 16
+}

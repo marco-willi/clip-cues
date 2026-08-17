@@ -1,0 +1,7 @@
+pair,target_a,target_b,same_space,sigma_cosine,raw_cosine,logit_pearson,logit_spearman,decision_agreement,error_jaccard,cue_profile_spearman,auroc_a,auroc_b,passes_rule
+matched_De ~ proxy_P768t,matched_De,proxy_P768t,True,0.974001,0.946053,0.974001,0.972348,0.972897,0.836158,0.982137,0.896639,0.877136,True
+matched_Dh ~ proxy_P1024t,matched_Dh,proxy_P1024t,True,0.965396,0.928867,0.965396,0.961903,0.972897,0.821538,0.980965,0.920924,0.906343,True
+matched_Dh ~ deployed_k1,matched_Dh,deployed_k1,True,0.945627,0.851443,0.945627,0.934049,0.958879,0.729231,0.978971,0.920924,0.927854,True
+matched_Dh ~ deployed_k8,matched_Dh,deployed_k8,True,0.935393,0.82606,0.935393,0.919991,0.949065,0.661491,0.978435,0.920924,0.92515,False
+matched_Dh ~ matched_De,matched_Dh,matched_De,False,,,0.943251,0.930342,0.963084,0.771014,0.988816,0.920924,0.896639,True
+deployed_k1 ~ deployed_k8,deployed_k1,deployed_k8,True,0.983917,0.967884,0.983917,0.978987,0.976168,0.815217,0.994698,0.927854,0.92515,True

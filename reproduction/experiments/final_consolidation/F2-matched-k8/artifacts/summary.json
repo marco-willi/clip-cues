@@ -1,0 +1,115 @@
+{
+  "experiment": "F2-matched-k8",
+  "spec_id": "E2",
+  "dataset": "synthclic",
+  "seeds": [
+    123,
+    124,
+    125,
+    126,
+    127
+  ],
+  "k": 8,
+  "lambda_ortho": 0.33,
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "note": "k=1 runs reused from F1 (identical recipe/features). Individual axes are compared under Hungarian matching on |cosine|, so the result is not an artifact of axis ordering. Sigma-cosine is the primary direction metric for the effective directions; individual axes are compared by raw |cosine| because each axis alone has no calibrated score scale.",
+  "detection": {
+    "k1": {
+      "mAP_mean": 0.9228296553081042,
+      "auroc_mean": 0.9211579613940083,
+      "auroc_min": 0.9182338523015112,
+      "auroc_max": 0.9226897545637174
+    },
+    "k8": {
+      "mAP_mean": 0.9170935077811141,
+      "auroc_mean": 0.9152071141584418,
+      "auroc_min": 0.9094052974058869,
+      "auroc_max": 0.9212390274259761
+    }
+  },
+  "stability_table": {
+    "k1_refits": {
+      "sigma_cosine": {
+        "mean": 0.989125,
+        "min": 0.982781,
+        "max": 0.992979,
+        "n_pairs": 10
+      },
+      "raw_cosine": {
+        "mean": 0.978769,
+        "min": 0.957165,
+        "max": 0.989369,
+        "n_pairs": 10
+      },
+      "cue_profile_spearman": {
+        "mean": 0.991272,
+        "min": 0.984053,
+        "max": 0.996728,
+        "n_pairs": 10
+      },
+      "top50_jaccard": {
+        "mean": 0.695146,
+        "min": 0.587302,
+        "max": 0.818182,
+        "n_pairs": 10
+      }
+    },
+    "k8_effective_direction": {
+      "sigma_cosine": {
+        "mean": 0.963395,
+        "min": 0.953567,
+        "max": 0.969856,
+        "n_pairs": 10
+      },
+      "raw_cosine": {
+        "mean": 0.922092,
+        "min": 0.915823,
+        "max": 0.929093,
+        "n_pairs": 10
+      },
+      "cue_profile_spearman": {
+        "mean": 0.979043,
+        "min": 0.957365,
+        "max": 0.994921,
+        "n_pairs": 10
+      },
+      "top50_jaccard": {
+        "mean": 0.50266,
+        "min": 0.449275,
+        "max": 0.5625,
+        "n_pairs": 10
+      }
+    },
+    "k8_individual_axes": {
+      "matched_abs_cosine": {
+        "mean": 0.289343,
+        "min": 0.250822,
+        "max": 0.31898,
+        "n_pairs": 10
+      },
+      "cue_profile_spearman": {
+        "mean": 0.118828,
+        "min": -0.107632,
+        "max": 0.47637,
+        "n_pairs": 10
+      }
+    }
+  },
+  "k1_vs_k8_same_seed": {
+    "sigma_cosine_mean": 0.9742190000000001,
+    "raw_cosine_mean": 0.9451689999999999,
+    "logit_spearman_mean": 0.9672826000000001,
+    "cue_profile_spearman_mean": 0.9854782
+  }
+}

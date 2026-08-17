@@ -1,0 +1,162 @@
+{
+  "experiment": "TableB-per-generator",
+  "script": "scripts/finalexp/run_appendix_per_generator.py",
+  "argv": [
+    "scripts/finalexp/run_appendix_per_generator.py"
+  ],
+  "git": {
+    "commit": "56110e0af9be5dab117518d1f0bffbaad758000b",
+    "dirty": true
+  },
+  "snapshot_manifest_version": "1.0.0",
+  "inputs": {
+    "ckpt/linear_probe_combined_matched": "2a881c18f4d7b5248254f2c76a82b41add24514f12fda8998ba10899ed42c2d6",
+    "e3pred/cnnspot__to__cnnspot": "d56a37ee3942fda3dd985e93f1c0e2c27c83442d4f1f5f2a5d900dab77aafd87",
+    "e3pred/cnnspot__to__synthbuster-plus": "3caeb41d1bd0213e9ab445fd016e8b961f8bf8a04b9e9050b28001c00854bff8",
+    "e3pred/cnnspot__to__synthclic": "383ae4a60e916b4d694ec8901b76e5e162eaea6353991a976088d10af4ae2896",
+    "e3pred/combined__to__synthbuster-plus": "9ce89ebcfdd52840e5983636f7a1b4129e933e805ef440daabaa3b9aaba68b45",
+    "e3pred/combined__to__synthclic": "42ddd6a98863a32a724823c732159efb214479fa8977e890bd05c5fa9652b4ec",
+    "e3pred/synthbuster-plus__to__cnnspot": "39bf4f86bcf0bb5e15e89a11800d51af54409a68a16a279aef022dcaec6fb713",
+    "e3pred/synthbuster-plus__to__synthbuster-plus": "c1aa4f685c944e4d60863ceb2459b93d9304d10781b7b1fb778a720750c69efd",
+    "e3pred/synthbuster-plus__to__synthclic": "d9fc665ed507198896d73d270582a3dc34df3f85cc94ac708ac868e9b7cdb679",
+    "e3pred/synthclic__to__cnnspot": "007507326c7206b9c34c1bf1d8059d646b4bf4f362713550d2304416e5a8c535",
+    "e3pred/synthclic__to__synthbuster-plus": "4d88786b46be57c851cfea2afe76d37130f8367b07b3ab071c598cbc331c9e3e",
+    "e3pred/synthclic__to__synthclic": "9e3f73b32723abcf5fac8c7f82b11f1b34fc9ade07c272661f8f16dfbd2e9a93",
+    "pooler/cnnspot": "c542d7976a3f7c1de4f6c234aa987366d3fee6a2c76b90a583ba2540c3f12ec2",
+    "pooler/cnnspot_full": "8237cfdea5816d7a57e1c6a7c7b0db1af5bf6e943dc24f16dffdde3240e3a585",
+    "pooler/combined": "5fffcd88d070422f1e28b2b57364cf774370f72042e09d7ccdd20867435646d5",
+    "pooler/synthbuster-plus": "ba6472329703271c00b1bd8bdb213af4fc864da2f8dbbc410e78c2ed5d4f1e95",
+    "pooler/synthclic": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee"
+  },
+  "package_versions": {
+    "python": "3.12.13",
+    "numpy": "2.4.6",
+    "torch": "2.11.0+cu128",
+    "sklearn": "1.9.0"
+  },
+  "host": "438f70f8aab7",
+  "started_at": "2026-08-09T19:35:34+00:00",
+  "duration_s": 71.812,
+  "summary": {
+    "experiment": "TableB-per-generator",
+    "target": "revision/main_revision.tex Table 13, \\label{tab:clip:test_results_detail}",
+    "detector": "D_h \u2014 matched canonical 1024-d probe, F1 recipe, seed 123, NO augmentation",
+    "recipe": {
+      "lr": 0.001,
+      "weight_decay": 0.01,
+      "label_smoothing": 0.1,
+      "batch_size": 64,
+      "epochs": 200,
+      "early_stopping_patience": 5,
+      "optimizer": "Adam (coupled L2)",
+      "loss": "BCEWithLogits + label smoothing",
+      "model_selection": "min val cross-entropy, restore best",
+      "features": "frozen cached, no augmentation, no standardization",
+      "seed": 123
+    },
+    "threshold_rule": "ACC at sigmoid > 0.5 (logit z > 0), applied uniformly to every cell and computed on the same generator group as AP. State this in the caption.",
+    "real_pairing": {
+      "cnnspot": "matched",
+      "synthbuster-plus": "shared",
+      "synthclic": "shared"
+    },
+    "eval_frames": {
+      "cnnspot": "pooler/cnnspot_full",
+      "synthbuster-plus": "pooler/synthbuster-plus",
+      "synthclic": "pooler/synthclic"
+    },
+    "eval_split": "test",
+    "cell_provenance": {
+      "cnnspot->cnnspot": "e3pred/cnnspot__to__cnnspot",
+      "synthbuster-plus->cnnspot": "e3pred/synthbuster-plus__to__cnnspot",
+      "synthclic->cnnspot": "e3pred/synthclic__to__cnnspot",
+      "combined->cnnspot": "scored ckpt/linear_probe_combined_matched on pooler/cnnspot_full",
+      "cnnspot->synthbuster-plus": "e3pred/cnnspot__to__synthbuster-plus",
+      "synthbuster-plus->synthbuster-plus": "e3pred/synthbuster-plus__to__synthbuster-plus",
+      "synthclic->synthbuster-plus": "e3pred/synthclic__to__synthbuster-plus",
+      "combined->synthbuster-plus": "e3pred/combined__to__synthbuster-plus",
+      "cnnspot->synthclic": "e3pred/cnnspot__to__synthclic",
+      "synthbuster-plus->synthclic": "e3pred/synthbuster-plus__to__synthclic",
+      "synthclic->synthclic": "e3pred/synthclic__to__synthclic",
+      "combined->synthclic": "e3pred/combined__to__synthclic"
+    },
+    "combined_head_check": {
+      "reference": "e3pred/combined__to__synthclic",
+      "max_abs_score_delta": 1.1949115963361123e-07
+    },
+    "n_rows": 152,
+    "n_generators_per_corpus": {
+      "cnnspot": 21,
+      "synthbuster-plus": 13,
+      "synthclic": 4
+    },
+    "acceptance": {
+      "cells": 12,
+      "agree_2dp": 11,
+      "known_frame_mismatch": [
+        "combined->cnnspot"
+      ],
+      "unexplained_failures": [],
+      "passed": true
+    },
+    "recipe_equivalence": [
+      {
+        "train_set": "cnnspot",
+        "test_corpus": "cnnspot",
+        "mAP_refit": 0.9638,
+        "mAP_table": 0.964,
+        "delta": -0.0002
+      },
+      {
+        "train_set": "cnnspot",
+        "test_corpus": "synthclic",
+        "mAP_refit": 0.5258,
+        "mAP_table": 0.5214,
+        "delta": 0.0045
+      },
+      {
+        "train_set": "synthbuster-plus",
+        "test_corpus": "cnnspot",
+        "mAP_refit": 0.664,
+        "mAP_table": 0.6692,
+        "delta": -0.0052
+      },
+      {
+        "train_set": "synthbuster-plus",
+        "test_corpus": "synthclic",
+        "mAP_refit": 0.6164,
+        "mAP_table": 0.6112,
+        "delta": 0.0052
+      },
+      {
+        "train_set": "synthclic",
+        "test_corpus": "cnnspot",
+        "mAP_refit": 0.4217,
+        "mAP_table": 0.4222,
+        "delta": -0.0004
+      },
+      {
+        "train_set": "synthclic",
+        "test_corpus": "synthclic",
+        "mAP_refit": 0.923,
+        "mAP_table": 0.9239,
+        "delta": -0.0009
+      },
+      {
+        "train_set": "combined",
+        "test_corpus": "cnnspot",
+        "mAP_refit": 0.8728,
+        "mAP_table": 0.8799,
+        "delta": -0.0071
+      },
+      {
+        "train_set": "combined",
+        "test_corpus": "synthclic",
+        "mAP_refit": 0.8783,
+        "mAP_table": 0.867,
+        "delta": 0.0113
+      }
+    ],
+    "sb_plus_test_access": "NONE. The SynthBuster+ block re-aggregates per-image predictions written by the E3 cross-dataset runs on 2026-06-24, before EXTERNAL_VALIDATION_PROTOCOL.md was frozen (2026-07-18) and within the detection use it explicitly names. No model in this run is fitted on or scored against SB+ test; the recipe-equivalence refit skips it."
+  }
+}

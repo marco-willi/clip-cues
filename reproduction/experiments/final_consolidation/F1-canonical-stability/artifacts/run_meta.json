@@ -1,0 +1,119 @@
+{
+  "experiment": "F1-canonical-stability",
+  "script": "scripts/finalexp/run_f1_canonical_stability.py",
+  "argv": [
+    "scripts/finalexp/run_f1_canonical_stability.py"
+  ],
+  "git": {
+    "commit": "ad9eea9a0f287ab8869e7f16aeef4a6878d1059d",
+    "dirty": true
+  },
+  "snapshot_manifest_version": "1.0.0",
+  "inputs": {
+    "pooler/synthclic": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee",
+    "cue_scores/synthclic__antonyms": "dd9f94957ae2c5a9ddbd6ba2feef60e65c4b63aec6e9bfac2e964f15bc28105d",
+    "vocab/antonyms": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a",
+    "reference/e3_seed123": "29507d6f2a83f8135197d7ae3af2ba18da5e68394a2ef63ac5ee13db51486dc5"
+  },
+  "package_versions": {
+    "python": "3.12.12",
+    "numpy": "2.5.2",
+    "torch": "2.13.0+cpu",
+    "sklearn": "1.9.0"
+  },
+  "host": "23be09093657",
+  "started_at": "2026-08-16T20:26:36+00:00",
+  "duration_s": 0.275,
+  "summary": {
+    "experiment": "F1-canonical-stability",
+    "spec_id": "E1",
+    "dataset": "synthclic",
+    "seeds": [
+      123,
+      124,
+      125,
+      126,
+      127
+    ],
+    "recipe": {
+      "lr": 0.001,
+      "weight_decay": 0.01,
+      "label_smoothing": 0.1,
+      "batch_size": 64,
+      "epochs": 200,
+      "early_stopping_patience": 5,
+      "optimizer": "Adam (coupled L2)",
+      "loss": "BCEWithLogits + label smoothing",
+      "model_selection": "min val cross-entropy, restore best",
+      "features": "frozen cached, no augmentation, no standardization"
+    },
+    "regression_anchor": {
+      "anchor_mAP": 0.9238769662881319,
+      "anchor_auroc": 0.9226761070835879,
+      "f1_seed123_mAP": 0.9230203532226358,
+      "f1_seed123_auroc": 0.92092377063499,
+      "delta_mAP": 0.000857,
+      "delta_auroc": 0.001752,
+      "tolerance": 0.005,
+      "passes": true
+    },
+    "detection": {
+      "mAP": {
+        "mean": 0.9228296553081042,
+        "min": 0.9184963104017234,
+        "max": 0.9245799130659008
+      },
+      "auroc": {
+        "mean": 0.9211579613940083,
+        "min": 0.9182338523015112,
+        "max": 0.9226897545637174
+      }
+    },
+    "stability_across_seed_pairs": {
+      "sigma_cosine": {
+        "mean": 0.989125,
+        "min": 0.982781,
+        "max": 0.992979,
+        "n_pairs": 10
+      },
+      "raw_cosine": {
+        "mean": 0.978769,
+        "min": 0.957165,
+        "max": 0.989369,
+        "n_pairs": 10
+      },
+      "logit_spearman": {
+        "mean": 0.986407,
+        "min": 0.979381,
+        "max": 0.9911,
+        "n_pairs": 10
+      },
+      "decision_agreement": {
+        "mean": 0.982337,
+        "min": 0.978972,
+        "max": 0.986916,
+        "n_pairs": 10
+      },
+      "cue_profile_spearman": {
+        "mean": 0.991272,
+        "min": 0.984053,
+        "max": 0.996728,
+        "n_pairs": 10
+      },
+      "top50_jaccard": {
+        "mean": 0.695146,
+        "min": 0.587302,
+        "max": 0.818182,
+        "n_pairs": 10
+      },
+      "bottom50_jaccard": {
+        "mean": 0.771251,
+        "min": 0.694915,
+        "max": 0.818182,
+        "n_pairs": 10
+      }
+    },
+    "primary_direction_metric": "sigma_cosine",
+    "metric_note": "Sigma-metric cosine is primary; raw weight cosine is reported for continuity only (N21: raw cos 0.07 between detectors whose scores correlate 0.938)."
+  }
+}

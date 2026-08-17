@@ -1,0 +1,8 @@
+{
+  "mAP": 1.0,
+  "pooled_ap": 1.0,
+  "auroc": 1.0,
+  "n": 2000,
+  "n_generators": 1,
+  "real_pairing": "matched"
+}

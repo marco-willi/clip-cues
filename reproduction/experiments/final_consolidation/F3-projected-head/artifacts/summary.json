@@ -1,0 +1,91 @@
+{
+  "experiment": "F3-projected-head",
+  "spec_id": "E3",
+  "dataset": "synthclic",
+  "seeds": [
+    123,
+    124,
+    125,
+    126,
+    127
+  ],
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "feature_construction": "e = Wp h from the SAME cached pooler frame F1 uses (derived, not separately extracted - the both-sides-derived rule of EXTERNAL_VALIDATION_PROTOCOL.md), rescaled by ONE global scalar to the pooler train mean row norm so the recipe's fixed weight decay is the same amount of regularization in both spaces. Not unit-normalized and not standardized: D_h and D_e must differ only by the projection.",
+  "space": {
+    "space": "projected",
+    "dataset": "synthclic",
+    "dim": 768,
+    "scale_factor": 1.75048,
+    "target_row_norm": 32.9529,
+    "inputs": [
+      "projected/synthclic",
+      "pooler/synthclic"
+    ]
+  },
+  "De_detection": {
+    "auroc_mean": 0.8925150000000001,
+    "auroc_min": 0.887096,
+    "auroc_max": 0.896639,
+    "mAP_mean": 0.8918830937693041
+  },
+  "Dh_detection": {
+    "auroc_mean": 0.9211579999999999
+  },
+  "projection_cost_Dh_minus_De": {
+    "per_seed_delta": [
+      0.024284,
+      0.030012,
+      0.027163,
+      0.031138,
+      0.030617
+    ],
+    "mean_delta": 0.028643,
+    "ci_lo_mean": 0.020541,
+    "ci_hi_mean": 0.036619,
+    "reference_N2c": "+0.021 [+0.013, +0.030] (matched-tuning proxies)",
+    "n_boot": 2000,
+    "clusters": "source photo (image_id)"
+  },
+  "Dh_De_agreement": {
+    "logit_spearman_mean": 0.928254,
+    "cue_profile_spearman_mean": 0.987029,
+    "reference_E12": "proxy cue-profile agreement rho ~0.95 pooled / 0.86 within-class"
+  },
+  "De_seed_stability": {
+    "sigma_cosine": {
+      "mean": 0.993813,
+      "min": 0.991907,
+      "max": 0.995459,
+      "n_pairs": 10
+    },
+    "raw_cosine": {
+      "mean": 0.987614,
+      "min": 0.97817,
+      "max": 0.994846,
+      "n_pairs": 10
+    },
+    "logit_spearman": {
+      "mean": 0.992348,
+      "min": 0.989706,
+      "max": 0.994214,
+      "n_pairs": 10
+    },
+    "cue_profile_spearman": {
+      "mean": 0.993402,
+      "min": 0.989649,
+      "max": 0.997024,
+      "n_pairs": 10
+    }
+  }
+}

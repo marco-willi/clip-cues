@@ -1,0 +1,169 @@
+{
+  "snapshot_version": "1.0.0",
+  "built_at": "2026-08-15T20:32:06+00:00",
+  "released_at": "2026-08-15T21:34:44+00:00",
+  "format": "npz-object-free",
+  "note": "sha256 is the hash of the artifact as built (the provenance anchor cited by run_meta.json); release_sha256 is the hash of the distributed file. They differ exactly where 'converted' is true.",
+  "artifacts": {
+    "pooler/synthclic": {
+      "release_path": "embeddings/pooler_l14/synthclic.npz",
+      "release_sha256": "3e34e2919d4aa14973edb8696068f45769817ecce1bfbd63d63c27a055232d87",
+      "release_bytes": 41211223,
+      "built_path": "embeddings/pooler_l14/synthclic.pkl",
+      "sha256": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee",
+      "converted": true
+    },
+    "pooler/cnnspot": {
+      "release_path": "embeddings/pooler_l14/cnnspot.npz",
+      "release_sha256": "0793bdcc5d2a97f43c051b55f9616fb26a68c77f39d00dff2951657156825db8",
+      "release_bytes": 30464795,
+      "built_path": "embeddings/pooler_l14/cnnspot.pkl",
+      "sha256": "c542d7976a3f7c1de4f6c234aa987366d3fee6a2c76b90a583ba2540c3f12ec2",
+      "converted": true
+    },
+    "pooler/synthbuster-plus": {
+      "release_path": "embeddings/pooler_l14/synthbuster-plus.npz",
+      "release_sha256": "6a6931834f7d97fcdc331ba140eb93d50e5f505fd42c513dcdc4115c558ab1f7",
+      "release_bytes": 53235835,
+      "built_path": "embeddings/pooler_l14/synthbuster-plus.pkl",
+      "sha256": "ba6472329703271c00b1bd8bdb213af4fc864da2f8dbbc410e78c2ed5d4f1e95",
+      "converted": true
+    },
+    "projection/wp_l14_336": {
+      "release_path": "projection/clip_l14_336_visual_projection.npy",
+      "release_sha256": "56b0a8ba23d0e783723dc738a60dc99a789b8e3457f031fddb8f83c75ef191ed",
+      "release_bytes": 6291584,
+      "built_path": "projection/clip_l14_336_visual_projection.npy",
+      "sha256": "56b0a8ba23d0e783723dc738a60dc99a789b8e3457f031fddb8f83c75ef191ed",
+      "converted": false
+    },
+    "vocab/antonyms": {
+      "release_path": "vocabularies/antonyms.npz",
+      "release_sha256": "dde8b80820f1b6da8ea2a59a9e5e2c232b73840cdfbb3e0114a78325adf6dbf4",
+      "release_bytes": 481698,
+      "built_path": "vocabularies/antonyms.pt",
+      "sha256": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a",
+      "converted": true
+    },
+    "vocab_terms/antonyms": {
+      "release_path": "vocabularies/antonyms.csv",
+      "release_sha256": "62c10a56b9d4f46623cd84564bb380138d9e1a59e6ba3448b928ddedb20be9de",
+      "release_bytes": 29629,
+      "built_path": "vocabularies/antonyms.csv",
+      "sha256": "62c10a56b9d4f46623cd84564bb380138d9e1a59e6ba3448b928ddedb20be9de",
+      "converted": false
+    },
+    "ckpt/linear_probe_synthclic": {
+      "release_path": "checkpoints/linear_probe_synthclic.ckpt",
+      "release_sha256": "c7a310eb0b14290d6ede87c85505ecc0b8522f9618ec7b21e1a428334c4d749f",
+      "release_bytes": 5810,
+      "built_path": "checkpoints/linear_probe_synthclic.ckpt",
+      "sha256": "c7a310eb0b14290d6ede87c85505ecc0b8522f9618ec7b21e1a428334c4d749f",
+      "converted": false
+    },
+    "ckpt/linear_probe_cnnspot": {
+      "release_path": "checkpoints/linear_probe_cnnspot.ckpt",
+      "release_sha256": "b8201afaaceda70bf0dbfc3ffc2107dddbda49047c73557ae316cd5796c194ee",
+      "release_bytes": 5734,
+      "built_path": "checkpoints/linear_probe_cnnspot.ckpt",
+      "sha256": "b8201afaaceda70bf0dbfc3ffc2107dddbda49047c73557ae316cd5796c194ee",
+      "converted": false
+    },
+    "ckpt/clip_orthogonal_synthclic": {
+      "release_path": "checkpoints/clip_orthogonal_synthclic.ckpt",
+      "release_sha256": "0ddba778343c20186c6d3ab06198a956da3572058806cfbbf287a275f97ca5e4",
+      "release_bytes": 35104,
+      "built_path": "checkpoints/clip_orthogonal_synthclic.ckpt",
+      "sha256": "0ddba778343c20186c6d3ab06198a956da3572058806cfbbf287a275f97ca5e4",
+      "converted": false
+    },
+    "reference/e3_seed123": {
+      "release_path": "reference/e3_xdataset_synthclic_seed123_metrics.json",
+      "release_sha256": "29507d6f2a83f8135197d7ae3af2ba18da5e68394a2ef63ac5ee13db51486dc5",
+      "release_bytes": 302,
+      "built_path": "reference/e3_xdataset_synthclic_seed123_metrics.json",
+      "sha256": "29507d6f2a83f8135197d7ae3af2ba18da5e68394a2ef63ac5ee13db51486dc5",
+      "converted": false
+    },
+    "reference/projected_cached_synthclic": {
+      "release_path": "reference/projected_cached_synthclic.npz",
+      "release_sha256": "f2410220ac2369b56d8035b34cda6a0f13520df4c195904e7cc0323f823d9d01",
+      "release_bytes": 30983310,
+      "built_path": "reference/projected_cached_synthclic.pkl",
+      "sha256": "e2f27a68fe38174fe430e4c2de0a08edeb7d1bcff3029ba2bb2712957c2f3766",
+      "converted": true
+    },
+    "reference/projected_cached_cnnspot": {
+      "release_path": "reference/projected_cached_cnnspot.npz",
+      "release_sha256": "8154eb485fcc8de9eaa74995f753d2efda348449c1f0bf914d6de79e44b6620e",
+      "release_bytes": 11435823,
+      "built_path": "reference/projected_cached_cnnspot.pkl",
+      "sha256": "500eb7e8e631e779b3d4066d52cff935a3434e36afdd8bb0dd20319e0ae24238",
+      "converted": true
+    },
+    "projected/synthclic": {
+      "release_path": "embeddings/projected_derived/synthclic.npz",
+      "release_sha256": "e366eb9e4bf466658d0cddcf310fe8cf07fa980f1a00ac807b242910313a398f",
+      "release_bytes": 31054138,
+      "built_path": "embeddings/projected_derived/synthclic.pkl",
+      "sha256": "b40f00c48fc901b641a67252e9cfeca6ae0a7601f6de31169ca163fcc6f51524",
+      "converted": true
+    },
+    "projected/cnnspot": {
+      "release_path": "embeddings/projected_derived/cnnspot.npz",
+      "release_sha256": "b76fae188d3e3648f39f5c437319c6c6c839dbbd286189aacecfdc23bdd4e78e",
+      "release_bytes": 22954609,
+      "built_path": "embeddings/projected_derived/cnnspot.pkl",
+      "sha256": "2cf119317d81eb528220f320fe113058c7a9736a561696fcc1a82ce7e5013842",
+      "converted": true
+    },
+    "projected/synthbuster-plus": {
+      "release_path": "embeddings/projected_derived/synthbuster-plus.npz",
+      "release_sha256": "2b61904714965093f666843f2cca07392974a1a329c5061240aaf96cdc0dda11",
+      "release_bytes": 40079720,
+      "built_path": "embeddings/projected_derived/synthbuster-plus.pkl",
+      "sha256": "2708e81a7c0e48c983d53abee1843af479e0639e1a4f159b5f04b64b0e3277f3",
+      "converted": true
+    },
+    "cue_scores/synthclic__antonyms": {
+      "release_path": "embeddings/cue_scores/synthclic__antonyms.npz",
+      "release_sha256": "dd9f94957ae2c5a9ddbd6ba2feef60e65c4b63aec6e9bfac2e964f15bc28105d",
+      "release_bytes": 6725149,
+      "built_path": "embeddings/cue_scores/synthclic__antonyms.npz",
+      "sha256": "dd9f94957ae2c5a9ddbd6ba2feef60e65c4b63aec6e9bfac2e964f15bc28105d",
+      "converted": false
+    },
+    "cue_scores/cnnspot__antonyms": {
+      "release_path": "embeddings/cue_scores/cnnspot__antonyms.npz",
+      "release_sha256": "bec2249c8c30948d92fbc77ac955d2ce1ccee31351bb8148ca2d505cada585b2",
+      "release_bytes": 4984591,
+      "built_path": "embeddings/cue_scores/cnnspot__antonyms.npz",
+      "sha256": "bec2249c8c30948d92fbc77ac955d2ce1ccee31351bb8148ca2d505cada585b2",
+      "converted": false
+    },
+    "cue_scores/synthbuster-plus__antonyms": {
+      "release_path": "embeddings/cue_scores/synthbuster-plus__antonyms.npz",
+      "release_sha256": "d0bca50475192b441976a098316c8b1685ff6d6d14cb539d895141509e1f1c18",
+      "release_bytes": 8714775,
+      "built_path": "embeddings/cue_scores/synthbuster-plus__antonyms.npz",
+      "sha256": "d0bca50475192b441976a098316c8b1685ff6d6d14cb539d895141509e1f1c18",
+      "converted": false
+    },
+    "ranking/f5_synthclic": {
+      "release_path": "rankings/f5_synthclic.csv",
+      "release_sha256": "76b724d2a7e2c35c98e8630f7be0f7d930776883a95e8bda0a4b3aadb37ed33a",
+      "release_bytes": 147426,
+      "built_path": "rankings/f5_synthclic.csv",
+      "sha256": "76b724d2a7e2c35c98e8630f7be0f7d930776883a95e8bda0a4b3aadb37ed33a",
+      "converted": false
+    },
+    "ranking/f5_cnnspot": {
+      "release_path": "rankings/f5_cnnspot.csv",
+      "release_sha256": "869e1293d9127db08b8cd8606f4b9438e24119dbf3ed9b59d6be255568aec48f",
+      "release_bytes": 258803,
+      "built_path": "rankings/f5_cnnspot.csv",
+      "sha256": "869e1293d9127db08b8cd8606f4b9438e24119dbf3ed9b59d6be255568aec48f",
+      "converted": false
+    }
+  }
+}

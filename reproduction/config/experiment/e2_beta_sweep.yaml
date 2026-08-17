@@ -1,0 +1,30 @@
+# E2 (Reviewer 3, mandatory): beta sensitivity for concept sparsity.
+# Single run config; the sweep itself is driven by config/sweep/beta_sensitivity.yaml.
+# Reuses clip_cues.concept_modeling.train on cached SynthCLIC embeddings (trivial compute).
+
+id: e2_beta_sweep
+group: concept_model
+
+data:
+  dataset: synthclic
+  train_splits: [train]
+  val_splits: [validation]
+  test_splits: [test]
+
+embeddings:
+  # Projected (768-d, shared CLIP space) image embeddings — match the projected text
+  # embeddings the concept model compares against (not the 1024-d pooler_output).
+  image_embeddings: ${paths.embeddings_dir}/synthclic_projected_embeddings.pkl
+  text_embeddings: ${paths.embeddings_dir}/antonyms_embeddings.pt
+  vocabulary: antonyms
+
+model:
+  epochs: 100
+  batch_size: 256
+  lr: 1e-3
+  tau: 0.1
+  alpha: 1e-4
+  beta: 1e-4 # swept in config/sweep/beta_sensitivity.yaml
+
+# Report for each beta: mAP and mean number of activated concepts.
+metrics: [mAP, mean_active_concepts]

@@ -1,0 +1,26 @@
+# E2: W&B sweep for beta sensitivity (concept sparsity).
+# Launch:
+#   wandb sweep config/sweep/beta_sensitivity.yaml
+#   wandb agent <entity>/<project>/<sweep_id>
+#
+# Reports mAP and mean #activated concepts per beta (the table Reviewer 3 requests).
+
+program: scripts/run/run_beta_sweep.py
+method: grid
+metric:
+  name: val/mAP
+  goal: maximize
+
+parameters:
+  beta:
+    values: [1.0e-5, 1.0e-4, 3.0e-4, 1.0e-3, 1.0e-2]
+  alpha:
+    value: 1.0e-4
+  tau:
+    value: 0.1
+  dataset:
+    value: synthclic
+  vocabulary:
+    value: antonyms
+  epochs:
+    value: 100

@@ -1,0 +1,7 @@
+{
+  "mAP": 0.9245799130659008,
+  "pooled_ap": 0.9781393785063405,
+  "auroc": 0.9217712791510176,
+  "n_generators": 4,
+  "real_pairing": "shared"
+}

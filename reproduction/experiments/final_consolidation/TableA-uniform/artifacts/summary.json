@@ -1,0 +1,30 @@
+{
+  "experiment": "TableA-uniform",
+  "detector": "linear_probe_synthclic_matched",
+  "source": "F1-canonical-stability/runs/seed123 (matched recipe, no augmentation)",
+  "cfeval_metrics": {
+    "n": 51836.0,
+    "n_fake": 25918.0,
+    "n_real": 25918.0,
+    "overall_ap": 0.7066975340916488,
+    "auroc": 0.6997999624034632,
+    "mAP": 0.7066975340916488,
+    "accuracy": 0.5773786557604753,
+    "balanced_accuracy": 0.5773786557604753
+  },
+  "mAP_by_generator": 0.723274,
+  "n_generators": 21,
+  "metric_note": "`mAP_by_generator` is the Table A quantity (mean AP within each `source` group, the export's convention). cf_metrics' `mAP` field is the POOLED AP and is not comparable to the deployed row's mAP_by_gen.",
+  "deployed_reference": {
+    "linear_probe_synthclic": {
+      "overall_ap": 0.7326,
+      "mAP_by_gen": 0.7316
+    },
+    "clip_orthogonal_synthclic": {
+      "overall_ap": 0.7296,
+      "mAP_by_gen": 0.734
+    }
+  },
+  "why": "Makes the Table A row uniform: columns 1-3 already come from the matched no-aug probe (results/e3_xdataset), so the CF-Eval cell should too. The deployed numbers stay as the appendix ablation.",
+  "next_step": "Point package_revision_export.py table_a()'s `clip_cf` lookup at this row, or add a MANIFEST footnote naming the mixed provenance."
+}

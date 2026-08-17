@@ -1,0 +1,293 @@
+# Plot config
+synthbuster_plus_source_map:
+  raise1k: Raise1k
+  dalle2: DALLE2
+  dalle3: DALLE3
+  firefly: Firefly
+  glide: Glide
+  midjourney-v5: MJv5
+  stable-diffusion-1-3: SD1.3
+  stable-diffusion-1-4: SD1.4
+  stable-diffusion-2: SD2
+  stable-diffusion-xl: SDXL
+  imagen3: Imagen3
+  SD3-medium: SD3M
+  FLUX.1-schnell: FluxSchnell
+  FLUX.1-dev: FluxDev
+
+synthbuster_plus_new_sources:
+  - raise1k
+  - imagen3
+  - SD3-medium
+  - FLUX.1-schnell
+  - FLUX.1-dev
+
+synthclic_source_map:
+  clic2020: CLIC
+  imagen3: Imagen3
+  SD3-medium: SD3M
+  FLUX.1-dev: FLUXDev
+  FLUX.1-schnell: FLUXSchnell
+
+cnnspot_source_map:
+  progan: ProGAN
+  progran: ProGAN
+  biggan: BigGAN
+  crn: CRN
+  cyclegan: CycleGAN
+  deepfake: DeepFake
+  gaugan: GauGAN
+  imle: IMLE
+  san: SAN
+  seeingdark: SeeingDark
+  stargan: StarGAN
+  stylegan: StyleGAN
+  stylegan2: StyleGAN2
+  whichfaceisreal: WhichFaceIsReal
+  dalle: DALLE
+  glide_100_10: GLIDE-100-10
+  glide_100_27: GLIDE-100-27
+  glide_50_27: GLIDE-50-27
+  guided: Guided
+  imagenet: ImageNet
+  laion: LAION
+  ldm_100: LDM-100
+  ldm_200: LDM-200
+  ldm_200_cfg: LDM-200-CFG
+
+# Corpus each CNNSpot group's REAL photographs were drawn from.
+#
+# `cnnspot_source_map` above names the GENERATOR of a group; CNNSpot files each real photograph
+# under the generator group it is paired into, so `source == "progan"` on a real image means "the
+# real half of the ProGAN evaluation subset" and NOT that ProGAN produced it. Annotating such an
+# image "ProGAN" is wrong — use this map for label == 0 instead.
+#
+# Source: Wang et al., "CNN-Generated Images Are Surprisingly Easy to Spot… For Now" (CVPR 2020),
+# appendix B.1 "Dataset Collection".
+#
+# Two sets of groups are deliberately ABSENT rather than guessed, and consumers must fall back to
+# the subsplit directory in the image path:
+#   - cyclegan: B.1 generates its real/fake pairs straight from the released CycleGAN code and names
+#     no corpus. Its path carries a subsplit (apple, horse, orange, summer, winter, zebra).
+#   - the diffusion-era groups (dalle, glide_*, guided, ldm_*, whichfaceisreal): these post-date B.1
+#     and come from the later benchmark extension. Add them here once the provenance is confirmed.
+cnnspot_real_source_map:
+  progan: LSUN # 20 categories; reals centre-cropped on the long edge, resized to 256
+  stylegan: LSUN # bedroom, cat, car
+  stylegan2: LSUN # church, cat, horse, car
+  biggan: ImageNet # reals centre-cropped on the long edge, resized to 256
+  stargan: CelebA
+  gaugan: COCO
+  crn: GTA
+  imle: GTA
+  seeingdark: SITD # Sony/Fuji raw captures
+  san: SR benchmarks # ground truth of Set5, Set14, BSD100, Urban100
+  deepfake: FaceForensics++ # original sequences, cropped faces
+  # Not from B.1: real-only pools whose group name IS the corpus (imagenet 38 real / 0 fake,
+  # laion 41 real / 0 fake in the 4k eval frame), so naming them restates the group id.
+  imagenet: ImageNet
+  laion: LAION
+
+ds_name_map:
+  synthwildx: SynthWildX
+  synthclic: SynthCLIC
+  synthbuster_plus: SynthBuster+
+  cnnspot: CNNSpot
+  raising_the_bar: RaisingTheBar
+  combined: Combined
+
+model_name_map:
+  cnnspot: CNNSpot
+  synthbuster_plus: SynthBuster+
+  synthclic: SynthCLIC
+  combined: Combined
+  unifd: UniFD
+  ablation_k_2: "k=2"
+  ablation_k_4: "k=4"
+  ablation_k_8: "k=8"
+  ablation_k_16: "k=16"
+  linear_probe_cnnspot: "LP-CNNSpot"
+  linear_probe_synthbuster: "LP-SynthBuster+"
+  linear_probe_synthclic: "LP-SynthCLIC"
+  linear_probe_combined: "LP-Combined"
+
+cnnspot_source_subset:
+  - progan
+  - stylegan2
+  - dalle
+
+cnnspot_source_training:
+  - progan
+
+label_map:
+  0: Real
+  1: Synthetic
+
+split_map:
+  train: Train
+  val: Validation
+  test: Test
+  valid: Validation
+  validation: Validation
+
+metric_map:
+  average_precision: AP
+  roc_auc: AUC
+  accuracy: ACC
+
+color_palette_real_synthetic:
+  Real: [0.12156862745098039, 0.4666666666666667, 0.7058823529411765]
+  Synthetic: [1.0, 0.4980392156862745, 0.054901960784313725]
+
+models:
+  cnnspot:
+    cfg_name: clip_v21
+    timestamp: 2025-04-13_19-59-30
+    training_set: cnnspot
+  synthbuster_plus:
+    cfg_name: clip_v22
+    timestamp: 2025-04-13_21-01-13
+    training_set: synthbuster_plus
+  synthclic:
+    cfg_name: clip_v23
+    timestamp: 2025-04-13_21-01-22
+    training_set: synthclic
+  combined:
+    cfg_name: clip_v20
+    timestamp: 2025-04-13_21-01-29
+    training_set:
+      - cnnspot
+      - synthclic
+      - synthbuster_plus
+  unifd:
+    cfg_name: unifd_v8
+    timestamp: 2025-04-13_16-47-06
+    training_set: cnnspot
+
+models_to_analyse:
+  cnnspot:
+    cfg_name: clip_v21
+    timestamp: 2025-04-13_19-59-30
+    training_set: cnnspot
+  synthbuster_plus:
+    cfg_name: clip_v22
+    timestamp: 2025-04-13_21-01-13
+    training_set: synthbuster_plus
+  synthclic:
+    cfg_name: clip_v23
+    timestamp: 2025-04-13_21-01-22
+    training_set: synthclic
+  combined:
+    cfg_name: clip_v20
+    timestamp: 2025-04-13_21-01-29
+    training_set:
+      - cnnspot
+      - synthclic
+      - synthbuster_plus
+
+# K-Ablation Study Models
+ablation_k_models:
+  ablation_k_2:
+    cfg_name: ablation_k_2_synthclic
+    timestamp: "2025-11-30_21-51-53"
+    training_set: synthclic
+    k_value: 2
+  ablation_k_4:
+    cfg_name: ablation_k_4_synthclic
+    timestamp: "2025-11-30_21-51-53"
+    training_set: synthclic
+    k_value: 4
+  ablation_k_8:
+    cfg_name: ablation_k_8_synthclic
+    timestamp: "2025-11-30_21-51-51"
+    training_set: synthclic
+    k_value: 8
+  ablation_k_16:
+    cfg_name: ablation_k_16_synthclic
+    timestamp: "2025-11-29_22-07-20"
+    training_set: synthclic
+    k_value: 16
+
+# Linear Probe Baseline Models
+linear_probe_models:
+  linear_probe_cnnspot:
+    cfg_name: linear_probe_cnnspot
+    timestamp: "2025-11-29_21-33-35"
+    training_set: cnnspot
+    model_type: linear_probe
+  linear_probe_synthbuster:
+    cfg_name: linear_probe_synthbuster
+    timestamp: "2025-11-29_21-46-16"
+    training_set: synthbuster_plus
+    model_type: linear_probe
+  linear_probe_synthclic:
+    cfg_name: linear_probe_synthclic
+    timestamp: "2025-11-29_21-46-16"
+    training_set: synthclic
+    model_type: linear_probe
+  linear_probe_combined:
+    cfg_name: linear_probe_combined
+    timestamp: "2025-11-29_21-46-14"
+    training_set: combined
+    model_type: linear_probe
+
+vocabulary_map:
+  textspan: TextSpan
+  chatgptv4: ChatGPT
+  chatgpt_antonyms_v4: Antonyms
+  laion10k: LAION10k
+  chatgpt_antonyms_v2_sentence: ChatGPTAntonymsSentence
+  chatgpt_antonyms_v2: ChatGPTAntonyms
+  chatgptv1: ChatGPT
+
+concept_model_analysis_vars:
+  concept_probs: Concept Selection Probability
+  concept_logits: Concept Selection Logits
+  image_to_concept_sims_raw: Image-to-Concept Similarity (Raw)
+  per_concept_logit_contribution: Per-Concept Logit Contribution
+
+cm_models:
+  - vocabulary: chatgptv4_antonyms
+    train_set: synthclic
+    exp_id: cm_chatgptv4_antonyms_synthclic_v2
+    timestamp: "2025-09-11_21-11-48"
+
+  - vocabulary: chatgptv4_antonyms
+    train_set: synthbuster_plus
+    exp_id: cm_chatgptv4_antonyms_synthbuster_v1
+    timestamp: "2025-09-11_23-40-01"
+
+  - vocabulary: chatgptv4_antonyms
+    train_set: cnnspot
+    exp_id: cm_chatgptv4_antonyms_cnnspot_v1
+    timestamp: "2025-09-13_20-45-56"
+
+  - vocabulary: chatgptv4_antonyms
+    train_set: combined
+    exp_id: cm_chatgptv4_antonyms_combined_v1
+    timestamp: "2025-09-11_23-41-23"
+
+  - vocabulary: chatgptv1
+    train_set: synthclic
+    exp_id: cm_chatgptv1_synthclic_v7
+    timestamp: "2025-09-10_23-55-19"
+
+  - vocabulary: textspan
+    train_set: synthbuster_plus
+    exp_id: cm_textspan_synthbuster
+    timestamp: "2026-01-14_14-07-17"
+
+  - vocabulary: textspan
+    train_set: combined
+    exp_id: cm_textspan_combined
+    timestamp: "2026-01-14_14-07-21"
+
+  - vocabulary: textspan
+    train_set: cnnspot
+    exp_id: cm_textspan_cnnspot
+    timestamp: "2026-01-14_14-07-38"
+
+  - vocabulary: textspan
+    train_set: synthclic
+    exp_id: cm_textspan_synthclic
+    timestamp: "2026-01-14_14-07-38"

@@ -1,0 +1,25 @@
+# E3 (Reviewer 1): additional CLIP backbones under the same linear-probe protocol.
+# Re-extract embeddings per backbone (touches images, GPU) -> train the same tiny head.
+# Backbones are now first-class in clip_cues.feature_extractor.EXTRACTOR_CLASSES.
+
+id: e3_clip_variants
+group: variants
+
+# clip_large_patch14 (paper baseline) | clip_base_patch16 | clip_base_patch32
+feature_extractor:
+  name: clip_base_patch16
+  layer_id_to_extract: pooler_output
+
+data:
+  train_dataset: synthclic
+  val_dataset: synthclic
+  test_dataset: synthclic
+
+# Same linear-probe head as the paper.
+head:
+  name: linear_probe
+  max_epochs: 200
+  batch_size: 64
+  lr: 1e-3
+
+metrics: [mAP, auroc]

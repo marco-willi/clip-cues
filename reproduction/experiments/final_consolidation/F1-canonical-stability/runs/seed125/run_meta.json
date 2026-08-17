@@ -1,0 +1,53 @@
+{
+  "experiment": "F1-canonical-stability",
+  "script": "scripts/finalexp/run_f1_canonical_stability.py",
+  "argv": [
+    "scripts/finalexp/run_f1_canonical_stability.py"
+  ],
+  "git": {
+    "commit": "ad9eea9a0f287ab8869e7f16aeef4a6878d1059d",
+    "dirty": true
+  },
+  "snapshot_manifest_version": "1.0.0",
+  "inputs": {
+    "pooler/synthclic": "4aebc7adfb9f84606e3861a802e4a60701a93b36fc4c7f89874c813e5f17b0ee",
+    "cue_scores/synthclic__antonyms": "dd9f94957ae2c5a9ddbd6ba2feef60e65c4b63aec6e9bfac2e964f15bc28105d",
+    "vocab/antonyms": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a",
+    "reference/e3_seed123": "29507d6f2a83f8135197d7ae3af2ba18da5e68394a2ef63ac5ee13db51486dc5"
+  },
+  "package_versions": {
+    "python": "3.12.12",
+    "numpy": "2.5.2",
+    "torch": "2.13.0+cpu",
+    "sklearn": "1.9.0"
+  },
+  "host": "23be09093657",
+  "started_at": "2026-08-16T20:26:29+00:00",
+  "duration_s": 1.989,
+  "seed": 125,
+  "dataset": "synthclic",
+  "head": "LinearHead",
+  "input_dim": 1024,
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "metrics": {
+    "mAP": 0.9241578193822735,
+    "pooled_ap": 0.9781526235162877,
+    "auroc": 0.9226897545637174,
+    "n_generators": 4,
+    "real_pairing": "shared"
+  },
+  "best_val_ce": 0.3935544192790985,
+  "best_epoch": 12,
+  "epochs_run": 18
+}

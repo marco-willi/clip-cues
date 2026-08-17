@@ -1,0 +1,9 @@
+train_set,test_corpus,mAP_refit,mAP_table,delta
+cnnspot,cnnspot,0.9638,0.964,-0.0002
+cnnspot,synthclic,0.5258,0.5214,0.0045
+synthbuster-plus,cnnspot,0.664,0.6692,-0.0052
+synthbuster-plus,synthclic,0.6164,0.6112,0.0052
+synthclic,cnnspot,0.4217,0.4222,-0.0004
+synthclic,synthclic,0.923,0.9239,-0.0009
+combined,cnnspot,0.8728,0.8799,-0.0071
+combined,synthclic,0.8783,0.867,0.0113

@@ -1,0 +1,21 @@
+rank,image_id,source,label,logit,pole,dataset,class,origin
+4000,stylegan2/cat/0_real/11886.png,stylegan2,0,-3.264462965097328,real_like,cnnspot,real,LSUN / cat
+3999,progan/airplane/0_real/01280.png,progan,0,-3.25315143155326,real_like,cnnspot,real,LSUN / airplane
+3998,stylegan/car/0_real/01189.png,stylegan,0,-3.2381899594729875,real_like,cnnspot,real,LSUN / car
+3997,progan/train/0_real/07552.png,progan,0,-3.1666137217625305,real_like,cnnspot,real,LSUN / train
+3996,stylegan2/horse/0_real/15262.png,stylegan2,0,-3.137493733512318,real_like,cnnspot,real,LSUN / horse
+5,gaugan/1_fake/000000036936.png,gaugan,1,2.729563495982436,synthetic_like,cnnspot,synthetic,GauGAN
+4,gaugan/1_fake/000000352900.png,gaugan,1,2.730155304584512,synthetic_like,cnnspot,synthetic,GauGAN
+3,progan/boat/1_fake/03711.png,progan,1,2.805932865469367,synthetic_like,cnnspot,synthetic,ProGAN
+2,gaugan/1_fake/000000407524.png,gaugan,1,2.8891073202769464,synthetic_like,cnnspot,synthetic,GauGAN
+1,progan/bottle/1_fake/06154.png,progan,1,3.275069898974573,synthetic_like,cnnspot,synthetic,ProGAN
+2140,f32732119632130510d480c894336143,clic2020,0,-3.4673464681991217,real_like,synthclic,real,CLIC2020
+2139,8c3f64635c07801bc2c9def490a27168,clic2020,0,-2.2196472207032,real_like,synthclic,real,CLIC2020
+2138,2cf106dff80465f974931b802427e6ea,clic2020,0,-1.921256963236652,real_like,synthclic,real,CLIC2020
+2137,0d57c99aa83305d93d8fc5d21910343a,clic2020,0,-1.833415322219321,real_like,synthclic,real,CLIC2020
+2136,671c5054b0d360ecde05cf691d00749a,clic2020,0,-1.7960602726763808,real_like,synthclic,real,CLIC2020
+5,1c1e89258c38f044d27681546a343b74,FLUX.1-dev,1,4.594132554777678,synthetic_like,synthclic,synthetic,FLUX.1-dev
+4,08eba944d75efaf0bf3390e68c8d03b0,FLUX.1-schnell,1,4.632073949962119,synthetic_like,synthclic,synthetic,FLUX.1-schnell
+3,f851c62b712ee4bb3d6f1f997a3d14b6,FLUX.1-dev,1,4.689981607007012,synthetic_like,synthclic,synthetic,FLUX.1-dev
+2,acda8851def5fe87ebfe17f4ca90e55e,FLUX.1-schnell,1,4.712356044105531,synthetic_like,synthclic,synthetic,FLUX.1-schnell
+1,3c48f2b289ee49af7d78bf43d3e73334,FLUX.1-dev,1,4.930116230702827,synthetic_like,synthclic,synthetic,FLUX.1-dev

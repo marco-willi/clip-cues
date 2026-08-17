@@ -1,72 +1,72 @@
 {
-	"name": "CLIP Cues Development",
-	"dockerFile": "Dockerfile",
-	"context": "..",
+  // Default configuration: CPU only. Every F-experiment, every figure and the inference demo
+  // run on CPU. For embedding extraction, reopen in .devcontainer/gpu/devcontainer.json --
+  // that one requests --gpus=all, which makes the container fail to start on a host without
+  // an NVIDIA runtime, so it must not be the default.
+  "name": "clip-cues",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
 
-	// Configure tool-specific properties
-	"customizations": {
-		"vscode": {
-			"settings": {
-				"python.defaultInterpreterPath": "/opt/conda/bin/python",
-				"python.linting.enabled": true,
-				"python.linting.ruffEnabled": true,
-				"python.formatting.provider": "none",
-				"[python]": {
-					"editor.formatOnSave": true,
-					"editor.codeActionsOnSave": {
-						"source.organizeImports": "explicit"
-					},
-					"editor.defaultFormatter": "charliermarsh.ruff"
-				},
-				"python.testing.pytestEnabled": true,
-				"python.testing.unittestEnabled": false,
-				"editor.rulers": [100],
-				"files.trimTrailingWhitespace": true
-			},
-			"extensions": [
-				"ms-python.python",
-				"ms-python.vscode-pylance",
-				"charliermarsh.ruff",
-				"ms-toolsai.jupyter",
-				"ms-toolsai.jupyter-keymap",
-				"ms-toolsai.jupyter-renderers",
-				"github.copilot",
-				"eamodio.gitlens"
-			]
-		}
-	},
+  "features": {
+    "ghcr.io/devcontainers/features/git:1": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {
+      "version": "latest"
+    }
+  },
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally
-	"forwardPorts": [8885, 8884],
-	"portsAttributes": {
-		"8885": {
-			"label": "Jupyter Notebook",
-			"onAutoForward": "notify"
-		},
-		"8884": {
-			"label": "Development Server",
-			"onAutoForward": "silent"
-		}
-	},
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+        "python.terminal.activateEnvironment": true,
+        "python.testing.pytestEnabled": true,
+        "python.testing.unittestEnabled": false,
+        "jupyter.notebookFileRoot": "${workspaceFolder}",
+        "editor.rulers": [100],
+        "files.trimTrailingWhitespace": true,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": "explicit"
+        },
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        }
+      },
+      "extensions": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "charliermarsh.ruff",
+        "ms-toolsai.jupyter",
+        "ms-toolsai.jupyter-keymap",
+        "ms-toolsai.jupyter-renderers",
+        "ms-vscode.makefile-tools",
+        "tamasfe.even-better-toml",
+        "eamodio.gitlens",
+        "anthropic.claude-code"
+      ]
+    }
+  },
 
-	// Set environment variables
-	"containerEnv": {
-		"PYTHONUNBUFFERED": "1"
-	},
+  // All HuggingFace model/dataset caching goes to ONE root inside the workspace. A second
+  // cache root re-downloads ~150 GB, so code should pass cache_dir="data/hf_cache" or rely
+  // on HF_HOME -- never "./hf_cache".
+  "remoteEnv": {
+    "HF_HOME": "${containerWorkspaceFolder}/data/hf_cache",
+    "PYTHONUNBUFFERED": "1"
+  },
 
-	// Use 'postCreateCommand' to run commands after the container is created
-	"postCreateCommand": "bash .devcontainer/setup.sh",
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postStartCommand": "bash .devcontainer/post-start.sh",
 
-	// Configure GPU access (requires Docker with nvidia runtime)
-	"runArgs": ["--gpus", "all"],
+  "forwardPorts": [8888, 6006],
+  "portsAttributes": {
+    "8888": { "label": "JupyterLab", "onAutoForward": "notify" },
+    "6006": { "label": "TensorBoard", "onAutoForward": "ignore" }
+  },
 
-	// Comment out to connect as root instead
-	"remoteUser": "root",
-
-	// Features to add to the dev container
-	"features": {
-		"ghcr.io/devcontainers/features/git:1": {
-			"version": "latest"
-		}
-	}
+  "remoteUser": "root"
 }

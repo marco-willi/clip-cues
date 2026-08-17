@@ -1,0 +1,15 @@
+\begin{table}[!ht]
+\centering
+\scriptsize
+\begin{tabular}{lrl}
+\toprule
+Stage & AUROC & $\Delta$ vs.\ previous row [95\% CI] \\
+\midrule
+$D_h$ (full pooler, 1024-d) & 0.921 & -- \\
+$D_e$ (shared space, 768-d) & 0.893 & $-0.029$ [$-0.037$, $-0.021$] \\
+$D_{\mathrm{cue}}$ (168 named cues) & 0.834 & $-0.059$ [$-0.075$, $-0.043$] \\
+\bottomrule
+\end{tabular}
+\caption{Successive information restriction on the SynthCLIC test split (mean over 5 seeds). Each $\Delta$ is the change in AUROC relative to the row above, with a 95\% cluster bootstrap confidence interval (2000 resamples, clustered on source photo); negative values are losses. Projection into the shared image--text space costs little, restriction to the named cue span costs roughly twice as much.}
+\label{tab:rev:cascade}
+\end{table}

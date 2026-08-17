@@ -1,0 +1,52 @@
+{
+  "experiment": "F6-cross-dataset",
+  "script": "scripts/finalexp/run_f6_cross_dataset.py",
+  "argv": [
+    "scripts/finalexp/run_f6_cross_dataset.py"
+  ],
+  "git": {
+    "commit": "ad9eea9a0f287ab8869e7f16aeef4a6878d1059d",
+    "dirty": true
+  },
+  "snapshot_manifest_version": "1.0.0",
+  "inputs": {
+    "projected/synthclic": "b40f00c48fc901b641a67252e9cfeca6ae0a7601f6de31169ca163fcc6f51524",
+    "projected/cnnspot": "2cf119317d81eb528220f320fe113058c7a9736a561696fcc1a82ce7e5013842",
+    "projected/synthbuster-plus": "2708e81a7c0e48c983d53abee1843af479e0639e1a4f159b5f04b64b0e3277f3",
+    "vocab/antonyms": "394916babf0a76b62528f0c351f73250415cd6349128a9d613a2c47101736f8a"
+  },
+  "package_versions": {
+    "python": "3.12.12",
+    "numpy": "2.5.2",
+    "torch": "2.13.0+cpu",
+    "sklearn": "1.9.0"
+  },
+  "host": "23be09093657",
+  "started_at": "2026-08-16T20:32:42+00:00",
+  "duration_s": 1.964,
+  "seed": 124,
+  "dataset": "synthbuster-plus",
+  "eval_split": "validation",
+  "head": "LinearHead(768, matched recipe)",
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "metrics": {
+    "mAP": 0.9962907083277067,
+    "pooled_ap": 0.9996636158827628,
+    "auroc": 0.9955898268398268,
+    "n": 2239,
+    "n_generators": 13,
+    "real_pairing": "shared"
+  },
+  "best_val_ce": 0.3641936480998993
+}

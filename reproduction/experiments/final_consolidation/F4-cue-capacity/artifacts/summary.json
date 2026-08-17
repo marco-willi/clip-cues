@@ -1,0 +1,42 @@
+{
+  "experiment": "F4-cue-capacity",
+  "spec_id": "E4",
+  "dataset": "synthclic",
+  "seeds": [
+    123,
+    124,
+    125,
+    126,
+    127
+  ],
+  "recipe": {
+    "lr": 0.001,
+    "weight_decay": 0.01,
+    "label_smoothing": 0.1,
+    "batch_size": 64,
+    "epochs": 200,
+    "early_stopping_patience": 5,
+    "optimizer": "Adam (coupled L2)",
+    "loss": "BCEWithLogits + label smoothing",
+    "model_selection": "min val cross-entropy, restore best",
+    "features": "frozen cached, no augmentation, no standardization"
+  },
+  "framing": "D_cue is a RESTRICTED-INFORMATION PROBE, not a detector variant: same head, same recipe, same images as D_e - only the input is restricted to named cue scores.",
+  "feature_construction": "c_j = <e/||e||, v_j> (a cosine by definition), then rescaled by ONE global scalar to the pooler train mean row norm - the same treatment D_e gets - so the fixed weight decay is the same amount of regularization in both. Without this the comparison measures optimization, not capacity: unscaled, the 168-cue RESTRICTED probe scored ABOVE the 768-d unrestricted probe it is a strict subspace of.",
+  "by_vocabulary": {
+    "antonyms": {
+      "n_cues": 168,
+      "auroc_cue_mean": 0.833635,
+      "auroc_De_mean": 0.892515,
+      "delta_mean": -0.058881,
+      "ci_lo_mean": -0.074934,
+      "ci_hi_mean": -0.042936,
+      "excess_recovery_mean": 0.85004,
+      "logit_spearman_vs_De_mean": 0.723818
+    }
+  },
+  "primary": "antonyms",
+  "reference_N5c": "ant168t -0.036 [-0.050, -0.022], excess recovery 90.5%",
+  "n_boot": 2000,
+  "clusters": "source photo (image_id)"
+}

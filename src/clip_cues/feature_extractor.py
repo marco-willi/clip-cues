@@ -89,14 +89,25 @@ def modify_forward(model, layer_id: str | int = "pooler_output"):
         modify_forward_to_return_named_output(model, layer_id)
 
 
-class CLIPLargePatch14(FeatureExtractor):
-    """CLIP ViT-Large/14 feature extractor.
+class CLIPVisionFeatureExtractor(FeatureExtractor):
+    """Frozen CLIP vision encoder for an arbitrary HuggingFace CLIP backbone.
 
-    Uses OpenAI's CLIP model (ViT-L/14 @ 336px) to extract 1024-dimensional
-    image embeddings. This is the primary feature extractor used in the paper.
+    Parameterized by HF model id and output dimension so any CLIP variant (ViT-L/14-336,
+    ViT-B/16, ViT-B/32, ...) can be used under the same protocol. The transform and
+    forward-hook conventions are identical across variants, so cached embeddings remain
+    drop-in compatible with the downstream classification / concept-modeling heads.
     """
 
-    def __init__(self, cache_dir: str, layer_id_to_extract: str | int = "pooler_output"):
+    hf_id: str = "openai/clip-vit-large-patch14-336"
+    default_output_dim: int = 1024
+
+    def __init__(
+        self,
+        cache_dir: str,
+        layer_id_to_extract: str | int = "pooler_output",
+        hf_id: str | None = None,
+        output_dim: int | None = None,
+    ):
         """Initialize the CLIP feature extractor.
 
         Args:
@@ -104,27 +115,26 @@ class CLIPLargePatch14(FeatureExtractor):
             layer_id_to_extract: Which layer to extract features from.
                 - "pooler_output": Use the pooled output (default)
                 - int: Use hidden state from specified layer index
+            hf_id: HuggingFace CLIP vision model id (defaults to the class' ``hf_id``)
+            output_dim: Embedding dimensionality (defaults to the class' ``default_output_dim``)
         """
         super().__init__(cache_dir)
         self.layer_id_to_extract = layer_id_to_extract
-        self.output_dim = 1024
+        self.hf_id = hf_id or self.hf_id
+        self.output_dim = output_dim or self.default_output_dim
 
         self.model = self.load_model(cache_dir)
         self.transforms = self.get_transforms(cache_dir)
 
     def load_model(self, cache_dir: str) -> torch.nn.Module:
         """Load the CLIP model from HuggingFace."""
-        model = CLIPVisionModel.from_pretrained(
-            "openai/clip-vit-large-patch14-336", cache_dir=cache_dir
-        )
+        model = CLIPVisionModel.from_pretrained(self.hf_id, cache_dir=cache_dir)
         modify_forward(model, self.layer_id_to_extract)
         return model
 
     def get_transforms(self, cache_dir: str) -> Callable:
         """Define and return the image transformation pipeline."""
-        processor = CLIPImageProcessor.from_pretrained(
-            "openai/clip-vit-large-patch14-336", cache_dir=cache_dir
-        )
+        processor = CLIPImageProcessor.from_pretrained(self.hf_id, cache_dir=cache_dir)
         size = (
             processor.size["shortest_edge"]
             if "shortest_edge" in processor.size
@@ -134,7 +144,34 @@ class CLIPLargePatch14(FeatureExtractor):
         return Compose([Resize(size), CenterCrop(size), ToTensor(), normalize])
 
 
+class CLIPLargePatch14(CLIPVisionFeatureExtractor):
+    """CLIP ViT-Large/14 @ 336px — the primary feature extractor used in the paper.
+
+    Extracts 1024-dimensional image embeddings. Kept as a named subclass for backward
+    compatibility; equivalent to ``CLIPVisionFeatureExtractor`` with its default backbone.
+    """
+
+    hf_id = "openai/clip-vit-large-patch14-336"
+    default_output_dim = 1024
+
+
+class CLIPBasePatch16(CLIPVisionFeatureExtractor):
+    """CLIP ViT-Base/16 @ 224px — cheaper backbone for cross-variant validation."""
+
+    hf_id = "openai/clip-vit-base-patch16"
+    default_output_dim = 768
+
+
+class CLIPBasePatch32(CLIPVisionFeatureExtractor):
+    """CLIP ViT-Base/32 @ 224px — cheaper backbone for cross-variant validation."""
+
+    hf_id = "openai/clip-vit-base-patch32"
+    default_output_dim = 768
+
+
 # Dictionary to map model names to their respective feature extractor classes
 EXTRACTOR_CLASSES = {
     "clip_large_patch14": CLIPLargePatch14,
+    "clip_base_patch16": CLIPBasePatch16,
+    "clip_base_patch32": CLIPBasePatch32,
 }

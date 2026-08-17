@@ -65,8 +65,7 @@ class Transforms:
 
         def train_transforms(example_batch):
             example_batch["pixel_values"] = [
-                self._train_transforms(pil_img.convert("RGB"))
-                for pil_img in example_batch["image"]
+                self._train_transforms(pil_img.convert("RGB")) for pil_img in example_batch["image"]
             ]
             example_batch["label"] = [float(x) for x in example_batch["label"]]
             example_batch.pop("image", None)
@@ -79,8 +78,7 @@ class Transforms:
 
         def test_transforms(example_batch):
             example_batch["pixel_values"] = [
-                self._test_transforms(pil_img.convert("RGB"))
-                for pil_img in example_batch["image"]
+                self._test_transforms(pil_img.convert("RGB")) for pil_img in example_batch["image"]
             ]
             example_batch["label"] = [float(x) for x in example_batch["label"]]
             example_batch.pop("image", None)
@@ -93,8 +91,7 @@ class Transforms:
 
         def inference_transforms(example_batch):
             example_batch["pixel_values"] = [
-                self._test_transforms(pil_img.convert("RGB"))
-                for pil_img in example_batch["image"]
+                self._test_transforms(pil_img.convert("RGB")) for pil_img in example_batch["image"]
             ]
             example_batch.pop("image", None)
             return example_batch

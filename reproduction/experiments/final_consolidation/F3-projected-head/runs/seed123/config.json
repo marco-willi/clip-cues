@@ -1,0 +1,14 @@
+{
+  "seed": 123,
+  "dataset": "synthclic",
+  "lr": 0.001,
+  "weight_decay": 0.01,
+  "label_smoothing": 0.1,
+  "batch_size": 64,
+  "epochs": 200,
+  "early_stopping_patience": 5,
+  "optimizer": "Adam (coupled L2)",
+  "loss": "BCEWithLogits + label smoothing",
+  "model_selection": "min val cross-entropy, restore best",
+  "features": "frozen cached, no augmentation, no standardization"
+}
