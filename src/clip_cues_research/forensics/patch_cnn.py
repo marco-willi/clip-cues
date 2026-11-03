@@ -56,15 +56,20 @@ def build_model(checkpoint_path: str | Path | None = None) -> nn.Module:
     """Return a ResNet-50 with a single binary logit head.
 
     Args:
-        checkpoint_path: Path to a forensic checkpoint. Accepts both the CNNSpot ``.pth`` format
-            (flat ``ckpt["model"]`` state dict) and our retrained Lightning ``.ckpt`` (weights under
-            ``ckpt["state_dict"]`` with a ``model.`` prefix). If None, weights are ImageNet-pretrained
+        checkpoint_path: Path to a forensic checkpoint. Accepts the CNNSpot ``.pth`` format
+            (flat ``ckpt["model"]`` state dict), our retrained Lightning ``.ckpt`` (weights under
+            ``ckpt["state_dict"]`` with a ``model.`` prefix), and the released ``.safetensors``
+            form of the latter (bare state dict). If None, weights are ImageNet-pretrained
             (use for Mode B retraining).
     """
     model = tvm.resnet50(weights=tvm.ResNet50_Weights.IMAGENET1K_V1)
     model.fc = nn.Linear(2048, 1)
 
-    if checkpoint_path is not None:
+    if checkpoint_path is not None and str(checkpoint_path).endswith(".safetensors"):
+        from safetensors.torch import load_file
+
+        model.load_state_dict(load_file(checkpoint_path))
+    elif checkpoint_path is not None:
         ckpt = torch.load(checkpoint_path, map_location="cpu", weights_only=True)
         if "model" in ckpt:  # CNNSpot .pth
             state = ckpt["model"]

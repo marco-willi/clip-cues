@@ -31,8 +31,17 @@ def test_manifest_loads_and_ids_are_unique():
 
 
 def test_every_artifact_verifies_on_load():
-    """resolve() re-hashes the file; a mismatch must raise rather than silently return."""
-    for aid in D.load_manifest():
+    """resolve() re-hashes the file; a mismatch must raise rather than silently return.
+
+    Artifacts of an optional group (``fetch_snapshot.py --with-forensic``) may legitimately be
+    absent; when present they are held to the same check.
+    """
+    for aid, rec in D.load_manifest().items():
+        group = rec.raw.get("group")
+        if group and not rec.full_path.exists():
+            rel = D._release_record(aid)
+            if rel is None or not (D.SNAPSHOT / rel["release_path"]).exists():
+                continue
         assert D.resolve_any(aid).exists()
 
 
@@ -47,7 +56,9 @@ def test_checksum_mismatch_is_fatal(tmp_path, monkeypatch):
     recs = D.load_manifest()
     rec = recs["vocab/antonyms"]
     if not rec.full_path.exists():
-        pytest.skip("built snapshot not present (this checks the built format; see the release twin)")
+        pytest.skip(
+            "built snapshot not present (this checks the built format; see the release twin)"
+        )
     doc = json.loads(D.MANIFEST.read_text())
     for a in doc["artifacts"]:
         if a["id"] == "vocab/antonyms":
@@ -158,7 +169,9 @@ def test_f1_regression_anchor_present():
 
 # ── the enforcement guard ────────────────────────────────────────────────────────────────────
 FORBIDDEN = re.compile(r"""["'](?:\./)?(?:data/(?:embeddings|checkpoints|vocabularies))/""")
-ALLOWED_FILES = {"data.py", "build_data_snapshot.py",
+ALLOWED_FILES = {
+    "data.py",
+    "build_data_snapshot.py",
     # writes the legacy data/embeddings/ paths from the verified release — that is its job
     "fetch_snapshot.py",
 }
@@ -203,3 +216,28 @@ def test_release_checksum_mismatch_is_fatal(tmp_path, monkeypatch):
     monkeypatch.setattr(D, "RELEASE_MANIFEST", fake)
     with pytest.raises(ValueError, match="CHECKSUM MISMATCH"):
         D.resolve_any(aid)
+
+
+def test_forensic_checkpoint_releases_as_bare_state_dict(tmp_path):
+    """The released CNN must be the torchvision key set, loadable without a pickle.
+
+    The Lightning file prefixes every key with ``model.`` and carries optimizer and callback state;
+    the release keeps only the weights, renamed so ``patch_cnn.build_model`` loads them as-is.
+    """
+    import torch
+    from safetensors.torch import load_file
+
+    from clip_cues_research.finalexp import release
+
+    w = torch.arange(6, dtype=torch.float32).reshape(2, 3)
+    src = tmp_path / "x.ckpt"
+    torch.save({"epoch": 15, "global_step": 2048, "state_dict": {"model.fc.weight": w}}, src)
+    assert release.release_name("forensic_cnn/x.ckpt", "forensic_checkpoint") == (
+        "forensic_cnn/x.safetensors"
+    )
+    assert release.release_name("checkpoints/x.ckpt", "checkpoint") == "checkpoints/x.ckpt"
+
+    dest = tmp_path / "x.safetensors"
+    release.ckpt_to_safetensors(src, dest)
+    out = load_file(dest)
+    assert list(out) == ["fc.weight"] and torch.equal(out["fc.weight"], w)

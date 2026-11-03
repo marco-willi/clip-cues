@@ -6,6 +6,11 @@ checksummed inputs that F1–F7 and the figures read, checks each file against
 
     make finalexp-fetch                      # from the artifacts repository on HuggingFace
     make finalexp-fetch FROM_DIR=<path>      # from a local release directory
+    make finalexp-fetch WITH_FORENSIC=1      # + the optional forensic CNN group (286 MB)
+
+Artifacts tagged with an optional ``group`` in ``release_manifest.json`` are skipped unless asked
+for, and a skipped artifact is reported rather than failed. Older releases carry no groups, so
+``--revision v1.0.0`` fetches exactly what it always did.
 
 Two layouts are materialised, on purpose:
 
@@ -62,20 +67,44 @@ def stage_from_dir(src: Path, dest: Path) -> None:
             shutil.copy2(p, out)
 
 
-def stage_from_hub(repo: str, dest: Path, revision: str | None) -> None:
-    """Download the release from a HuggingFace dataset repository."""
-    from huggingface_hub import snapshot_download
+def stage_from_hub(repo: str, dest: Path, revision: str | None, groups: set[str]) -> None:
+    """Download the release from a HuggingFace dataset repository.
 
-    got = snapshot_download(repo_id=repo, repo_type="dataset", revision=revision)
+    The release manifest is read first so that artifacts of optional groups not in ``groups`` are
+    never downloaded.
+    """
+    from huggingface_hub import hf_hub_download, snapshot_download
+
+    rel = json.loads(
+        Path(
+            hf_hub_download(repo, "release_manifest.json", repo_type="dataset", revision=revision)
+        ).read_text()
+    )
+    skip = [
+        r["release_path"]
+        for r in rel["artifacts"].values()
+        if r.get("group") and r["group"] not in groups
+    ]
+    got = snapshot_download(
+        repo_id=repo, repo_type="dataset", revision=revision, ignore_patterns=skip or None
+    )
     stage_from_dir(Path(got), dest)
 
 
-def verify(dest: Path) -> list[str]:
-    """Check every released artifact against its own hash. Returns the ids that failed."""
+def verify(dest: Path, groups: set[str] = frozenset()) -> list[str]:
+    """Check every released artifact against its own hash. Returns the ids that failed.
+
+    An artifact of an optional group that was not requested may be absent; if it is present (a
+    local release directory, an earlier fetch) it is verified like any other.
+    """
     rel = json.loads((dest / "release_manifest.json").read_text())
     bad = []
     for aid, rec in rel["artifacts"].items():
         p = dest / rec["release_path"]
+        group = rec.get("group")
+        if not p.exists() and group and group not in groups:
+            print(f"  skip {aid:40s} (optional group {group!r}; fetch with --with-{group})")
+            continue
         if not p.exists():
             print(f"  MISSING {aid}")
             bad.append(aid)
@@ -123,18 +152,27 @@ def main() -> None:
     ap.add_argument(
         "--no-mirror", action="store_true", help="skip the legacy data/embeddings paths"
     )
+    ap.add_argument(
+        "--with-forensic",
+        action="store_true",
+        help="also fetch the optional forensic group: the retrained ResNet-50 CNNs (safetensors) "
+        "and their CF-Eval predictions",
+    )
     args = ap.parse_args()
+    groups = {"forensic"} if args.with_forensic else set()
 
     SNAPSHOT.mkdir(parents=True, exist_ok=True)
     if args.from_dir:
         print(f"Staging from {args.from_dir}")
         stage_from_dir(Path(args.from_dir), SNAPSHOT)
     else:
-        print(f"Downloading {args.repo} (revision={args.revision or 'main'})")
-        stage_from_hub(args.repo, SNAPSHOT, args.revision)
+        print(
+            f"Downloading {args.repo} (revision={args.revision or 'main'}, groups={sorted(groups)})"
+        )
+        stage_from_hub(args.repo, SNAPSHOT, args.revision, groups)
 
     print("\nVerifying:")
-    bad = verify(SNAPSHOT)
+    bad = verify(SNAPSHOT, groups)
     if bad:
         raise SystemExit(f"\n{len(bad)} artifact(s) failed verification: {bad}")
 

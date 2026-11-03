@@ -38,7 +38,11 @@ make finalexp-all       # F1-F7 end to end, a few minutes on CPU
 `finalexp-fetch` checks each file against `release_manifest.json` before anything loads it, so a
 truncated download or a swapped file fails loudly instead of silently changing a result.
 
-## Contents (289 MB, 20 artifacts)
+**Versions.** `main` is snapshot **1.1.0**. It adds the optional `forensic_cnn/` group below and
+leaves every 1.0.0 file byte-identical. The paper's original release stays fetchable as
+`fetch_snapshot.py --revision v1.0.0`.
+
+## Contents (289 MB, 22 artifacts by default)
 
 | path | what |
 | --- | --- |
@@ -56,6 +60,21 @@ declared vector space, origin and consumers), `manifest.json` (the machine-reada
 **`EXCLUDED.md`** — every plausible-but-wrong neighbour of a snapshot artifact, with the reason it is
 *not* used.
 
+### Optional: forensic CNN baselines (`forensic_cnn/`, 286 MB, 5 artifacts)
+
+Not downloaded by default. Fetch them with `make finalexp-fetch WITH_FORENSIC=1`
+(`fetch_snapshot.py --with-forensic`).
+
+| path | what |
+| --- | --- |
+| `forensic_cnn/cnnspot_{synthclic,synthbuster,combined}.safetensors` | the retrained ResNet-50 forensic baselines (E1/E7): the bare torchvision state dict with a 1-logit `fc`. Load with `clip_cues_research.forensics.patch_cnn.build_model(path)` |
+| `forensic_cnn/cfeval_predictions/cnnspot_synthclic.parquet` | per-image CommunityForensics-Eval scores of the SynthCLIC CNN (51,836 rows, CF-Eval revision `7d4a74a8`) |
+| `forensic_cnn/cfeval_predictions/cnnspot_synthclic_smoketest.parquet` | **historical.** The scores behind the manuscript's CF-Eval row for the SynthCLIC CNN, which came from a 4-step smoke-test checkpoint and not the trained model. Kept so that row stays auditable. See `EXCLUDED.md` and [issue #1](https://github.com/marco-willi/clip-cues/issues/1) |
+
+The built `sha256` of each `.safetensors` artifact is the hash of the original Lightning checkpoint,
+so it matches the hashes quoted in issue #1. The training recipe, best epoch and validation AP are in
+`MANIFEST.md`.
+
 ## Format
 
 Every array is an **object-free `.npz`**: it loads with `allow_pickle=False`, so nothing here
@@ -69,6 +88,8 @@ emb = z["embeddings"]                       # (10815, 1024) float32
 split = z["col__split"]                     # train / validation / test
 label = z["col__label"]                     # 1 = synthetic
 ```
+
+The forensic CNNs are released as `.safetensors`, which is also object-free.
 
 `release_manifest.json` records two hashes per artifact: `sha256` is the file as *built* — the
 provenance anchor every `run_meta.json` in the paper's experiment records cites — and

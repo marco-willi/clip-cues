@@ -42,6 +42,7 @@ DETECTOR_META = {
     "linear_probe_synthbuster": ("SynthBuster+", "CLIP / linear probe"),
     "linear_probe_cnnspot": ("CNNSpot", "CLIP / linear probe"),
     "cnnspot_synthclic": ("SynthCLIC", "low-level forensic"),
+    "cnnspot_synthclic_v1": ("SynthCLIC", "low-level forensic"),
     "cnnspot_progan": ("ProGAN (CNNSpot)", "low-level forensic"),
 }
 

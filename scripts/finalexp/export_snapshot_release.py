@@ -52,6 +52,8 @@ def convert(rec: dict, src: Path, dest: Path) -> None:
 
         obj = torch.load(src, map_location="cpu", weights_only=False)
         release.vocab_to_npz(obj, dest)
+    elif kind in release.CHECKPOINT_KINDS:
+        release.ckpt_to_safetensors(src, dest)
     else:
         shutil.copy2(src, dest)
 
@@ -73,7 +75,7 @@ def main() -> None:
             raise FileNotFoundError(
                 f"{rec['id']}: {src} — build the snapshot first (make finalexp-data)"
             )
-        rel_path = release.release_name(rec["path"])
+        rel_path = release.release_name(rec["path"], rec["kind"])
         dest = out / rel_path
         convert(rec, src, dest)
         digest, size = sha256(dest), dest.stat().st_size
@@ -85,6 +87,8 @@ def main() -> None:
             "built_path": rec["path"],
             "sha256": rec["sha256"],
             "converted": rel_path != rec["path"],
+            # optional groups are released but fetched only on request (fetch_snapshot.py)
+            **({"group": rec["group"]} if rec.get("group") else {}),
         }
         flag = "convert" if rel_path != rec["path"] else "copy   "
         print(f"  {flag} {rec['id']:40s} {size / 1e6:8.2f} MB  {rel_path}")

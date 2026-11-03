@@ -112,6 +112,8 @@ reproduction/experiments/data/embeddings/
 reproduction/experiments/data/projection/
 reproduction/experiments/data/reference/
 reproduction/experiments/data/checkpoints/
+reproduction/experiments/data/forensic_cnn/*.ckpt
+reproduction/experiments/data/forensic_cnn/*.safetensors
 
 # Rendered figures are build outputs, not repository content: `make figures-all` regenerates them
 # from the verified snapshot. The ledger, the exact plotted data (.csv) and the generated captions

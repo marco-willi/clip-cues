@@ -1,6 +1,6 @@
 # `reproduction/experiments/data/` — input snapshot manifest
 
-> **Version 1.0.0** · built 2026-08-16T19:24:01+00:00 · git `ad9eea9a0f28` (dirty)
+> **Version 1.1.0** · built 2026-11-03T08:48:33+00:00 · git `ba3ff65db7a2` (dirty)
 > Builder: `scripts/finalexp/build_data_snapshot.py` · Plan: `.claude/plans/PLAN_FINAL_CONSOLIDATION.md`
 
 Generated file — **do not edit by hand**; rebuild with `make finalexp-data`.
@@ -16,9 +16,14 @@ out and why.
 
 | id | path | kind | space | shape | sha256 (short) | MB | used by |
 |---|---|---|---|---|---|---|---|
+| `cfpred/cnnspot_synthclic` | `forensic_cnn/cfeval_predictions/cnnspot_synthclic.parquet` | predictions | `n/a` | — | `ae7ee758750c1af2` | 3.32 | E7 |
+| `cfpred/cnnspot_synthclic_smoketest` | `forensic_cnn/cfeval_predictions/cnnspot_synthclic_smoketest.parquet` | predictions | `n/a` | — | `90a8fbba31eb56b1` | 0.70 | E7-historical |
 | `ckpt/clip_orthogonal_synthclic` | `checkpoints/clip_orthogonal_synthclic.ckpt` | checkpoint | `n/a` | — | `0ddba778343c2018` | 0.04 | F7 |
 | `ckpt/linear_probe_cnnspot` | `checkpoints/linear_probe_cnnspot.ckpt` | checkpoint | `n/a` | — | `b8201afaaceda70b` | 0.01 | F7 |
 | `ckpt/linear_probe_synthclic` | `checkpoints/linear_probe_synthclic.ckpt` | checkpoint | `n/a` | — | `c7a310eb0b14290d` | 0.01 | F7 |
+| `cnn/cnnspot_combined` | `forensic_cnn/cnnspot_combined.ckpt` | forensic_checkpoint | `n/a` | — | `a1922cecf6906124` | 282.58 | E1, E7 |
+| `cnn/cnnspot_synthbuster` | `forensic_cnn/cnnspot_synthbuster.ckpt` | forensic_checkpoint | `n/a` | — | `19a3bce14b0c5374` | 282.58 | E1, E7 |
+| `cnn/cnnspot_synthclic` | `forensic_cnn/cnnspot_synthclic.ckpt` | forensic_checkpoint | `n/a` | — | `0fe8231d9b958799` | 282.58 | E1, E7 |
 | `cue_scores/cnnspot__antonyms` | `embeddings/cue_scores/cnnspot__antonyms.npz` | cue_scores | `n/a` | 8000x168 | `bec2249c8c30948d` | 4.98 | F4, F1, F2, F3, F6, F7 |
 | `cue_scores/synthbuster-plus__antonyms` | `embeddings/cue_scores/synthbuster-plus__antonyms.npz` | cue_scores | `n/a` | 13999x168 | `d0bca50475192b44` | 8.71 | F4, F1, F2, F3, F6, F7 |
 | `cue_scores/synthclic__antonyms` | `embeddings/cue_scores/synthclic__antonyms.npz` | cue_scores | `n/a` | 10815x168 | `dd9f94957ae2c5a9` | 6.73 | F4, F1, F2, F3, F6, F7 |
@@ -40,6 +45,22 @@ out and why.
 | `vocab_terms/antonyms` | `vocabularies/antonyms.csv` | vocabulary_terms | `n/a` | — | `62c10a56b9d4f466` | 0.03 | F1, F2, F3, F4, F6, F7 |
 
 ## Provenance
+
+### `cfpred/cnnspot_synthclic`
+
+- **File:** `forensic_cnn/cfeval_predictions/cnnspot_synthclic.parquet` (3.32 MB)
+- **sha256:** `ae7ee758750c1af2e59eed2fe40bdd904835e4efdffed347c47425ab6beb4dd0`
+- **Space:** `n/a`
+- **Copied from:** `results/e7_community_eval/predictions/cnnspot_synthclic_v1__202611022214.parquet`
+- **Origin:** scripts/run/run_community_eval.py, detector `cnnspot_synthclic_v1` (= cnn/cnnspot_synthclic), run 202611022214, OwensLab/CommunityForensics-Eval CompEval at revision 7d4a74a8, Lambda A10, torch 2.11.0+cu128. The CORRECTED CF-Eval row for the SynthCLIC CNN
+
+### `cfpred/cnnspot_synthclic_smoketest`
+
+- **File:** `forensic_cnn/cfeval_predictions/cnnspot_synthclic_smoketest.parquet` (0.70 MB)
+- **sha256:** `90a8fbba31eb56b1cc43b92b8462d6bf544c138e1f82919d3debf7e544d5b2d2`
+- **Space:** `n/a`
+- **Copied from:** `results/e7_community_eval/predictions/cnnspot_synthclic__202606241310.parquet`
+- **Origin:** HISTORICAL — scored with the 4-step smoke-test checkpoint (see EXCLUDED), run 202606241310. This is what the manuscript's CF-Eval CNN-SC row reports. Kept so that row stays auditable; never use it as the SynthCLIC CNN's performance
 
 ### `ckpt/clip_orthogonal_synthclic`
 
@@ -64,6 +85,30 @@ out and why.
 - **Space:** `n/a`
 - **Copied from:** `data/checkpoints/linear_probe_synthclic.ckpt`
 - **Origin:** PUBLISHED k=1 probe, trained end-to-end WITH augmentation (RandomResizedCrop 0.5-1.0 -> 512 + HFlip + JPEG 65-100); F7 bridge target only
+
+### `cnn/cnnspot_combined`
+
+- **File:** `forensic_cnn/cnnspot_combined.ckpt` (282.58 MB)
+- **sha256:** `a1922cecf6906124bc8587c51dd4a9360bbefe3fbb866cccee230a247bfac7bf`
+- **Space:** `n/a`
+- **Copied from:** `data/checkpoints/cnnspot/cnnspot_combined_retrained.ckpt`
+- **Origin:** same recipe on SynthCLIC + SynthBuster+ + CNNSpot, 2026-07-01; best epoch 25, val AP 0.9939. Reproduces the stored E7 parquet cnnspot_combined__202607020329 (max |d| 4.3e-3)
+
+### `cnn/cnnspot_synthbuster`
+
+- **File:** `forensic_cnn/cnnspot_synthbuster.ckpt` (282.58 MB)
+- **sha256:** `19a3bce14b0c5374ecabdc6a0b1d2624b24c144762bc52a4c94c1b95a57a5ffc`
+- **Space:** `n/a`
+- **Copied from:** `data/checkpoints/cnnspot/cnnspot_synthbuster_retrained.ckpt`
+- **Origin:** same recipe on SynthBuster+, 2026-06-30; best epoch 29, val AP 0.9994. Reproduces the stored E7 parquet cnnspot_synthbuster__202606302156 (max |d| 1.9e-3)
+
+### `cnn/cnnspot_synthclic`
+
+- **File:** `forensic_cnn/cnnspot_synthclic.ckpt` (282.58 MB)
+- **sha256:** `0fe8231d9b95879902565c683d9df6dadd962c797263b317d8432841010106aa`
+- **Space:** `n/a`
+- **Copied from:** `data/checkpoints/cnnspot/cnnspot_synthclic_retrained-v1.ckpt`
+- **Origin:** scripts/run/run_forensic_baseline.py retrain on SynthCLIC, 2026-06-24 (E1 run 202606241007): ResNet-50 ImageNet-V1 init, AdamW lr 1e-4 wd 0.01, bs 64, ReduceLROnPlateau (patience 3), early stop on val AP (patience 5), RandomCrop 224 + JPEG/blur p=0.5. Best epoch 15, val AP 0.9978; reproduces the stored E1 SynthCLIC test scores (AP 0.99529). Saved as `-v1` because a smoke-test file already held the default name
 
 ### `cue_scores/cnnspot__antonyms`
 
@@ -228,4 +273,3 @@ out and why.
 - **Space:** `n/a`
 - **Copied from:** `data/vocabularies/antonyms.csv`
 - **Origin:** term list + poles for vocab/antonyms (row order matches the .pt)
-
