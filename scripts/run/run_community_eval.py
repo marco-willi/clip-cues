@@ -29,6 +29,10 @@ from clip_cues_research.results import make_run_id, save_run_results
 DETECTORS = {
     "clip_orthogonal_synthclic": ("clip", "data/checkpoints/clip_orthogonal_synthclic.ckpt"),
     "cnnspot_synthclic": ("forensic", "data/checkpoints/cnnspot/cnnspot_synthclic_retrained.ckpt"),
+    "cnnspot_synthclic_v1": (
+        "forensic",
+        "data/checkpoints/cnnspot/cnnspot_synthclic_retrained-v1.ckpt",
+    ),
     "cnnspot_synthbuster": (
         "forensic",
         "data/checkpoints/cnnspot/cnnspot_synthbuster_retrained.ckpt",

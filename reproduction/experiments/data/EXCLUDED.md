@@ -1,4 +1,4 @@
-# `experiments/data/` — deliberately excluded artifacts
+# `reproduction/experiments/data/` — deliberately excluded artifacts
 
 The other half of "no mixup": every plausible-but-wrong neighbour of a snapshot artifact,
 listed with the reason it is **not** used. Exclusion here is a recorded decision, not an
@@ -52,3 +52,14 @@ Image pixels are far too large to snapshot. F5 instead registers its **ranking**
 
 Concept models and the other orthogonal heads are not F1-F7 bridge targets.
 
+### `data/checkpoints/cnnspot/cnnspot_synthclic_retrained.ckpt`
+
+**Not the SynthCLIC CNN.** A smoke-test run (epoch 0, global_step 4, val AP 0.889; sha256 `cdfe1b1a6536e442…`) that kept the default `--checkpoint-name`. The real 2026-06-24 run was therefore written beside it as `-v1` by Lightning's ModelCheckpoint, while `run_community_eval.py` kept loading this path — so the manuscript's CF-Eval CNN-SC row (pooled AP 0.578) comes from this file (verified: its scores reproduce the stored parquet to 2.7e-4). E1 is unaffected: it evaluated the in-memory best model. The real model is `cnn/cnnspot_synthclic`; the historical scores are `cfpred/cnnspot_synthclic_smoketest`.
+
+### `data/checkpoints/cnnspot/cnnspot_synthclic_retrained-v2.ckpt`
+
+**Mislabelled — a SynthBuster+ run** saved under the default SynthCLIC name: 140 steps/epoch = SynthBuster+ train (8,960 / bs 64), not SynthCLIC (8,165 -> 128); written at 12:37 by the E1 SynthBuster+ run started 11:07 on 2026-06-24. Superseded by `cnn/cnnspot_synthbuster` (2026-06-30).
+
+### `data/checkpoints/cnnspot/blur_jpg_prob0.5.pth`
+
+Third-party weights (Wang et al., CNNSpot, ProGAN-trained). Not ours to redistribute; obtain from the CNNDetection release.

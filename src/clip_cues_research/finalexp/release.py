@@ -17,6 +17,10 @@ So the release carries every array-bearing artifact as ``.npz`` with no object d
 
 Formats that are already safe and portable — ``.npz``, ``.npy``, ``.csv``, ``.json``, ``.parquet``
 and our own small ``.ckpt`` state dicts — are released unchanged, and their two hashes are equal.
+
+The forensic CNNs are the exception among checkpoints: full Lightning files (282 MB, two thirds of
+it optimizer state) that need a pickle load. They are released as ``.safetensors`` holding only the
+bare ``torchvision`` ResNet-50 state dict, which is everything inference needs.
 """
 
 from __future__ import annotations
@@ -31,6 +35,8 @@ import pandas as pd
 FRAME_KINDS = {"pooler_embeddings", "projected_embeddings", "projected_embeddings_reference"}
 #: Artifact kinds stored as torch files: ``{"embeddings": Tensor, "vocabulary": list[str]}``.
 VOCAB_KINDS = {"cue_vocabulary"}
+#: Artifact kinds stored as full Lightning checkpoints, released as weights-only ``.safetensors``.
+CHECKPOINT_KINDS = {"forensic_checkpoint"}
 
 #: Column prefix for the metadata columns packed alongside the embedding matrix.
 _COL = "col__"
@@ -38,12 +44,19 @@ _COL = "col__"
 
 def needs_conversion(kind: str, path: str) -> bool:
     """True if this artifact is in a format that must not be distributed as-is."""
-    return kind in FRAME_KINDS or kind in VOCAB_KINDS or path.endswith((".pkl", ".pt"))
+    return (
+        kind in FRAME_KINDS
+        or kind in VOCAB_KINDS
+        or kind in CHECKPOINT_KINDS
+        or path.endswith((".pkl", ".pt"))
+    )
 
 
-def release_name(path: str) -> str:
+def release_name(path: str, kind: str | None = None) -> str:
     """Path of an artifact inside the release, converting the extension where needed."""
     p = Path(path)
+    if kind in CHECKPOINT_KINDS:
+        return str(p.with_suffix(".safetensors"))
     return str(p.with_suffix(".npz")) if p.suffix in {".pkl", ".pt"} else str(p)
 
 
@@ -93,3 +106,20 @@ def npz_to_vocab(path: Path) -> dict[str, Any]:
     """Inverse of :func:`vocab_to_npz`."""
     with np.load(path, allow_pickle=False) as z:
         return {"embeddings": z["embeddings"], "vocabulary": [str(v) for v in z["vocabulary"]]}
+
+
+# ── checkpoints ──────────────────────────────────────────────────────────────────────────────
+def ckpt_to_safetensors(src: Path, dest: Path) -> None:
+    """Write a Lightning checkpoint's model weights as a bare ``.safetensors`` state dict.
+
+    ``weights_only=True`` suffices: only tensors are read, so the source's pickled callback state
+    never executes. The LightningModule's ``model.`` prefix is stripped, giving exactly the keys of
+    ``torchvision.models.resnet50`` with a 1-logit ``fc`` — the form ``patch_cnn.build_model`` loads.
+    """
+    import torch
+    from safetensors.torch import save_file
+
+    ck = torch.load(src, map_location="cpu", weights_only=True)
+    state = {k.removeprefix("model."): v.contiguous() for k, v in ck["state_dict"].items()}
+    meta = {"epoch": str(ck["epoch"]), "global_step": str(ck["global_step"])}
+    save_file(state, dest, metadata=meta)

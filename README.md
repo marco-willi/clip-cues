@@ -199,7 +199,11 @@ artifact is, its sha256 and which experiments consume it:
 @article{willi2026synthetic,
   title   = {Synthetic Image Detection with {CLIP}: Understanding and Assessing Predictive Cues},
   author  = {Willi, Marco and Mathys, Melanie and Graber, Michael},
-  year    = {2026}
+  journal = {Array},
+  pages   = {101222},
+  year    = {2026},
+  month   = {sep},
+  doi     = {10.1016/j.array.2026.101222}
 }
 ```
 

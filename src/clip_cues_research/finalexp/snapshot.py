@@ -89,6 +89,20 @@ def describe(path: Path, kind: str) -> dict[str, Any]:
         sd = torch.load(path, map_location="cpu", weights_only=False)
         sd = sd.get("state_dict", sd)
         out |= {"state_dict_keys": sorted(str(k) for k in sd)}
+    elif kind == "forensic_checkpoint":
+        # A full Lightning checkpoint (weights + optimizer + callbacks). The training position and
+        # the selection score are what tell two runs of the same recipe apart — the SynthCLIC
+        # smoke test and the real run differ in exactly these fields, not in their key set.
+        ck = torch.load(path, map_location="cpu", weights_only=False)
+        mc = next((v for k, v in ck.get("callbacks", {}).items() if "ModelCheckpoint" in k), {})
+        score = mc.get("best_model_score")
+        out |= {
+            "epoch": int(ck["epoch"]),
+            "global_step": int(ck["global_step"]),
+            "best_val_ap": round(float(score), 6) if score is not None else None,
+            "lightning_version": ck.get("pytorch-lightning_version"),
+            "n_tensors": len(ck["state_dict"]),
+        }
     elif kind == "reference_metrics":
         out |= {"content": json.loads(path.read_text())}
     elif kind == "vocabulary_terms":
@@ -225,4 +239,4 @@ def render_markdown(doc: dict) -> str:
         if a.get("content"):
             lines.append(f"- **Content:** `{json.dumps(a['content'])}`")
         lines.append("")
-    return "\n".join(lines) + "\n"
+    return "\n".join(lines).rstrip("\n") + "\n"

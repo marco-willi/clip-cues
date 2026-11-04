@@ -28,6 +28,15 @@ cue scores. Both are reproduced by the F1–F7 consolidation — see
 - The checkpoints score directly from cached embeddings in numpy, which is why **no GPU is needed**
   to reproduce any interpretation result.
 
+## Forensic CNN baselines (not in this directory)
+
+The retrained ResNet-50 baselines used in E1/E7 (SynthCLIC, SynthBuster+, combined) are released
+in the artifacts snapshot's optional `forensic_cnn/` group, as weights-only `.safetensors`:
+`make finalexp-fetch WITH_FORENSIC=1`, then
+`patch_cnn.build_model("reproduction/experiments/data/forensic_cnn/cnnspot_synthclic.safetensors")`.
+A local `data/checkpoints/cnnspot/cnnspot_synthclic_retrained.ckpt` is **not** the SynthCLIC model.
+It is a 4-step smoke-test run. See `reproduction/experiments/data/EXCLUDED.md` and issue #1.
+
 ## Model Types
 
 ### CLIP Orthogonal Models

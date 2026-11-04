@@ -48,6 +48,23 @@ on SynthCLIC. Two different datasets and two different metrics agree that augmen
 under a hundredth — which is the measurement that retracts E12's attribution of the ~0.02–0.04
 proxy gap to augmentation.
 
+## Table 5 (architecture breakdown) is provenance-mixed too
+
+The paper's Table 5 `CLIP linear probe (SynthCLIC)` row takes its **overall** cell from this fix
+(matched probe, mAP-by-gen 0.7233 → 0.72) but its **architecture** cells from `table_b()`, which
+reads `results/e7_community_eval/tables/community_eval_by_architecture.csv` for
+`linear_probe_synthclic` — the **deployed, augmented** checkpoint. Both, mean of per-generator AP:
+
+| detector | overall | GAN | LatDiff | PixDiff | Commercial | Other |
+|---|---|---|---|---|---|---|
+| matched probe (F1 seed 123) | **0.723** | 0.406 | 0.895 | 0.396 | 0.693 | 0.990 |
+| deployed k=1 (published, augmented) | 0.732 | **0.357** | **0.866** | **0.407** | **0.733** | **0.976** |
+
+Bold = what Table 5 prints. Matched-probe groups are recomputed from
+[`artifacts/cfeval_per_generator.csv`](artifacts/cfeval_per_generator.csv). `Other` is a single
+generator (`stable_cascade`). Raised in
+[issue #1](https://github.com/marco-willi/clip-cues/issues/1).
+
 ## Remaining step (not applied)
 
 `package_revision_export.py`'s `table_a()` still pulls `clip_cf` from `e7_main()`. Repointing it at

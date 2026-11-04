@@ -16,6 +16,11 @@ what a run consumed.
     uv run python scripts/finalexp/build_data_snapshot.py             # default snapshot (~260 MB)
     uv run python scripts/finalexp/build_data_snapshot.py --with-cfeval   # + CF-Eval (206 MB)
     uv run python scripts/finalexp/build_data_snapshot.py --with-appendix # + TableB inputs (610 MB)
+    uv run python scripts/finalexp/build_data_snapshot.py --with-forensic # + forensic CNNs (850 MB)
+
+Artifacts from an optional group carry ``"group"`` in their record. Unlike ``--with-cfeval`` and
+``--with-appendix``, the forensic group is *released*, but ``fetch_snapshot.py`` only downloads it
+on request, so the default fetch stays at its original size.
 """
 
 from __future__ import annotations
@@ -36,7 +41,7 @@ from clip_cues_research.finalexp.data import (
 )
 from clip_cues_research.finalexp.snapshot import describe, git_commit, render_markdown
 
-SNAPSHOT_VERSION = "1.0.0"
+SNAPSHOT_VERSION = "1.1.0"  # 1.1.0: + optional `forensic` group (issue #1)
 
 # ── what goes in ─────────────────────────────────────────────────────────────────────────────
 # (id, source, dest, kind, space, used_by, provenance note)
@@ -266,6 +271,73 @@ CFEVAL = (
     "generators. Used ONLY for the Table A CF-Eval cell",
 )
 
+# ── the forensic CNN baselines (E1/E7), behind --with-forensic ───────────────────────────────
+# Added for GitHub issue #1. The ResNet-50 baselines were never part of the CLIP snapshot, and the
+# SynthCLIC one was mis-identified: the unversioned `cnnspot_synthclic_retrained.ckpt` is a 4-step
+# smoke-test run, and Lightning wrote the real run beside it as `-v1` (see EXCLUDED). Registered
+# here under ids that name the corpus, never the file name, so the `-vN` suffix cannot leak further.
+FORENSIC_GROUP = "forensic"
+CNN = "data/checkpoints/cnnspot"
+E7_PRED = "results/e7_community_eval/predictions"
+
+FORENSIC: list[tuple[str, str, str, str, str, list[str], str]] = [
+    (
+        "cnn/cnnspot_synthclic",
+        f"{CNN}/cnnspot_synthclic_retrained-v1.ckpt",
+        "forensic_cnn/cnnspot_synthclic.ckpt",
+        "forensic_checkpoint",
+        SPACE_NA,
+        ["E1", "E7"],
+        "scripts/run/run_forensic_baseline.py retrain on SynthCLIC, 2026-06-24 (E1 run "
+        "202606241007): ResNet-50 ImageNet-V1 init, AdamW lr 1e-4 wd 0.01, bs 64, ReduceLROnPlateau "
+        "(patience 3), early stop on val AP (patience 5), RandomCrop 224 + JPEG/blur p=0.5. Best "
+        "epoch 15, val AP 0.9978; reproduces the stored E1 SynthCLIC test scores (AP 0.99529). "
+        "Saved as `-v1` because a smoke-test file already held the default name",
+    ),
+    (
+        "cnn/cnnspot_synthbuster",
+        f"{CNN}/cnnspot_synthbuster_retrained.ckpt",
+        "forensic_cnn/cnnspot_synthbuster.ckpt",
+        "forensic_checkpoint",
+        SPACE_NA,
+        ["E1", "E7"],
+        "same recipe on SynthBuster+, 2026-06-30; best epoch 29, val AP 0.9994. Reproduces the "
+        "stored E7 parquet cnnspot_synthbuster__202606302156 (max |d| 1.9e-3)",
+    ),
+    (
+        "cnn/cnnspot_combined",
+        f"{CNN}/cnnspot_combined_retrained.ckpt",
+        "forensic_cnn/cnnspot_combined.ckpt",
+        "forensic_checkpoint",
+        SPACE_NA,
+        ["E1", "E7"],
+        "same recipe on SynthCLIC + SynthBuster+ + CNNSpot, 2026-07-01; best epoch 25, val AP "
+        "0.9939. Reproduces the stored E7 parquet cnnspot_combined__202607020329 (max |d| 4.3e-3)",
+    ),
+    (
+        "cfpred/cnnspot_synthclic",
+        f"{E7_PRED}/cnnspot_synthclic_v1__202611022214.parquet",
+        "forensic_cnn/cfeval_predictions/cnnspot_synthclic.parquet",
+        "predictions",
+        SPACE_NA,
+        ["E7"],
+        "scripts/run/run_community_eval.py, detector `cnnspot_synthclic_v1` (= cnn/cnnspot_synthclic), "
+        "run 202611022214, OwensLab/CommunityForensics-Eval CompEval at revision 7d4a74a8, Lambda "
+        "A10, torch 2.11.0+cu128. The CORRECTED CF-Eval row for the SynthCLIC CNN",
+    ),
+    (
+        "cfpred/cnnspot_synthclic_smoketest",
+        f"{E7_PRED}/cnnspot_synthclic__202606241310.parquet",
+        "forensic_cnn/cfeval_predictions/cnnspot_synthclic_smoketest.parquet",
+        "predictions",
+        SPACE_NA,
+        ["E7-historical"],
+        "HISTORICAL — scored with the 4-step smoke-test checkpoint (see EXCLUDED), run "
+        "202606241310. This is what the manuscript's CF-Eval CNN-SC row reports. Kept so that row "
+        "stays auditable; never use it as the SynthCLIC CNN's performance",
+    ),
+]
+
 # ── what stays out, and why ──────────────────────────────────────────────────────────────────
 EXCLUDED: list[tuple[str, str]] = [
     (
@@ -335,6 +407,28 @@ EXCLUDED: list[tuple[str, str]] = [
         "data/checkpoints/{cm_antonyms_*,clip_orthogonal_{cnnspot,combined,synthbuster}}.ckpt",
         "Concept models and the other orthogonal heads are not F1-F7 bridge targets.",
     ),
+    (
+        "data/checkpoints/cnnspot/cnnspot_synthclic_retrained.ckpt",
+        "**Not the SynthCLIC CNN.** A smoke-test run (epoch 0, global_step 4, val AP 0.889; sha256 "
+        "`cdfe1b1a6536e442…`) that kept the default `--checkpoint-name`. The real 2026-06-24 run was "
+        "therefore written beside it as `-v1` by Lightning's ModelCheckpoint, while "
+        "`run_community_eval.py` kept loading this path — so the manuscript's CF-Eval CNN-SC row "
+        "(pooled AP 0.578) comes from this file (verified: its scores reproduce the stored parquet "
+        "to 2.7e-4). E1 is unaffected: it evaluated the in-memory best model. The real model is "
+        "`cnn/cnnspot_synthclic`; the historical scores are `cfpred/cnnspot_synthclic_smoketest`.",
+    ),
+    (
+        "data/checkpoints/cnnspot/cnnspot_synthclic_retrained-v2.ckpt",
+        "**Mislabelled — a SynthBuster+ run** saved under the default SynthCLIC name: 140 "
+        "steps/epoch = SynthBuster+ train (8,960 / bs 64), not SynthCLIC (8,165 -> 128); written "
+        "at 12:37 by the E1 SynthBuster+ run started 11:07 on 2026-06-24. Superseded by "
+        "`cnn/cnnspot_synthbuster` (2026-06-30).",
+    ),
+    (
+        "data/checkpoints/cnnspot/blur_jpg_prob0.5.pth",
+        "Third-party weights (Wang et al., CNNSpot, ProGAN-trained). Not ours to redistribute; "
+        "obtain from the CNNDetection release.",
+    ),
 ]
 
 
@@ -384,13 +478,16 @@ def refuse_if_mirrored() -> None:
         )
 
 
-def build(with_cfeval: bool, with_appendix: bool = False) -> dict:
+def build(with_cfeval: bool, with_appendix: bool = False, with_forensic: bool = False) -> dict:
     refuse_if_mirrored()
-    sources = (
-        list(SOURCES) + ([CFEVAL] if with_cfeval else []) + (APPENDIX if with_appendix else [])
-    )
+    sources = [
+        (s, None)
+        for s in list(SOURCES)
+        + ([CFEVAL] if with_cfeval else [])
+        + (APPENDIX if with_appendix else [])
+    ] + [(s, FORENSIC_GROUP) for s in (FORENSIC if with_forensic else [])]
     artifacts = carry_over_derived()
-    for aid, src, dest, kind, space, used_by, note in sources:
+    for (aid, src, dest, kind, space, used_by, note), group in sources:
         src_p, dest_p = Path(src), SNAPSHOT / dest
         if not src_p.exists():
             raise FileNotFoundError(f"Source missing for {aid!r}: {src_p}")
@@ -416,6 +513,7 @@ def build(with_cfeval: bool, with_appendix: bool = False) -> dict:
                 "used_by": used_by,
                 "provenance": note,
                 "copied_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+                **({"group": group} if group else {}),
                 **describe(dest_p, kind),
             }
         )
@@ -440,7 +538,7 @@ def render_excluded() -> str:
     ]
     for path, reason in EXCLUDED:
         lines += [f"### `{path}`", "", reason, ""]
-    return "\n".join(lines) + "\n"
+    return "\n".join(lines).rstrip("\n") + "\n"
 
 
 def main() -> None:
@@ -456,14 +554,20 @@ def main() -> None:
         help="also copy the 610 MB TableB inputs: the combined + full-CNNSpot pooler frames, the "
         "matched combined head, and the 11 E3 per-image prediction parquets",
     )
+    ap.add_argument(
+        "--with-forensic",
+        action="store_true",
+        help="also copy the optional `forensic` group: the three retrained ResNet-50 CNNs and their "
+        "CF-Eval prediction parquets (850 MB; released, fetched only with --with-forensic)",
+    )
     args = ap.parse_args()
 
     SNAPSHOT.mkdir(parents=True, exist_ok=True)
     print(
-        f"Building snapshot in {SNAPSHOT}/ "
-        f"(with_cfeval={args.with_cfeval}, with_appendix={args.with_appendix})"
+        f"Building snapshot in {SNAPSHOT}/ (with_cfeval={args.with_cfeval}, "
+        f"with_appendix={args.with_appendix}, with_forensic={args.with_forensic})"
     )
-    doc = build(args.with_cfeval, args.with_appendix)
+    doc = build(args.with_cfeval, args.with_appendix, args.with_forensic)
     MANIFEST.write_text(json.dumps(doc, indent=2) + "\n")
     (SNAPSHOT / "MANIFEST.md").write_text(render_markdown(doc))
     (SNAPSHOT / "EXCLUDED.md").write_text(render_excluded())

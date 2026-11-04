@@ -68,16 +68,16 @@ help: ## Show available targets
 # ── F1-F7 final consolidation (see reproduction/experiments/final_consolidation/README.md) ────
 
 .PHONY: finalexp-fetch
-finalexp-fetch: ## F1-F7: download the released input snapshot and verify it (no GPU, no rebuild)
-	uv run python scripts/finalexp/fetch_snapshot.py $(if $(FROM_DIR),--from-dir $(FROM_DIR),) $(if $(REPO),--repo $(REPO),)
+finalexp-fetch: ## F1-F7: download the released input snapshot and verify it (no GPU, no rebuild; WITH_FORENSIC=1 adds the forensic CNNs)
+	uv run python scripts/finalexp/fetch_snapshot.py $(if $(FROM_DIR),--from-dir $(FROM_DIR),) $(if $(REPO),--repo $(REPO),) $(if $(WITH_FORENSIC),--with-forensic,)
 
 .PHONY: finalexp-release
 finalexp-release: ## Convert the built snapshot into its distributable (object-free .npz) form
 	uv run python scripts/finalexp/export_snapshot_release.py --out $(or $(OUT),dist/snapshot-release)
 
 .PHONY: finalexp-data
-finalexp-data: ## F1-F7: build the frozen reproduction/experiments/data snapshot + manifest (WITH_CFEVAL=1 for Table A, WITH_APPENDIX=1 for Table B)
-	uv run python scripts/finalexp/build_data_snapshot.py $(if $(WITH_CFEVAL),--with-cfeval,) $(if $(WITH_APPENDIX),--with-appendix,)
+finalexp-data: ## F1-F7: build the frozen reproduction/experiments/data snapshot + manifest (WITH_CFEVAL=1 for Table A, WITH_APPENDIX=1 for Table B, WITH_FORENSIC=1 for the CNN baselines)
+	uv run python scripts/finalexp/build_data_snapshot.py $(if $(WITH_CFEVAL),--with-cfeval,) $(if $(WITH_APPENDIX),--with-appendix,) $(if $(WITH_FORENSIC),--with-forensic,)
 	uv run python scripts/finalexp/prepare_features.py
 
 .PHONY: finalexp-verify
